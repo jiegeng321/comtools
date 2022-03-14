@@ -3,16 +3,34 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
-
+old_tools/
 # Other files and folders
 .settings/
-
+yolotools/data_info/
+fordeal_test_image_4k/
+.idea/
+*.deb
+yolotools/nohup.out
+nohup.out
 # Executables
 *.swf
 *.air
 *.ipa
 *.apk
 
+#media
+*.jpg
+*.JPG
+*.png
+*.PNG
+*.jpeg
+*.JPEG
+*.tif
+*.TIF
+*.gif
+*.GIF
+
+*.zip
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.

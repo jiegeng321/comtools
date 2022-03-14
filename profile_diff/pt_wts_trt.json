@@ -1,0 +1,183 @@
+[
+  { "count" : 261 }
+, { "name" : "(Unnamed Layer* 0) [Slice]", "timeMs" : 6.94391, "averageMs" : 0.026605, "percentage" : 0.224776 }
+, { "name" : "(Unnamed Layer* 1) [Slice]", "timeMs" : 5.42608, "averageMs" : 0.0207896, "percentage" : 0.175643 }
+, { "name" : "(Unnamed Layer* 2) [Slice]", "timeMs" : 5.3904, "averageMs" : 0.0206529, "percentage" : 0.174488 }
+, { "name" : "(Unnamed Layer* 3) [Slice]", "timeMs" : 5.45494, "averageMs" : 0.0209002, "percentage" : 0.176578 }
+, { "name" : "(Unnamed Layer* 5) [Convolution]", "timeMs" : 55.1097, "averageMs" : 0.211148, "percentage" : 1.78391 }
+, { "name" : "PWN((Unnamed Layer* 7) [Activation], (Unnamed Layer* 8) [ElementWise])", "timeMs" : 41.3203, "averageMs" : 0.158316, "percentage" : 1.33755 }
+, { "name" : "(Unnamed Layer* 9) [Convolution]", "timeMs" : 89.2611, "averageMs" : 0.341997, "percentage" : 2.8894 }
+, { "name" : "PWN((Unnamed Layer* 11) [Activation], (Unnamed Layer* 12) [ElementWise])", "timeMs" : 21.3577, "averageMs" : 0.0818302, "percentage" : 0.691353 }
+, { "name" : "(Unnamed Layer* 13) [Convolution] || (Unnamed Layer* 17) [Convolution]", "timeMs" : 32.9627, "averageMs" : 0.126294, "percentage" : 1.06701 }
+, { "name" : "PWN((Unnamed Layer* 15) [Activation], (Unnamed Layer* 16) [ElementWise])", "timeMs" : 11.7787, "averageMs" : 0.045129, "percentage" : 0.381278 }
+, { "name" : "(Unnamed Layer* 21) [Convolution]", "timeMs" : 16.068, "averageMs" : 0.0615632, "percentage" : 0.520125 }
+, { "name" : "PWN((Unnamed Layer* 23) [Activation], (Unnamed Layer* 24) [ElementWise])", "timeMs" : 11.1971, "averageMs" : 0.0429008, "percentage" : 0.362453 }
+, { "name" : "(Unnamed Layer* 25) [Convolution]", "timeMs" : 32.5959, "averageMs" : 0.124889, "percentage" : 1.05514 }
+, { "name" : "PWN(PWN((Unnamed Layer* 27) [Activation], (Unnamed Layer* 28) [ElementWise]), (Unnamed Layer* 29) [ElementWise])", "timeMs" : 16.0719, "averageMs" : 0.0615781, "percentage" : 0.52025 }
+, { "name" : "(Unnamed Layer* 30) [Convolution]", "timeMs" : 14.8427, "averageMs" : 0.0568687, "percentage" : 0.480463 }
+, { "name" : "PWN((Unnamed Layer* 32) [Activation], (Unnamed Layer* 33) [ElementWise])", "timeMs" : 11.2162, "averageMs" : 0.0429738, "percentage" : 0.36307 }
+, { "name" : "(Unnamed Layer* 34) [Convolution]", "timeMs" : 31.3907, "averageMs" : 0.120271, "percentage" : 1.01612 }
+, { "name" : "PWN((Unnamed Layer* 19) [Activation], (Unnamed Layer* 20) [ElementWise])", "timeMs" : 11.7658, "averageMs" : 0.0450797, "percentage" : 0.380862 }
+, { "name" : "PWN(PWN((Unnamed Layer* 36) [Activation], (Unnamed Layer* 37) [ElementWise]), (Unnamed Layer* 38) [ElementWise])", "timeMs" : 16.8931, "averageMs" : 0.0647245, "percentage" : 0.546833 }
+, { "name" : "(Unnamed Layer* 40) [Convolution]", "timeMs" : 32.8721, "averageMs" : 0.125947, "percentage" : 1.06408 }
+, { "name" : "PWN((Unnamed Layer* 42) [Activation], (Unnamed Layer* 43) [ElementWise])", "timeMs" : 21.324, "averageMs" : 0.0817013, "percentage" : 0.690263 }
+, { "name" : "(Unnamed Layer* 44) [Convolution]", "timeMs" : 80.9124, "averageMs" : 0.310009, "percentage" : 2.61915 }
+, { "name" : "PWN((Unnamed Layer* 46) [Activation], (Unnamed Layer* 47) [ElementWise])", "timeMs" : 11.0857, "averageMs" : 0.042474, "percentage" : 0.358847 }
+, { "name" : "(Unnamed Layer* 48) [Convolution] || (Unnamed Layer* 52) [Convolution]", "timeMs" : 22.1688, "averageMs" : 0.0849379, "percentage" : 0.717609 }
+, { "name" : "PWN((Unnamed Layer* 50) [Activation], (Unnamed Layer* 51) [ElementWise])", "timeMs" : 7.10208, "averageMs" : 0.027211, "percentage" : 0.229896 }
+, { "name" : "(Unnamed Layer* 56) [Convolution]", "timeMs" : 8.64584, "averageMs" : 0.0331258, "percentage" : 0.279868 }
+, { "name" : "PWN((Unnamed Layer* 58) [Activation], (Unnamed Layer* 59) [ElementWise])", "timeMs" : 5.30829, "averageMs" : 0.0203383, "percentage" : 0.17183 }
+, { "name" : "(Unnamed Layer* 60) [Convolution]", "timeMs" : 22.946, "averageMs" : 0.0879156, "percentage" : 0.742766 }
+, { "name" : "PWN(PWN((Unnamed Layer* 62) [Activation], (Unnamed Layer* 63) [ElementWise]), (Unnamed Layer* 64) [ElementWise])", "timeMs" : 8.31987, "averageMs" : 0.0318769, "percentage" : 0.269316 }
+, { "name" : "(Unnamed Layer* 65) [Convolution]", "timeMs" : 8.2762, "averageMs" : 0.0317096, "percentage" : 0.267902 }
+, { "name" : "PWN((Unnamed Layer* 67) [Activation], (Unnamed Layer* 68) [ElementWise])", "timeMs" : 5.43837, "averageMs" : 0.0208367, "percentage" : 0.176041 }
+, { "name" : "(Unnamed Layer* 69) [Convolution]", "timeMs" : 21.6681, "averageMs" : 0.0830197, "percentage" : 0.701402 }
+, { "name" : "PWN(PWN((Unnamed Layer* 71) [Activation], (Unnamed Layer* 72) [ElementWise]), (Unnamed Layer* 73) [ElementWise])", "timeMs" : 8.23972, "averageMs" : 0.0315698, "percentage" : 0.266721 }
+, { "name" : "(Unnamed Layer* 74) [Convolution]", "timeMs" : 8.37414, "averageMs" : 0.0320848, "percentage" : 0.271073 }
+, { "name" : "PWN((Unnamed Layer* 76) [Activation], (Unnamed Layer* 77) [ElementWise])", "timeMs" : 5.46006, "averageMs" : 0.0209198, "percentage" : 0.176743 }
+, { "name" : "(Unnamed Layer* 78) [Convolution]", "timeMs" : 21.9507, "averageMs" : 0.0841022, "percentage" : 0.710548 }
+, { "name" : "PWN(PWN((Unnamed Layer* 80) [Activation], (Unnamed Layer* 81) [ElementWise]), (Unnamed Layer* 82) [ElementWise])", "timeMs" : 8.23473, "averageMs" : 0.0315507, "percentage" : 0.26656 }
+, { "name" : "(Unnamed Layer* 83) [Convolution]", "timeMs" : 8.2905, "averageMs" : 0.0317644, "percentage" : 0.268365 }
+, { "name" : "PWN((Unnamed Layer* 85) [Activation], (Unnamed Layer* 86) [ElementWise])", "timeMs" : 5.43008, "averageMs" : 0.0208049, "percentage" : 0.175773 }
+, { "name" : "(Unnamed Layer* 87) [Convolution]", "timeMs" : 21.5644, "averageMs" : 0.0826221, "percentage" : 0.698043 }
+, { "name" : "PWN(PWN((Unnamed Layer* 89) [Activation], (Unnamed Layer* 90) [ElementWise]), (Unnamed Layer* 91) [ElementWise])", "timeMs" : 8.30903, "averageMs" : 0.0318353, "percentage" : 0.268965 }
+, { "name" : "(Unnamed Layer* 92) [Convolution]", "timeMs" : 8.20651, "averageMs" : 0.0314426, "percentage" : 0.265646 }
+, { "name" : "PWN((Unnamed Layer* 94) [Activation], (Unnamed Layer* 95) [ElementWise])", "timeMs" : 5.43491, "averageMs" : 0.0208234, "percentage" : 0.175929 }
+, { "name" : "(Unnamed Layer* 96) [Convolution]", "timeMs" : 21.7555, "averageMs" : 0.0833545, "percentage" : 0.704231 }
+, { "name" : "PWN(PWN((Unnamed Layer* 98) [Activation], (Unnamed Layer* 99) [ElementWise]), (Unnamed Layer* 100) [ElementWise])", "timeMs" : 8.15845, "averageMs" : 0.0312584, "percentage" : 0.264091 }
+, { "name" : "(Unnamed Layer* 101) [Convolution]", "timeMs" : 8.23902, "averageMs" : 0.0315671, "percentage" : 0.266699 }
+, { "name" : "PWN((Unnamed Layer* 103) [Activation], (Unnamed Layer* 104) [ElementWise])", "timeMs" : 5.42845, "averageMs" : 0.0207986, "percentage" : 0.17572 }
+, { "name" : "(Unnamed Layer* 105) [Convolution]", "timeMs" : 21.4785, "averageMs" : 0.0822933, "percentage" : 0.695265 }
+, { "name" : "PWN((Unnamed Layer* 54) [Activation], (Unnamed Layer* 55) [ElementWise])", "timeMs" : 6.93057, "averageMs" : 0.0265539, "percentage" : 0.224344 }
+, { "name" : "PWN(PWN((Unnamed Layer* 107) [Activation], (Unnamed Layer* 108) [ElementWise]), (Unnamed Layer* 109) [ElementWise])", "timeMs" : 9.48816, "averageMs" : 0.0363531, "percentage" : 0.307134 }
+, { "name" : "(Unnamed Layer* 111) [Convolution]", "timeMs" : 24.2136, "averageMs" : 0.0927724, "percentage" : 0.783799 }
+, { "name" : "PWN((Unnamed Layer* 113) [Activation], (Unnamed Layer* 114) [ElementWise])", "timeMs" : 11.515, "averageMs" : 0.0441186, "percentage" : 0.372742 }
+, { "name" : "(Unnamed Layer* 115) [Convolution]", "timeMs" : 71.8612, "averageMs" : 0.27533, "percentage" : 2.32616 }
+, { "name" : "PWN((Unnamed Layer* 117) [Activation], (Unnamed Layer* 118) [ElementWise])", "timeMs" : 5.83485, "averageMs" : 0.0223558, "percentage" : 0.188875 }
+, { "name" : "(Unnamed Layer* 119) [Convolution] || (Unnamed Layer* 123) [Convolution]", "timeMs" : 21.3135, "averageMs" : 0.0816609, "percentage" : 0.689922 }
+, { "name" : "PWN((Unnamed Layer* 121) [Activation], (Unnamed Layer* 122) [ElementWise])", "timeMs" : 3.16916, "averageMs" : 0.0121424, "percentage" : 0.102586 }
+, { "name" : "(Unnamed Layer* 127) [Convolution]", "timeMs" : 9.65245, "averageMs" : 0.0369826, "percentage" : 0.312452 }
+, { "name" : "PWN((Unnamed Layer* 129) [Activation], (Unnamed Layer* 130) [ElementWise])", "timeMs" : 2.39536, "averageMs" : 0.00917762, "percentage" : 0.0775383 }
+, { "name" : "(Unnamed Layer* 131) [Convolution]", "timeMs" : 23.7565, "averageMs" : 0.0910211, "percentage" : 0.769003 }
+, { "name" : "PWN(PWN((Unnamed Layer* 133) [Activation], (Unnamed Layer* 134) [ElementWise]), (Unnamed Layer* 135) [ElementWise])", "timeMs" : 4.39746, "averageMs" : 0.0168485, "percentage" : 0.142347 }
+, { "name" : "(Unnamed Layer* 136) [Convolution]", "timeMs" : 8.49478, "averageMs" : 0.032547, "percentage" : 0.274978 }
+, { "name" : "PWN((Unnamed Layer* 138) [Activation], (Unnamed Layer* 139) [ElementWise])", "timeMs" : 2.48611, "averageMs" : 0.00952533, "percentage" : 0.080476 }
+, { "name" : "(Unnamed Layer* 140) [Convolution]", "timeMs" : 22.1757, "averageMs" : 0.0849645, "percentage" : 0.717833 }
+, { "name" : "PWN(PWN((Unnamed Layer* 142) [Activation], (Unnamed Layer* 143) [ElementWise]), (Unnamed Layer* 144) [ElementWise])", "timeMs" : 4.33711, "averageMs" : 0.0166173, "percentage" : 0.140393 }
+, { "name" : "(Unnamed Layer* 145) [Convolution]", "timeMs" : 9.77152, "averageMs" : 0.0374388, "percentage" : 0.316306 }
+, { "name" : "PWN((Unnamed Layer* 147) [Activation], (Unnamed Layer* 148) [ElementWise])", "timeMs" : 2.42368, "averageMs" : 0.00928613, "percentage" : 0.078455 }
+, { "name" : "(Unnamed Layer* 149) [Convolution]", "timeMs" : 22.7769, "averageMs" : 0.0872678, "percentage" : 0.737293 }
+, { "name" : "PWN(PWN((Unnamed Layer* 151) [Activation], (Unnamed Layer* 152) [ElementWise]), (Unnamed Layer* 153) [ElementWise])", "timeMs" : 4.36969, "averageMs" : 0.0167421, "percentage" : 0.141448 }
+, { "name" : "(Unnamed Layer* 154) [Convolution]", "timeMs" : 9.95603, "averageMs" : 0.0381457, "percentage" : 0.322279 }
+, { "name" : "PWN((Unnamed Layer* 156) [Activation], (Unnamed Layer* 157) [ElementWise])", "timeMs" : 2.4864, "averageMs" : 0.00952644, "percentage" : 0.0804853 }
+, { "name" : "(Unnamed Layer* 158) [Convolution]", "timeMs" : 22.5812, "averageMs" : 0.0865182, "percentage" : 0.73096 }
+, { "name" : "PWN(PWN((Unnamed Layer* 160) [Activation], (Unnamed Layer* 161) [ElementWise]), (Unnamed Layer* 162) [ElementWise])", "timeMs" : 4.43903, "averageMs" : 0.0170078, "percentage" : 0.143692 }
+, { "name" : "(Unnamed Layer* 163) [Convolution]", "timeMs" : 8.35828, "averageMs" : 0.032024, "percentage" : 0.270559 }
+, { "name" : "PWN((Unnamed Layer* 165) [Activation], (Unnamed Layer* 166) [ElementWise])", "timeMs" : 2.40649, "averageMs" : 0.00922029, "percentage" : 0.0778988 }
+, { "name" : "(Unnamed Layer* 167) [Convolution]", "timeMs" : 22.4345, "averageMs" : 0.0859561, "percentage" : 0.726211 }
+, { "name" : "PWN(PWN((Unnamed Layer* 169) [Activation], (Unnamed Layer* 170) [ElementWise]), (Unnamed Layer* 171) [ElementWise])", "timeMs" : 4.45436, "averageMs" : 0.0170665, "percentage" : 0.144188 }
+, { "name" : "(Unnamed Layer* 172) [Convolution]", "timeMs" : 8.62824, "averageMs" : 0.0330584, "percentage" : 0.279298 }
+, { "name" : "PWN((Unnamed Layer* 174) [Activation], (Unnamed Layer* 175) [ElementWise])", "timeMs" : 2.51978, "averageMs" : 0.00965431, "percentage" : 0.0815657 }
+, { "name" : "(Unnamed Layer* 176) [Convolution]", "timeMs" : 22.0983, "averageMs" : 0.0846677, "percentage" : 0.715326 }
+, { "name" : "PWN((Unnamed Layer* 125) [Activation], (Unnamed Layer* 126) [ElementWise])", "timeMs" : 3.57844, "averageMs" : 0.0137105, "percentage" : 0.115835 }
+, { "name" : "PWN(PWN((Unnamed Layer* 178) [Activation], (Unnamed Layer* 179) [ElementWise]), (Unnamed Layer* 180) [ElementWise])", "timeMs" : 5.86289, "averageMs" : 0.0224632, "percentage" : 0.189783 }
+, { "name" : "(Unnamed Layer* 182) [Convolution]", "timeMs" : 20.9026, "averageMs" : 0.0800866, "percentage" : 0.676622 }
+, { "name" : "PWN((Unnamed Layer* 184) [Activation], (Unnamed Layer* 185) [ElementWise])", "timeMs" : 5.7192, "averageMs" : 0.0219126, "percentage" : 0.185132 }
+, { "name" : "(Unnamed Layer* 186) [Convolution] input reformatter 0", "timeMs" : 7.52641, "averageMs" : 0.0288368, "percentage" : 0.243631 }
+, { "name" : "(Unnamed Layer* 186) [Convolution]", "timeMs" : 88.0642, "averageMs" : 0.337411, "percentage" : 2.85066 }
+, { "name" : "PWN((Unnamed Layer* 188) [Activation], (Unnamed Layer* 189) [ElementWise]) input reformatter 0", "timeMs" : 3.51313, "averageMs" : 0.0134603, "percentage" : 0.113721 }
+, { "name" : "PWN((Unnamed Layer* 188) [Activation], (Unnamed Layer* 189) [ElementWise])", "timeMs" : 2.49984, "averageMs" : 0.00957793, "percentage" : 0.0809203 }
+, { "name" : "(Unnamed Layer* 190) [Convolution]", "timeMs" : 16.4831, "averageMs" : 0.0631537, "percentage" : 0.533562 }
+, { "name" : "PWN((Unnamed Layer* 192) [Activation], (Unnamed Layer* 193) [ElementWise])", "timeMs" : 2.21369, "averageMs" : 0.00848158, "percentage" : 0.0716577 }
+, { "name" : "(Unnamed Layer* 194) [Pooling]", "timeMs" : 4.37257, "averageMs" : 0.0167531, "percentage" : 0.141541 }
+, { "name" : "(Unnamed Layer* 195) [Pooling]", "timeMs" : 15.1678, "averageMs" : 0.0581142, "percentage" : 0.490985 }
+, { "name" : "(Unnamed Layer* 196) [Pooling]", "timeMs" : 25.2823, "averageMs" : 0.096867, "percentage" : 0.818393 }
+, { "name" : "(Unnamed Layer* 193) [ElementWise]_output copy", "timeMs" : 1.51226, "averageMs" : 0.00579409, "percentage" : 0.0489521 }
+, { "name" : "(Unnamed Layer* 198) [Convolution]", "timeMs" : 47.9215, "averageMs" : 0.183607, "percentage" : 1.55123 }
+, { "name" : "PWN((Unnamed Layer* 200) [Activation], (Unnamed Layer* 201) [ElementWise])", "timeMs" : 3.09569, "averageMs" : 0.0118609, "percentage" : 0.100208 }
+, { "name" : "(Unnamed Layer* 202) [Convolution] || (Unnamed Layer* 206) [Convolution]", "timeMs" : 27.2362, "averageMs" : 0.104353, "percentage" : 0.881642 }
+, { "name" : "PWN((Unnamed Layer* 204) [Activation], (Unnamed Layer* 205) [ElementWise])", "timeMs" : 2.37869, "averageMs" : 0.00911374, "percentage" : 0.0769986 }
+, { "name" : "(Unnamed Layer* 210) [Convolution]", "timeMs" : 9.45056, "averageMs" : 0.036209, "percentage" : 0.305917 }
+, { "name" : "PWN((Unnamed Layer* 212) [Activation], (Unnamed Layer* 213) [ElementWise])", "timeMs" : 2.12572, "averageMs" : 0.00814454, "percentage" : 0.0688102 }
+, { "name" : "(Unnamed Layer* 214) [Convolution]", "timeMs" : 35.8636, "averageMs" : 0.137408, "percentage" : 1.16091 }
+, { "name" : "PWN((Unnamed Layer* 216) [Activation], (Unnamed Layer* 217) [ElementWise])", "timeMs" : 2.25171, "averageMs" : 0.00862723, "percentage" : 0.0728883 }
+, { "name" : "(Unnamed Layer* 218) [Convolution]", "timeMs" : 9.32133, "averageMs" : 0.0357139, "percentage" : 0.301733 }
+, { "name" : "PWN((Unnamed Layer* 220) [Activation], (Unnamed Layer* 221) [ElementWise])", "timeMs" : 2.17404, "averageMs" : 0.00832967, "percentage" : 0.0703743 }
+, { "name" : "(Unnamed Layer* 222) [Convolution]", "timeMs" : 34.4454, "averageMs" : 0.131975, "percentage" : 1.115 }
+, { "name" : "PWN((Unnamed Layer* 208) [Activation], (Unnamed Layer* 209) [ElementWise])", "timeMs" : 2.9144, "averageMs" : 0.0111663, "percentage" : 0.0943399 }
+, { "name" : "PWN((Unnamed Layer* 224) [Activation], (Unnamed Layer* 225) [ElementWise])", "timeMs" : 2.50221, "averageMs" : 0.009587, "percentage" : 0.080997 }
+, { "name" : "(Unnamed Layer* 227) [Convolution]", "timeMs" : 28.4675, "averageMs" : 0.109071, "percentage" : 0.921499 }
+, { "name" : "PWN((Unnamed Layer* 229) [Activation], (Unnamed Layer* 230) [ElementWise])", "timeMs" : 2.3984, "averageMs" : 0.00918927, "percentage" : 0.0776367 }
+, { "name" : "(Unnamed Layer* 231) [Convolution]", "timeMs" : 19.1782, "averageMs" : 0.0734798, "percentage" : 0.620803 }
+, { "name" : "PWN((Unnamed Layer* 233) [Activation], (Unnamed Layer* 234) [ElementWise])", "timeMs" : 2.22624, "averageMs" : 0.00852964, "percentage" : 0.0720637 }
+, { "name" : "(Unnamed Layer* 235) [Resize]", "timeMs" : 4.62549, "averageMs" : 0.0177222, "percentage" : 0.149728 }
+, { "name" : "(Unnamed Layer* 235) [Resize]_output copy", "timeMs" : 5.74915, "averageMs" : 0.0220274, "percentage" : 0.186101 }
+, { "name" : "(Unnamed Layer* 237) [Convolution] || (Unnamed Layer* 241) [Convolution]", "timeMs" : 33.9655, "averageMs" : 0.130136, "percentage" : 1.09947 }
+, { "name" : "PWN((Unnamed Layer* 239) [Activation], (Unnamed Layer* 240) [ElementWise])", "timeMs" : 3.30772, "averageMs" : 0.0126733, "percentage" : 0.107072 }
+, { "name" : "(Unnamed Layer* 245) [Convolution]", "timeMs" : 9.79536, "averageMs" : 0.0375301, "percentage" : 0.317078 }
+, { "name" : "PWN((Unnamed Layer* 247) [Activation], (Unnamed Layer* 248) [ElementWise])", "timeMs" : 2.36061, "averageMs" : 0.00904447, "percentage" : 0.0764133 }
+, { "name" : "(Unnamed Layer* 249) [Convolution]", "timeMs" : 24.0187, "averageMs" : 0.0920255, "percentage" : 0.777489 }
+, { "name" : "PWN((Unnamed Layer* 251) [Activation], (Unnamed Layer* 252) [ElementWise])", "timeMs" : 3.14093, "averageMs" : 0.0120342, "percentage" : 0.101673 }
+, { "name" : "(Unnamed Layer* 253) [Convolution]", "timeMs" : 8.27719, "averageMs" : 0.0317134, "percentage" : 0.267935 }
+, { "name" : "PWN((Unnamed Layer* 255) [Activation], (Unnamed Layer* 256) [ElementWise])", "timeMs" : 2.42041, "averageMs" : 0.00927362, "percentage" : 0.0783493 }
+, { "name" : "(Unnamed Layer* 257) [Convolution]", "timeMs" : 22.3981, "averageMs" : 0.0858165, "percentage" : 0.725031 }
+, { "name" : "PWN((Unnamed Layer* 243) [Activation], (Unnamed Layer* 244) [ElementWise])", "timeMs" : 3.56023, "averageMs" : 0.0136407, "percentage" : 0.115246 }
+, { "name" : "PWN((Unnamed Layer* 259) [Activation], (Unnamed Layer* 260) [ElementWise])", "timeMs" : 4.25465, "averageMs" : 0.0163013, "percentage" : 0.137724 }
+, { "name" : "(Unnamed Layer* 262) [Convolution]", "timeMs" : 20.8611, "averageMs" : 0.0799277, "percentage" : 0.675279 }
+, { "name" : "PWN((Unnamed Layer* 264) [Activation], (Unnamed Layer* 265) [ElementWise])", "timeMs" : 5.87671, "averageMs" : 0.0225161, "percentage" : 0.19023 }
+, { "name" : "(Unnamed Layer* 266) [Convolution]", "timeMs" : 13.2692, "averageMs" : 0.0508397, "percentage" : 0.429526 }
+, { "name" : "PWN((Unnamed Layer* 268) [Activation], (Unnamed Layer* 269) [ElementWise])", "timeMs" : 2.39805, "averageMs" : 0.00918792, "percentage" : 0.0776253 }
+, { "name" : "(Unnamed Layer* 270) [Resize]", "timeMs" : 8.23493, "averageMs" : 0.0315514, "percentage" : 0.266566 }
+, { "name" : "(Unnamed Layer* 270) [Resize]_output copy", "timeMs" : 11.6011, "averageMs" : 0.0444486, "percentage" : 0.375529 }
+, { "name" : "(Unnamed Layer* 272) [Convolution] || (Unnamed Layer* 276) [Convolution]", "timeMs" : 38.1112, "averageMs" : 0.14602, "percentage" : 1.23367 }
+, { "name" : "PWN((Unnamed Layer* 274) [Activation], (Unnamed Layer* 275) [ElementWise])", "timeMs" : 7.13229, "averageMs" : 0.0273268, "percentage" : 0.230874 }
+, { "name" : "(Unnamed Layer* 280) [Convolution]", "timeMs" : 8.74591, "averageMs" : 0.0335092, "percentage" : 0.283107 }
+, { "name" : "PWN((Unnamed Layer* 282) [Activation], (Unnamed Layer* 283) [ElementWise])", "timeMs" : 5.53465, "averageMs" : 0.0212056, "percentage" : 0.179158 }
+, { "name" : "(Unnamed Layer* 284) [Convolution]", "timeMs" : 22.6191, "averageMs" : 0.0866632, "percentage" : 0.732185 }
+, { "name" : "PWN((Unnamed Layer* 286) [Activation], (Unnamed Layer* 287) [ElementWise])", "timeMs" : 9.99256, "averageMs" : 0.0382857, "percentage" : 0.323461 }
+, { "name" : "(Unnamed Layer* 288) [Convolution]", "timeMs" : 8.30237, "averageMs" : 0.0318099, "percentage" : 0.26875 }
+, { "name" : "PWN((Unnamed Layer* 290) [Activation], (Unnamed Layer* 291) [ElementWise])", "timeMs" : 5.54323, "averageMs" : 0.0212384, "percentage" : 0.179435 }
+, { "name" : "(Unnamed Layer* 292) [Convolution]", "timeMs" : 22.0566, "averageMs" : 0.0845079, "percentage" : 0.713975 }
+, { "name" : "PWN((Unnamed Layer* 278) [Activation], (Unnamed Layer* 279) [ElementWise])", "timeMs" : 7.1392, "averageMs" : 0.0273533, "percentage" : 0.231098 }
+, { "name" : "PWN((Unnamed Layer* 294) [Activation], (Unnamed Layer* 295) [ElementWise])", "timeMs" : 7.54491, "averageMs" : 0.0289077, "percentage" : 0.24423 }
+, { "name" : "(Unnamed Layer* 297) [Convolution]", "timeMs" : 23.9365, "averageMs" : 0.0917105, "percentage" : 0.774828 }
+, { "name" : "PWN((Unnamed Layer* 299) [Activation], (Unnamed Layer* 300) [ElementWise])", "timeMs" : 11.235, "averageMs" : 0.0430458, "percentage" : 0.363678 }
+, { "name" : "(Unnamed Layer* 301) [Convolution]", "timeMs" : 357.441, "averageMs" : 1.3695, "percentage" : 11.5704 }
+, { "name" : "(Unnamed Layer* 302) [Convolution]", "timeMs" : 51.4707, "averageMs" : 0.197206, "percentage" : 1.66612 }
+, { "name" : "PWN((Unnamed Layer* 304) [Activation], (Unnamed Layer* 305) [ElementWise])", "timeMs" : 2.79802, "averageMs" : 0.0107204, "percentage" : 0.0905725 }
+, { "name" : "(Unnamed Layer* 269) [ElementWise]_output copy", "timeMs" : 4.02254, "averageMs" : 0.015412, "percentage" : 0.13021 }
+, { "name" : "(Unnamed Layer* 307) [Convolution] || (Unnamed Layer* 311) [Convolution]", "timeMs" : 20.8825, "averageMs" : 0.0800095, "percentage" : 0.67597 }
+, { "name" : "PWN((Unnamed Layer* 309) [Activation], (Unnamed Layer* 310) [ElementWise])", "timeMs" : 3.16004, "averageMs" : 0.0121074, "percentage" : 0.102291 }
+, { "name" : "(Unnamed Layer* 315) [Convolution]", "timeMs" : 9.59181, "averageMs" : 0.0367502, "percentage" : 0.310489 }
+, { "name" : "PWN((Unnamed Layer* 317) [Activation], (Unnamed Layer* 318) [ElementWise])", "timeMs" : 2.43814, "averageMs" : 0.00934154, "percentage" : 0.0789232 }
+, { "name" : "(Unnamed Layer* 319) [Convolution]", "timeMs" : 24.0926, "averageMs" : 0.0923089, "percentage" : 0.779883 }
+, { "name" : "PWN((Unnamed Layer* 321) [Activation], (Unnamed Layer* 322) [ElementWise])", "timeMs" : 3.10049, "averageMs" : 0.0118793, "percentage" : 0.100363 }
+, { "name" : "(Unnamed Layer* 323) [Convolution]", "timeMs" : 8.2762, "averageMs" : 0.0317096, "percentage" : 0.267902 }
+, { "name" : "PWN((Unnamed Layer* 325) [Activation], (Unnamed Layer* 326) [ElementWise])", "timeMs" : 2.38473, "averageMs" : 0.00913691, "percentage" : 0.0771944 }
+, { "name" : "(Unnamed Layer* 327) [Convolution]", "timeMs" : 22.3703, "averageMs" : 0.0857098, "percentage" : 0.72413 }
+, { "name" : "PWN((Unnamed Layer* 313) [Activation], (Unnamed Layer* 314) [ElementWise])", "timeMs" : 3.61489, "averageMs" : 0.0138502, "percentage" : 0.117015 }
+, { "name" : "PWN((Unnamed Layer* 329) [Activation], (Unnamed Layer* 330) [ElementWise])", "timeMs" : 4.23327, "averageMs" : 0.0162194, "percentage" : 0.137032 }
+, { "name" : "(Unnamed Layer* 332) [Convolution]", "timeMs" : 20.8815, "averageMs" : 0.0800058, "percentage" : 0.675939 }
+, { "name" : "PWN((Unnamed Layer* 334) [Activation], (Unnamed Layer* 335) [ElementWise])", "timeMs" : 5.86327, "averageMs" : 0.0224646, "percentage" : 0.189795 }
+, { "name" : "(Unnamed Layer* 336) [Convolution]", "timeMs" : 155.432, "averageMs" : 0.595526, "percentage" : 5.03138 }
+, { "name" : "(Unnamed Layer* 337) [Convolution] input reformatter 0", "timeMs" : 8.52863, "averageMs" : 0.0326768, "percentage" : 0.276074 }
+, { "name" : "(Unnamed Layer* 337) [Convolution]", "timeMs" : 47.4192, "averageMs" : 0.181683, "percentage" : 1.53497 }
+, { "name" : "PWN((Unnamed Layer* 339) [Activation], (Unnamed Layer* 340) [ElementWise]) input reformatter 0", "timeMs" : 2.40326, "averageMs" : 0.0092079, "percentage" : 0.0777941 }
+, { "name" : "PWN((Unnamed Layer* 339) [Activation], (Unnamed Layer* 340) [ElementWise])", "timeMs" : 2.4136, "averageMs" : 0.00924751, "percentage" : 0.0781287 }
+, { "name" : "(Unnamed Layer* 234) [ElementWise]_output copy", "timeMs" : 2.36262, "averageMs" : 0.00905219, "percentage" : 0.0764786 }
+, { "name" : "(Unnamed Layer* 342) [Convolution] || (Unnamed Layer* 346) [Convolution]", "timeMs" : 26.8933, "averageMs" : 0.103039, "percentage" : 0.870542 }
+, { "name" : "PWN((Unnamed Layer* 344) [Activation], (Unnamed Layer* 345) [ElementWise])", "timeMs" : 2.38413, "averageMs" : 0.00913458, "percentage" : 0.0771747 }
+, { "name" : "(Unnamed Layer* 350) [Convolution]", "timeMs" : 10.1738, "averageMs" : 0.0389801, "percentage" : 0.329328 }
+, { "name" : "PWN((Unnamed Layer* 352) [Activation], (Unnamed Layer* 353) [ElementWise])", "timeMs" : 2.14329, "averageMs" : 0.00821184, "percentage" : 0.0693788 }
+, { "name" : "(Unnamed Layer* 354) [Convolution]", "timeMs" : 35.8757, "averageMs" : 0.137455, "percentage" : 1.1613 }
+, { "name" : "PWN((Unnamed Layer* 356) [Activation], (Unnamed Layer* 357) [ElementWise])", "timeMs" : 2.29126, "averageMs" : 0.00877878, "percentage" : 0.0741686 }
+, { "name" : "(Unnamed Layer* 358) [Convolution]", "timeMs" : 9.30555, "averageMs" : 0.0356535, "percentage" : 0.301223 }
+, { "name" : "PWN((Unnamed Layer* 360) [Activation], (Unnamed Layer* 361) [ElementWise])", "timeMs" : 2.18832, "averageMs" : 0.00838435, "percentage" : 0.0708362 }
+, { "name" : "(Unnamed Layer* 362) [Convolution]", "timeMs" : 34.5037, "averageMs" : 0.132198, "percentage" : 1.11689 }
+, { "name" : "PWN((Unnamed Layer* 348) [Activation], (Unnamed Layer* 349) [ElementWise])", "timeMs" : 2.96362, "averageMs" : 0.0113549, "percentage" : 0.095933 }
+, { "name" : "PWN((Unnamed Layer* 364) [Activation], (Unnamed Layer* 365) [ElementWise])", "timeMs" : 2.5464, "averageMs" : 0.00975632, "percentage" : 0.0824275 }
+, { "name" : "(Unnamed Layer* 367) [Convolution]", "timeMs" : 27.2201, "averageMs" : 0.104291, "percentage" : 0.881119 }
+, { "name" : "PWN((Unnamed Layer* 369) [Activation], (Unnamed Layer* 370) [ElementWise])", "timeMs" : 2.44128, "averageMs" : 0.00935356, "percentage" : 0.0790247 }
+, { "name" : "(Unnamed Layer* 371) [Convolution]", "timeMs" : 102.587, "averageMs" : 0.393052, "percentage" : 3.32075 }
+, { "name" : "(Unnamed Layer* 372) [PluginV2IOExt]", "timeMs" : 6.50698, "averageMs" : 0.024931, "percentage" : 0.210632 }
+]
