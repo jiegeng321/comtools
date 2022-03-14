@@ -2,15 +2,15 @@
 # -*- coding:utf-8 -*-
 
 from pathlib import Path
-from func.funcxml import readxml
+from comfunc.funcxml import readxml
 import cv2
 import random
-from func.print_color import bcolors
+from comfunc.print_color import bcolors
 import os
 import shutil
-from func.check import check_dir
-from func.tools import is_img
-from func.tools import check_dir
+from comfunc.check import check_dir
+from comfunc.tools import is_img
+from comfunc.tools import check_dir
 from tqdm import tqdm
 src_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/fordeal_white_data_for_logo"
 select_out_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/fordeal测试集整合 1129"

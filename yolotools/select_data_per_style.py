@@ -10,7 +10,7 @@ from pathlib import Path
 # from func.funcxml import readxml
 from tqdm import tqdm
 import shutil
-from func.check import check_dir
+from comfunc.check import check_dir
 from multiprocessing import Pool, Manager
 
 

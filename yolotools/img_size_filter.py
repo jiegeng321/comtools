@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import cv2
 from pathlib import Path
-from func.tools import *
+from comfunc.tools import *
 import shutil
 src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/brand_total_raw_data")
 img_list = [i for i in src_dir if is_img(i)]

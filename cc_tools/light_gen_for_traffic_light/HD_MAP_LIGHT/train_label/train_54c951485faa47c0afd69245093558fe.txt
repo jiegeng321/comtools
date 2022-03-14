@@ -1,0 +1,10 @@
+traffic_light,1805,83,1865,111
+traffic_light,833,554,850,590
+traffic_light,1185,511,1204,547
+traffic_light,668,523,695,573
+traffic_light,968,573,1004,632
+traffic_light,194,451,259,485
+traffic_light,1166,3,1198,89
+traffic_light,1260,510,1356,547
+traffic_light,1810,153,1837,211
+traffic_light,218,633,310,675

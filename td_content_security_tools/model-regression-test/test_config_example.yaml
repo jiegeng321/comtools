@@ -1,0 +1,22 @@
+model_name: "brand-logo-tm"
+test_data:
+  version: 1
+  examples: "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/label.json"
+  test_img_dir: "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand-tm_raw_data"
+  is_modified: True
+versions:
+  -
+    version_tag: "v0.8"
+    image: "secharbor.tongdun.me/xdsec/ai-brand-logo-tm:0.8"
+    brand_num: 444
+    style_num: 804
+  -
+    version_tag: "v0.9"
+    image: "secharbor.tongdun.me/xdsec/ai-brand-logo-tm:0.9"
+    brand_num: 440
+    style_num: 704
+  -
+    version_tag: "v0.10"
+    image: "secharbor.tongdun.me/xdsec/ai-brand-logo-tm:0.10"
+    brand_num: 440
+    style_num: 710

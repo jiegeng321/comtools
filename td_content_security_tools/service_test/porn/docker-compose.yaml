@@ -1,0 +1,9 @@
+version: '2.4'
+services:
+    porn_rec:
+        image: registry.tongdun.me/xdsec/ai-porn-gen:1.1
+        ports:
+            - 8093:8088
+        environment:
+            - WORKER_NUM=1
+            - NVIDIA_VISIBLE_DEVICES=3

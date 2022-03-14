@@ -8,7 +8,7 @@ import random
 import os.path
 from pathlib import Path
 # from func.funcxml import readxml
-from func.check import check_dir
+from comfunc.check import check_dir
 from multiprocessing import Pool, Manager
 
 

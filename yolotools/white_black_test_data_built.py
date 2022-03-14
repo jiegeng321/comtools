@@ -4,7 +4,7 @@
 import os
 import random
 import shutil
-from func.check import check_dir
+from comfunc.check import check_dir
 from tqdm import tqdm
 
 white_dir = "/data01/xu.fx/dataset/OPEN_DATASET/white_sample_factory/white_images_checked"

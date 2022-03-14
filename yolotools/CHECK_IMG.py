@@ -6,11 +6,10 @@ from tqdm import tqdm
 import hashlib
 from PIL import Image
 import shutil
-from func.path import ospathjoin
 from multiprocessing import Pool, Manager
 import os
 import warnings
-from func.tools import is_img
+from comfunc.tools import is_img
 import cv2
 import numpy as np
 from pathlib import Path

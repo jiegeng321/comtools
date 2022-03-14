@@ -1,0 +1,8 @@
+<div>
+    <h3>鉴黄粗标签模型：</h3>
+    <div id='porn-metrics' class="layui-row" style="width:100%; height:450px"></div>
+</div>
+<script>
+    var mychart = echarts.init(document.getElementById("porn-metrics"), { renderer: 'canvas' });
+    mychart.setOption({{ porn_metrics| safe}});
+</script>

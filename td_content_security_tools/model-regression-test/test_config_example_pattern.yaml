@@ -1,0 +1,22 @@
+model_name: "brand-pattern"
+test_data:
+  version: 1
+  examples: "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
+  test_img_dir: "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/fordeal_0930_raw_data"
+  is_modified: True
+versions:
+  -
+    version_tag: "v0.1"
+    image: "secharbor.tongdun.me/xdsec/ai-brand-pattern:0.1"
+    brand_num: 7
+    style_num: 12
+  -
+    version_tag: "v0.2"
+    image: "secharbor.tongdun.me/xdsec/ai-brand-pattern:0.2"
+    brand_num: 7
+    style_num: 12
+#  -
+#    version_tag: "v0.3"
+#    image: "secharbor.tongdun.me/xdsec/ai-brand-pattern:0.3"
+#    brand_num: 7
+#    style_num: 12

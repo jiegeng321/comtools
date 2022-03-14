@@ -2,13 +2,13 @@
 # -*- coding:utf-8 -*-
 
 from pathlib import Path
-from func.funcxml import readxml
+from comfunc.funcxml import readxml
 import cv2
 import random
-from func.print_color import bcolors
+from comfunc.print_color import bcolors
 import os
 import shutil
-from func.check import check_dir
+from comfunc.check import check_dir
 #voc格式目录
 # yolo_dir = Path("/data01/xu.fx/dataset/comb_data/yolo_dataset_comb_173bs_294ks/")
 # annotaion_dir = yolo_dir / "Annotations"

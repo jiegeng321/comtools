@@ -8,46 +8,59 @@ from pathlib import Path
 from PIL import Image
 import shutil
 import xml.etree.ElementTree as ET
-from func.path import ospathjoin
-from func.check import check_dir
+from comfunc.path import ospathjoin
+from comfunc.check import check_dir
 from multiprocessing import Pool, Manager
 import cv2
 import os
 import numpy as np
 import pandas as pd
-from func.print_color import bcolors
+from comfunc.print_color import bcolors
 import warnings
 # warnings.filterwarnings("error", category=UserWarning)
 # Image.warnings.simplefilter('error', Image.DecompressionBombWarning)
-from func.tools import is_img
+from comfunc.tools import is_img
 #main_data_dir为数据总目录，建议该目录下包含名为checked的目录然后该目录下为xml与图片混合的数据，之后全自动生成yolo数据集和相关数据集统计信息
 
-be_merged_dir = None#"dataset/PATTERN_DATASET/D7"
-#white_sample_dir_list = None
-white_sample_dir_list = [
-                            "/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_total",
-                            "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_test_data_labeled/empty"
-                         ]
+be_merged_dir = None#"dataset/LOGO_DATASET/D14"
+white_sample_dir_list = {}
+white_base = "/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_total_2nd"
+white_sample_dir_list["/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_total"] = 5000
+white_sample_dir_list[white_base+"/adidas"] = 0
+white_sample_dir_list[white_base+"/burberry"] = 1000
+white_sample_dir_list[white_base+"/celine"] = 150
+white_sample_dir_list[white_base+"/christian_dior"] = 200
+white_sample_dir_list[white_base+"/coach"] = 0
+white_sample_dir_list[white_base+"/fendi"] = 0
+white_sample_dir_list[white_base+"/goyard"] = 200
+white_sample_dir_list[white_base+"/issey_miyake"] = 200
+white_sample_dir_list[white_base+"/lv"] = 0
+white_sample_dir_list[white_base+"/michael_kors"] = 0
+white_sample_dir_list[white_base+"/nike"] = 0
+white_sample_dir_list[white_base+"/versace"] = 100
+white_sample_dir_list[white_base+"/gucci"] = 100
 
 show_data_info = False
 use_effective_brand = False
 use_class_brand = True
 
 random_seed = 1
-train_val_test_ratio = [0.8, 0.15, 0.05]
+train_val_test_ratio = [1.0, 0.0, 0.0]
 MAX_NUM_PER_BRAND = None
 MAX_OBJ_NUM_PER_BRAND = 10000
+#WHITE_SAMPLE_COUNT = 0
 detect_num = 2
 export_data_info_csv = True
 WORKERS = 30
 
 main_data_dir = "dataset/PATTERN_DATASET/comb_data"
-yolo_dataset_name = "yolo_dataset_pattern_comb_13bs_20ks_bal1w_addWhite"
+yolo_dataset_name = "yolodataset_pattern_15bs_22ks_0301"
 
 ######################################################## FX #########################################
 CLASS_list_fx = ['gucci-h-1', 'michaelkors-h-1', 'coach-h-1', 'adidas-h-1', 'gucci-4', 'gucci-5', 'lv-h-1', 'fendi-h-1', 'lv-h-2', 'nike-4', 'lv-h-3', 'gucci-h-2',"lv-h-4"]
 D7 = ['versace-h-1','christian dior-h-1','goyard-h-1','burberry-h-1','Issey miyake-h-1','christian dior-h-2',"celine-h-1"]
-CLASS_list_fx += D7
+D8 = ['MCM-h-1','Reebok-h-4']
+CLASS_list_fx += D7 + D8
 brand_names_fx = []
 for c in CLASS_list_fx:
     brand = c.split("-")[0]
@@ -178,7 +191,6 @@ def empty_mv(src_dir):
     pool.close()
     pool.join()
 
-
 def dataset_check(yolo_dataset_dir):
     train_img = yolo_dataset_dir+'/'+'JPEGImages/train/images'
     eval_img = yolo_dataset_dir+'/'+'JPEGImages/eval/images'
@@ -207,8 +219,8 @@ def get_brands_and_labels(src_dir):
     xml_paths = [xml_file for xml_file in walk_xml(src_dir)]
     pool = Pool(processes=WORKERS_get_class)
     class_list = Manager().list()
-    not_class_list = Manager().list()
     file_list = Manager().list()
+    not_class_list = Manager().list()
     for i in range(0, WORKERS_get_class):
         xmls = xml_paths[i:len(xml_paths):WORKERS_get_class]
         pool.apply_async(get_brands_and_labels_func, (xmls, class_list,file_list,not_class_list,))
@@ -245,26 +257,26 @@ def get_brands_and_labels(src_dir):
         else:
             not_class_num[cls] = 1
 
-    print('not classes num list:', end =" ")
-    for item in sorted(not_class_num,key=lambda a:not_class_num[a],reverse=True):
-        print((item, not_class_num[item]), end =" ")
+    print('not classes num list:', end=" ")
+    for item in sorted(not_class_num, key=lambda a: not_class_num[a], reverse=True):
+        print((item, not_class_num[item]), end=" ")
     print(f"\nnot in class num: {len(not_class_num)}")
 
     brand_list = list(set(brand_list))
     brand_list.sort(key=str.lower)
-    print('classes num list:', end =" ")
-    for item in sorted(class_num,key=lambda a:class_num[a],reverse=True):
-        print((item, class_num[item]), end =" ")
+    print('classes num list:', end=" ")
+    for item in sorted(class_num, key=lambda a: class_num[a], reverse=True):
+        print((item, class_num[item]), end=" ")
     print("\nclasses num: ", len(class_num))
 
-    print(bcolors.OKGREEN+'file num list:'+bcolors.ENDC, end =" ")
-    for item in sorted(file_num,key=lambda a:file_num[a],reverse=True):
-        print(bcolors.OKGREEN+"(%s"%item+", "+"%d)"%file_num[item]+bcolors.ENDC, end =" ")
-    print(bcolors.OKGREEN+"\nfile num: "+bcolors.ENDC, len(file_num))
+    print(bcolors.OKGREEN + 'file num list:' + bcolors.ENDC, end=" ")
+    for item in sorted(file_num, key=lambda a: file_num[a], reverse=True):
+        print(bcolors.OKGREEN + "(%s" % item + ", " + "%d)" % file_num[item] + bcolors.ENDC, end=" ")
+    print(bcolors.OKGREEN + "\nfile num: " + bcolors.ENDC, len(file_num))
 
-    print('brand num list:', end =" ")
+    print('brand num list:', end=" ")
     brand_list_sort = []
-    for item in sorted(brand_num.items(), key = lambda kv:(kv[1], kv[0]),reverse=True):
+    for item in sorted(brand_num.items(), key=lambda kv: (kv[1], kv[0]), reverse=True):
         print(item, end =" ")
         brand_list_sort.append(item[0])
     print("\nbrand num: ", len(brand_list))
@@ -291,7 +303,7 @@ def get_brands_and_labels_func(xml_ps,class_list,file_list,not_class_list):
             if use_class_brand:
                 if cls not in CLASS_list:
                     not_class_list.append(cls)
-                    #print(f"{cls} not in CLASS_list")
+                    print(f"{cls} not in CLASS_list")
                     continue
             class_list.append(cls)
 
@@ -580,9 +592,9 @@ def split_data_and_rename(src_dir):
         pd_brand_total = pd.DataFrame(check_brand_total, index=["total_brand_num"]).T
         pd_file_num_total = pd.DataFrame(file_num_dict_total, index=["total_file_num"]).T
 
-        pd_label_merge = pd.concat([pd_label_total,pd_label], axis=1)
-        pd_brand_merge = pd.concat([pd_brand_total, pd_brand], axis=1)
-        pd_file_merge = pd.concat([pd_file_num_total, pd_file_num], axis=1)
+        pd_label_merge = pd.concat([pd_label_total,pd_label], axis=1)#.fillna(0, inplace=True)
+        pd_brand_merge = pd.concat([pd_brand_total, pd_brand], axis=1)#.fillna(0, inplace=True)
+        pd_file_merge = pd.concat([pd_file_num_total, pd_file_num], axis=1)#.fillna(0, inplace=True)
 
         pd_label_merge.to_csv("./data_info/%s_label_info.csv" % yolo_dataset_name.replace("yolo_dataset_", ""))
         pd_brand_merge.to_csv("./data_info/%s_brand_info.csv" % yolo_dataset_name.replace("yolo_dataset_", ""))
@@ -590,7 +602,21 @@ def split_data_and_rename(src_dir):
 
     print("checkout_brand", check_brand.keys())
     print("this dataset has brands:", len(list(check_brand.keys())))
-
+    # assert len(list(check_brand.keys())) == len(res)
+    # for key, value in check_brand.items():
+    #     print("brand name : {}, num: {}".format(key, value))
+    #     if value < 20:
+    #         print("{} is in trouble.".format(key))
+    #     else:
+    #         pass
+# def makeyolodir(voc_dir):
+#     train_label_path = os.path.join(voc_dir, 'JPEGImages/train/labels/')
+#     check_dir(train_label_path)
+#     val_label_path = train_label_path.replace('train', 'eval')
+#     check_dir(val_label_path)
+#     test_label_path = train_label_path.replace('train', 'test')
+#     check_dir(test_label_path)
+#     return
 def walk_xml(xml_dir):
     for root, dirs, files in os.walk(xml_dir, topdown=False):
         for name in files:
@@ -599,7 +625,15 @@ def walk_xml(xml_dir):
             if post_str == ".xml":
                 yield xml_str
     return
-
+# def get_xml(xml_dir):
+#     for xml_file in os.listdir(xml_dir):
+#         xml_str = os.path.join(xml_dir, xml_file)
+#         post_str = os.path.splitext(xml_str)[-1]
+#         if post_str == ".xml":
+#             yield xml_str
+#         else:
+#             pass
+#     return
 def convert(size, box):
     x = ((box[0] + box[1]) / 2.0) / size[0]
     y = ((box[2] + box[3]) / 2.0) / size[1]
@@ -628,7 +662,7 @@ def wrong_xml_mv_func(xml_ps,wrong_list):
             shutil.move(anno_file, wrong_xml_dir)
             print("find wrong xml: ", anno_file.split('/')[-1])
 
-def add_white_sample_func(yolo_dataset_dir,white_sample_dir):
+def add_white_sample_func(yolo_dataset_dir,white_sample_list):
     train_img = yolo_dataset_dir + '/' + 'JPEGImages/train/images'
     eval_img = yolo_dataset_dir + '/' + 'JPEGImages/eval/images'
     test_img = yolo_dataset_dir + '/' + 'JPEGImages/test/images'
@@ -636,41 +670,49 @@ def add_white_sample_func(yolo_dataset_dir,white_sample_dir):
     label_eval = yolo_dataset_dir + '/' + 'JPEGImages/eval/labels'
     label_test = yolo_dataset_dir + '/' + 'JPEGImages/test/labels'
     #print(white_sample_dir)
-    white_sample_list = os.listdir(white_sample_dir)
+    #white_sample_list = os.listdir(white_sample_dir)
     white_sample_num = len(white_sample_list)
     train_white_num = int(white_sample_num * train_val_test_ratio[0])
     eval_white_num = int(white_sample_num * train_val_test_ratio[1])
     test_white_num = white_sample_num - train_white_num - eval_white_num
     for i in tqdm(range(white_sample_num)):
-        if not is_img(os.path.join(white_sample_dir, white_sample_list[i])):
+        if not is_img(white_sample_list[i]):
             continue
         if i < test_white_num:
-            shutil.copy(os.path.join(white_sample_dir, white_sample_list[i]),
-                        os.path.join(test_img, "checked_WhiteSample_" + white_sample_list[i]))
-            with open(os.path.join(label_test, "checked_WhiteSample_" + white_sample_list[i][:-(
-                    len(white_sample_list[i].split('.')[-1]))] + 'txt'), 'w') as f:
+            shutil.copy(white_sample_list[i],
+                        os.path.join(test_img, "checked_WhiteSample_" + white_sample_list[i].name))
+            with open(os.path.join(label_test, "checked_WhiteSample_" + white_sample_list[i].name[:-(
+                    len(white_sample_list[i].name.split('.')[-1]))] + 'txt'), 'w') as f:
                 pass
         elif i < test_white_num + eval_white_num:
-            shutil.copy(os.path.join(white_sample_dir, white_sample_list[i]),
-                        os.path.join(eval_img, "checked_WhiteSample_" + white_sample_list[i]))
-            with open(os.path.join(label_eval, "checked_WhiteSample_" + white_sample_list[i][:-(
-                    len(white_sample_list[i].split('.')[-1]))] + 'txt'), 'w') as f:
+            shutil.copy(white_sample_list[i],
+                        os.path.join(eval_img, "checked_WhiteSample_" + white_sample_list[i].name))
+            with open(os.path.join(label_eval, "checked_WhiteSample_" + white_sample_list[i].name[:-(
+                    len(white_sample_list[i].name.split('.')[-1]))] + 'txt'), 'w') as f:
                 pass
         else:
-            shutil.copy(os.path.join(white_sample_dir, white_sample_list[i]),
-                        os.path.join(train_img, "checked_WhiteSample_" + white_sample_list[i]))
-            with open(os.path.join(label_train, "checked_WhiteSample_" + white_sample_list[i][:-(
-                    len(white_sample_list[i].split('.')[-1]))] + 'txt'), 'w') as f:
+            shutil.copy(white_sample_list[i],
+                        os.path.join(train_img, "checked_WhiteSample_" + white_sample_list[i].name))
+            with open(os.path.join(label_train, "checked_WhiteSample_" + white_sample_list[i].name[:-(
+                    len(white_sample_list[i].name.split('.')[-1]))] + 'txt'), 'w') as f:
                 pass
 
-def add_white_sample(yolo_dataset_dir,white_sample_dir):
-    white_sample_list = os.listdir(white_sample_dir)
-    if os.path.isdir(os.path.join(white_sample_dir,white_sample_list[0])):
-        for dir in white_sample_list:
-            white_sample_dir_ = os.path.join(white_sample_dir,dir)
-            add_white_sample_func(yolo_dataset_dir,white_sample_dir_)
-    else:
-        add_white_sample_func(yolo_dataset_dir, white_sample_dir)
+def add_white_sample(yolo_dataset_dir,white_sample_dir_list,WHITE_SAMPLE_COUNT):
+
+    image_list_total = []
+    for white_sample_dir in white_sample_dir_list:
+        white_sample_list = os.listdir(white_sample_dir)
+        if os.path.isdir(os.path.join(white_sample_dir,white_sample_list[0])):
+            for dir in white_sample_list:
+                white_sample_dir_ = os.path.join(white_sample_dir,dir)
+                image_list_total += [p for p in Path(white_sample_dir_).rglob('*.*')]
+        else:
+            image_list_total += [p for p in Path(white_sample_dir).rglob('*.*')]
+    random.shuffle(image_list_total)
+    print("white samples total:",len(image_list_total))
+    print("we need:",WHITE_SAMPLE_COUNT)
+    image_list_total = image_list_total[:WHITE_SAMPLE_COUNT]
+    add_white_sample_func(yolo_dataset_dir, image_list_total)
 
 if show_data_info:
     if be_merged_dir:
@@ -678,12 +720,12 @@ if show_data_info:
         merge_data(be_merged_dir, src_dir)
         print("-" * 20 + "merge data end" + "-" * 20)
     print("-"*20+"wrong xml search start"+"-"*20)
-    #wrong_xml_mv(src_dir)
+    wrong_xml_mv(src_dir)
     print("-"*20+"wrong xml search end"+"-"*20)
 
-    print("-" * 20 + "empty search start" + "-" * 20)
+    print("-"*20+"empty search start"+"-"*20)
     empty_mv(src_dir)
-    print("-" * 20 + "empty search end" + "-" * 20)
+    print("-"*20+"empty search end"+"-"*20)
 
     print("-" * 20 + "label & brand search start" + "-" * 20)
     class_list, _ = get_brands_and_labels(src_dir)
@@ -695,11 +737,11 @@ else:
         print("-" * 20 + "merge data end" + "-" * 20)
 
     print("-"*20+"wrong xml search start"+"-"*20)
-    wrong_xml_mv(src_dir)
+    #wrong_xml_mv(src_dir)
     print("-"*20+"wrong xml search end"+"-"*20)
 
     print("-"*20+"not pair search start"+"-"*20)
-    not_pair_mv(src_dir)
+    #not_pair_mv(src_dir)
     print("-"*20+"not pair search end"+"-"*20)
 
     print("-"*20+"empty search start"+"-"*20)
@@ -721,10 +763,9 @@ else:
     print("-" * 20 + "split data and rename start" + "-" * 20)
 
     if white_sample_dir_list:
-        for white_list in white_sample_dir_list:
+        for white_sample_dir, num in white_sample_dir_list.items():
             print("-" * 20 + "add white sample start" + "-" * 20)
-            print("from path: %s"%white_list)
-            add_white_sample(yolo_dataset_dir,white_list)
+            add_white_sample(yolo_dataset_dir,[white_sample_dir],num)
             print("-" * 20 + "add white sample end" + "-" * 20)
 
     print("-"*20+"dataset check start"+"-"*20)

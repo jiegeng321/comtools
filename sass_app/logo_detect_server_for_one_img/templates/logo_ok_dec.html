@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGO整合识别接口</title>
+</head>
+<body>
+    <h1>LOGO整合识别接口</h1>
+    <form name="myform" action="" enctype='multipart/form-data' method='POST'>
+        <p>请上传需要检测的图片</p>
+        <input type="file" name="file">
+        <input type="submit" value="提交">
+    </form>
+    <p>原图：</p>
+    <img src={{upload_path}} width="300" height="300" alt=""/>
+    <h2>最终识别结果:</h2>
+    <h1 style="color:#ff0000">{{result_one}}</h1>
+    <h2>*********各模型详细结果**********</h2>
+    <h2>检测图:</h2>
+    <img src={{img_after_dec_path}} width="900" height="900" alt=""/>
+    <h2>各模型识别(类别:分值)</h2>
+    <h2>LOGO模型：</h2>
+    <h5 style="color:red">(红框)</h5>
+    {% for item1 in logo_result%}
+        <p>{{item1}}</p>
+    {% endfor %}
+
+{#    <h2>LOGO-tm模型：</h2>#}
+{#    <h5 style="color:blue">(蓝框)</h5>#}
+{#    {% for item1 in logo_tm_result%}#}
+{#        <p>{{item1}}</p>#}
+{#    {% endfor %}#}
+
+    <h2>花纹模型：</h2>
+    <h5 style="color:green">(绿框)</h5>
+    {% for item1 in pattern_result%}
+        <p>{{item1}}</p>
+    {% endfor %}
+
+    <h2>卡通模型：</h2>
+    <h5 style="color:#fff200">(黄框)</h5>
+    {% for item1 in cartoon_result%}
+        <p>{{item1}}</p>
+    {% endfor %}
+
+
+</body>
+</html>

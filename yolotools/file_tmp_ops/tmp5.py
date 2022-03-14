@@ -2,15 +2,15 @@
 # -*- coding:utf-8 -*-
 
 from pathlib import Path
-from func.funcxml import readxml
+from comfunc.funcxml import readxml
 import cv2
 import random
-from func.print_color import bcolors
+from comfunc.print_color import bcolors
 import os
 import shutil
-from func.check import check_dir
-from func.tools import is_img
-from func.tools import check_dir
+from comfunc.check import check_dir
+from comfunc.tools import is_img
+from comfunc.tools import check_dir
 from tqdm import tqdm
 src_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/fordeal_0930_raw_data"
 select_out_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_test_data_labeled/"

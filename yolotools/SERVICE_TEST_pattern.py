@@ -10,7 +10,7 @@ import os
 from tqdm import tqdm
 import warnings
 import shutil
-from func.tools import is_img,check_dir
+from comfunc.tools import is_img,check_dir
 warnings.filterwarnings('ignore')
 from multiprocessing import Pool, Manager
 WORKERS = 30

@@ -1,0 +1,8 @@
+Cython==0.29.14 
+falcon==3.0.1
+gunicorn==20.0.4
+loguru==0.5.3
+pycrypto==2.6.1 # for pass decrypt model binary
+requests==2.26.0 # for pass authorization
+opencv-contrib-python-headless==4.5.2.52
+prometheus-client==0.11.0

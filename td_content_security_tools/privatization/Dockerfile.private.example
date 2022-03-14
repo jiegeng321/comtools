@@ -1,0 +1,32 @@
+ARG PYTHON_VERSION=py3.8
+FROM registry.tongdun.me/xdsec/privatization:${PYTHON_VERSION}-0.1 as builder 
+WORKDIR /home/admin/playground
+ADD . ./private_site
+# copy privatization start script
+RUN cp start*.py private_site
+RUN cp encrypter.py private_site/src/
+# python to so
+RUN python py2so.py --source_dir private_site 
+# 模型的加密, 模型名和路径根据模型情况制定
+RUN python aes_encrypt.py private_site/model/logo_recognition.pb -o build/private_site/model/logo_recognition.pb
+
+FROM registry.tongdun.me/xdsec/cv.onnxruntime.base:1.1 as privatization
+# ARG APPNAME=ai-logo-gen
+# ARG SERVICE_ENTRANCE=logo_rec_service
+ENV APPNAME=ai-logo-gen \
+    SERVICE_ENTRANCE=logo_rec_service \
+    PYTHONIOENCODING="UTF-8" \
+    TZ=Asia/Shanghai \
+    PRIVATE=True
+
+# 工作目录/home/admin/应用目录，不要改
+WORKDIR /home/admin/$APPNAME
+
+COPY --from=builder /home/admin/playground/build/private_site .
+# COPY --from=py2so /home/admin/playground/logo_recognition.pb ./model/logo_recognition.pb
+# 放入整个工程
+
+# 运行启动脚本
+CMD ["python3", "start.py"]
+
+EXPOSE 8088

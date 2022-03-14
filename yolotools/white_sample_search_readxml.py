@@ -8,8 +8,8 @@ import random
 import glob
 import shutil
 from pathlib import Path
-from func.path import ospathjoin
-from func.check import check_dir
+from comfunc.path import ospathjoin
+from comfunc.check import check_dir
 from tqdm import tqdm
 import pandas as pd
 from xml.etree import ElementTree as ET

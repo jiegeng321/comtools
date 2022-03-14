@@ -15,8 +15,8 @@ import random
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from func.funcxml import readxml
-from func.check import check_dir
+from comfunc.funcxml import readxml
+from comfunc.check import check_dir
 from multiprocessing import Pool
 from pascal_voc_writer import Writer
 

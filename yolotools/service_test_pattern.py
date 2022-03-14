@@ -15,7 +15,7 @@ from tqdm import tqdm
 # import random
 import warnings
 import shutil
-from func.tools import is_img
+from comfunc.tools import is_img
 #from model.config import logo_id_to_name
 #from multiprocessing import Pool, Manager
 warnings.filterwarnings('ignore')

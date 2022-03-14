@@ -11,7 +11,7 @@ from pathlib import Path
 import cv2
 from tqdm import tqdm
 
-from func.check import check_dir
+from comfunc.check import check_dir
 from multiprocessing import Pool, Manager
 
 

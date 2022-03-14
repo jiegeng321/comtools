@@ -1,0 +1,4 @@
+/home/admin/data/xfeng/finetuningTorchVisionModel_Regression_face_pts/img_regression_api/build/CMakeFiles/rebuild_cache.dir
+/home/admin/data/xfeng/finetuningTorchVisionModel_Regression_face_pts/img_regression_api/build/CMakeFiles/edit_cache.dir
+/home/admin/data/xfeng/finetuningTorchVisionModel_Regression_face_pts/img_regression_api/build/CMakeFiles/img_regression_test.dir
+/home/admin/data/xfeng/finetuningTorchVisionModel_Regression_face_pts/img_regression_api/build/CMakeFiles/img_regression.dir

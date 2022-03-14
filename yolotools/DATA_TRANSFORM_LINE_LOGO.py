@@ -8,18 +8,18 @@ from pathlib import Path
 from PIL import Image
 import shutil
 import xml.etree.ElementTree as ET
-from func.path import ospathjoin
-from func.check import check_dir
+from comfunc.path import ospathjoin
+from comfunc.check import check_dir
 from multiprocessing import Pool, Manager
 import cv2
 import os
 import numpy as np
 import pandas as pd
-from func.print_color import bcolors
+from comfunc.print_color import bcolors
 import warnings
 # warnings.filterwarnings("error", category=UserWarning)
 # Image.warnings.simplefilter('error', Image.DecompressionBombWarning)
-from func.tools import is_img
+from comfunc.tools import is_img
 #main_data_dir为数据总目录，建议该目录下包含名为checked的目录然后该目录下为xml与图片混合的数据，之后全自动生成yolo数据集和相关数据集统计信息
 
 be_merged_dir = None#"dataset/LOGO_DATASET/D14"

@@ -5,13 +5,13 @@ from pathlib import Path
 
 import requests
 
-from func.funcxml import readxml
+from comfunc.funcxml import readxml
 import cv2
 import random
-from func.print_color import bcolors
+from comfunc.print_color import bcolors
 import os
 import shutil
-from func.check import check_dir
+from comfunc.check import check_dir
 import ast
 txt_path = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/1229-1231.txt"
 dst_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/fordeal_white_data_for_pattern_1229-1231"
