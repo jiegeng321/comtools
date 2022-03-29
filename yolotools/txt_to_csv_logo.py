@@ -11,11 +11,10 @@ import pandas as pd
 from tqdm import tqdm
 from sklearn.metrics import classification_report
 #线上数据的txt文件
-txt_paths = ["/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0301-0309.txt",
-             "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0310-0319.txt"]
+txt_paths = ["/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/3月8日.txt"]
 #csv输出目录
 save_result_csv_dir = "./"
-name = "txt_to_csv.csv"
+name = "txt_to.csv"
 num = None
 
 
@@ -31,7 +30,7 @@ if num:
 
 print("total lines :",len(lines))
 max_line = 50
-with open(os.path.join(save_result_csv_dir,"txt_to_csv.csv"),"w") as f:
+with open(os.path.join(save_result_csv_dir,name if name else "txt_to_csv.csv"),"w") as f:
     f.write("商品ID,人审标签,图片URL"+", "*(max_line-1)+"\n")
     for line in tqdm(lines):
         dict_brand = ast.literal_eval(line)
