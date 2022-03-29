@@ -26,7 +26,7 @@ be_merged_dir = None#"dataset/LOGO_DATASET/D14"
 white_sample_dir_list = {}
 white_base = "/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_total_2nd"
 white_sample_dir_list["/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_total"] = 5000
-white_sample_dir_list[white_base+"/adidas"] = 0
+white_sample_dir_list[white_base+"/adidas"] = 500
 white_sample_dir_list[white_base+"/burberry"] = 1000
 white_sample_dir_list[white_base+"/celine"] = 150
 white_sample_dir_list[white_base+"/christian_dior"] = 200
@@ -54,7 +54,7 @@ export_data_info_csv = True
 WORKERS = 30
 
 main_data_dir = "dataset/PATTERN_DATASET/comb_data"
-yolo_dataset_name = "yolodataset_pattern_15bs_22ks_0301"
+yolo_dataset_name = "yolodataset_pattern_15bs_22ks_0323"
 
 ######################################################## FX #########################################
 CLASS_list_fx = ['gucci-h-1', 'michaelkors-h-1', 'coach-h-1', 'adidas-h-1', 'gucci-4', 'gucci-5', 'lv-h-1', 'fendi-h-1', 'lv-h-2', 'nike-4', 'lv-h-3', 'gucci-h-2',"lv-h-4"]
@@ -90,8 +90,8 @@ WORKERS_empty_mv = WORKERS
 if be_merged_dir:
     be_merged_dir = "/data01/xu.fx/" + be_merged_dir + "/checked"
 src_dir = "/data01/xu.fx/"+main_data_dir+"/checked"
-yolo_dataset_dir = "/data01/xu.fx/"+main_data_dir+"/"+yolo_dataset_name+"/"
-detect_img_dir = "/data01/xu.fx/"+main_data_dir+"/"+yolo_dataset_name+"/test_detect_img"
+yolo_dataset_dir = "/data02/xu.fx/"+main_data_dir+"/"+yolo_dataset_name+"/"
+detect_img_dir = "/data02/xu.fx/"+main_data_dir+"/"+yolo_dataset_name+"/test_detect_img"
 
 empty_dir = src_dir + "_empty"
 same_dir = src_dir + "_same_md5"
@@ -350,8 +350,8 @@ def xml2txt(out_file,cls_boxes,size,class_list_sts):
 
             class_list_sts.append(cls)
             fw.write(str(cls_id) + " " + " ".join([str(a) if a > 0 else str(-a) for a in bb]) + '\n')
-def split_data_and_rename_func(src_dir,brand_files,class_list_sts,class_list_sts_total,file_num,file_num_total,get_obj_dict):
-
+def split_data_and_rename_func(src_dir,brand_files,class_list_sts,class_list_sts_total,file_num,file_num_total):
+    get_obj_dict = {}
     for files in brand_files:
         random.seed(random_seed)
         random.shuffle(files)
@@ -495,8 +495,14 @@ def split_data_and_rename(src_dir):
                 else:
                     brand_files["other"].append(f)
     brand_lists = []
+    brand_lists_inv = []
+    order = ["Guccio","Gussim","Guccij","adidassw","adidassc","adidaslang","adidass"]
+    for o in order:
+        brand_lists.append(brand_files[o])
     for k, v in brand_files.items():
-        brand_lists.append(v)
+        if k not in order:
+            brand_lists_inv.append(v)
+    brand_lists += brand_lists_inv
     all_nums = int(len(files)/2)
     print("all Datasets file num is: ", all_nums)
     val_nums = int(all_nums * train_val_test_ratio[1])
@@ -513,11 +519,10 @@ def split_data_and_rename(src_dir):
     class_list_sts = Manager().list()
     file_num_total = Manager().list()
     class_list_sts_total = Manager().list()
-    get_obj_dict = Manager().dict()
     pool = Pool(processes=WORKERS_spilt_)
     for i in range(0, WORKERS_spilt_):
         xmls = brand_lists[i:len(brand_lists):WORKERS_spilt_]
-        pool.apply_async(split_data_and_rename_func, (src_dir, xmls,class_list_sts,class_list_sts_total,file_num,file_num_total,get_obj_dict,))
+        pool.apply_async(split_data_and_rename_func, (src_dir, xmls,class_list_sts,class_list_sts_total,file_num,file_num_total,))
     pool.close()
     pool.join()
 
@@ -589,6 +594,7 @@ def split_data_and_rename(src_dir):
         pd_file_num = pd.DataFrame(file_num_dict, index=["dataset_file_num"]).T
 
         pd_label_total = pd.DataFrame(check_label_total, index=["total_style_num"]).T
+        print(pd_label_total)
         pd_brand_total = pd.DataFrame(check_brand_total, index=["total_brand_num"]).T
         pd_file_num_total = pd.DataFrame(file_num_dict_total, index=["total_file_num"]).T
 
@@ -596,9 +602,9 @@ def split_data_and_rename(src_dir):
         pd_brand_merge = pd.concat([pd_brand_total, pd_brand], axis=1)#.fillna(0, inplace=True)
         pd_file_merge = pd.concat([pd_file_num_total, pd_file_num], axis=1)#.fillna(0, inplace=True)
 
-        pd_label_merge.to_csv("./data_info/%s_label_info.csv" % yolo_dataset_name.replace("yolo_dataset_", ""))
-        pd_brand_merge.to_csv("./data_info/%s_brand_info.csv" % yolo_dataset_name.replace("yolo_dataset_", ""))
-        pd_file_merge.to_csv("./data_info/%s_file_num_info.csv" % yolo_dataset_name.replace("yolo_dataset_", ""))
+        pd_label_merge.to_csv("./data_info/%s_label_info.csv" % yolo_dataset_name)
+        pd_brand_merge.to_csv("./data_info/%s_brand_info.csv" % yolo_dataset_name)
+        pd_file_merge.to_csv("./data_info/%s_file_num_info.csv" % yolo_dataset_name)
 
     print("checkout_brand", check_brand.keys())
     print("this dataset has brands:", len(list(check_brand.keys())))

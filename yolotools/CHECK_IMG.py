@@ -15,15 +15,14 @@ import numpy as np
 from pathlib import Path
 warnings.filterwarnings("error", category=UserWarning)
 
-src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/comb_data/checked")
+src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/white_data/logo_white_data_from_fordeal_high_quality_4th")
 min_size = 10
 hashs = "totalhash"#ahash,dhash,phash,totalhash
 hash_th = 1
 hash_size = (8, 8)
 WORKERS = 10
+split = 5
 
-files = sorted([p for p in src_dir.rglob("*.*") if is_img(p)])
-print(len(files))
 same_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "same_md5") #src_dir + "_bad_images/same_md5"
 hash_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "same_hash")#src_dir + "_bad_images/same_dhash"
 gif_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "gif")#src_dir + "_bad_images/gif"
@@ -148,6 +147,14 @@ def bad_img_mv_func(files,num_dict):
             print("%s is error file" % file_i.name)
             num_dict["error_num"] += 1
             continue
+        #error img
+
+        if str(file_i)[0]==".":
+            if not os.path.exists(error_dir):
+                os.makedirs(error_dir)
+            shutil.move(str(file_i), error_dir)
+            print("%s is error file" % file_i.name)
+            num_dict["error_num"] += 1
 
         #too small size img
 
@@ -213,7 +220,7 @@ def bad_img_mv_func(files,num_dict):
             print("%s is invalid" % file_i.name)
             continue
 
-def bad_img_mv():
+def bad_img_mv(files):
 
     num_dict = Manager().dict()
     num_dict["gif_num"] = 0
@@ -233,7 +240,7 @@ def bad_img_mv():
     print("bad images:")
     print(num_dict)
 
-def same_img_mv():
+def same_img_mv(files):
     md5_list = Manager().list()
     dhash_list = Manager().list()
     same_md5_num = Manager().Value("same_md5_num",0)
@@ -249,6 +256,11 @@ def same_img_mv():
     print("total same_hash_num: ", same_hash_num.value)
 
 if __name__ == "__main__":
-    bad_img_mv()
-    #same_img_mv()
+    files = sorted([p for p in src_dir.rglob("*.*") if is_img(p)])
+    print(len(files))
+    for i in range(split):
+        block = int(len(files)/split)
+        files_ = files[i*block:(1+i)*block]
+        bad_img_mv(files_)
+        same_img_mv(files_)
 

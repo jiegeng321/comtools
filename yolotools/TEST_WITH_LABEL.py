@@ -53,27 +53,27 @@ ali2l_dict = {"moschino":"franco_moschino","van_cleef_&_arpels":"van_cleef_arpel
               "dolce&gabbana":"dolce_gabbana","海飞丝":"head_shoulders","jaeger-lecoultre":"jaeger","levis":"levi's",
               "ray·ban":"rayban","sk-ii":"sk","s.t._dupont":"st_dupont","van_cleef_arpels":"van_cleef__arpels"
               }
-model_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_0209"
-diff_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/test_diff"
+model_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324"
+diff_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/test_diff"
 
-model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_total_0307.json"
-label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/label.json"
+# model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_total_0307.json"
+# label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/label.json"
 
-# model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0303.json"
-# label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
+model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd.json"
+label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
 
-# score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.55,
-#                 'versace_h':0.7, 'christian dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'Issey miyake_h':0.6, 'celine_h':0.6,
-#             "reebok_h":0.75,"mcm_h":0.75}
+score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.55,
+                'versace_h':0.7, 'christian dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'Issey miyake_h':0.6, 'celine_h':0.6,
+            "reebok_h":0.7,"mcm_h":0.75}
 
-score_th = {"Hello Kitty":0.4,"Casio":0.4,"Playboy":0.4,"New York Yankees":0.4,"Converse":0.4,"miu miu":0.4,"Valentino Garavani":0.4,"MCM":0.4,"Philipp Plein":0.4,"VACHERON CONSTANTIN":0.4,"Audi":0.4,"Bally":0.4,"Comme Des Garcons":0.45,"Lamborghini":0.4}
+#score_th = {"Hello Kitty":0.4,"Casio":0.4,"Playboy":0.4,"New York Yankees":0.4,"Converse":0.4,"miu miu":0.4,"Valentino Garavani":0.4,"MCM":0.4,"Philipp Plein":0.4,"VACHERON CONSTANTIN":0.4,"Audi":0.4,"Bally":0.4,"Comme Des Garcons":0.45,"Lamborghini":0.4}
 
 score_th_other = 0.4
 
 save_result_csv = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_with_label_result.csv"
 support_th = 1
 show_pic = False
-show_detail = False
+show_detail = True
 if diff_dir and model_dir:
     check_dir(diff_dir,delete=True)
 with open(model_json, 'r') as f:
@@ -93,7 +93,7 @@ if score_th:
                         pre_list_th.append(brand)
         if pre_list_th==[]:
             pre_list_th.append("empty")
-        model_result_th[k]=pre_list_th
+        model_result_th[k]=list(set(pre_list_th))
 print(model_result_th)
 # if model_json2:
 #     with open(model_json2, 'r') as f:
@@ -259,8 +259,8 @@ for i in fordeal_important:
     if i not in pd_data.index.tolist():
         continue
     fordeal_important_.append(i)
-# fordeal_important_ = ["gucci_h","lv_h","adidas_h","michaelkors_h","coach_h","christian_dior_h","fendi_h","celine_h","burberry_h",
-#                       "goyard_h","versace_h","issey_miyake_h"]
+fordeal_important_ = ["gucci_h","lv_h","adidas_h","michaelkors_h","coach_h","christian_dior_h","fendi_h","celine_h","burberry_h",
+                      "goyard_h","versace_h","issey_miyake_h","mcm_h"]
 fordeal_care = pd_data.loc[fordeal_important_,:]
 print("fordeal care brand:",len(fordeal_care[fordeal_care["support"]>support_th]))
 print("fordeal care test num:",fordeal_care["support"].sum())

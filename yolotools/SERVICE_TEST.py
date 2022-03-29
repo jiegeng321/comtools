@@ -25,13 +25,13 @@ WORKERS = 30
 save_empty = True
 score_th = None#0.5
 
-image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/brand_labeled"
-out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_total_0314"
-save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_total_0314.json"
+# image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/brand_labeled"
+# out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_total_0314"
+# save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_total_0314.json"
 
-# image_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_labeled/"
-# out_pred_img_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0303_tmp"
-# save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0303.json"
+image_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_labeled"
+out_pred_img_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd"
+save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd.json"
 
 ai_brand_logo_url = "http://10.57.31.15:5032/v2/logo_brand_rec"
 #ai_brand_logo_tm_url = "http://10.58.14.38:55902/v2/logo_brand_rec"
@@ -39,9 +39,10 @@ ai_brand_logo_tm_url = "http://10.57.31.15:1000/v2/logo_brand_rec"
 #ai_brand_logo_tm_url_t4 = "http://192.168.6.150:1001/v2/logo_brand_rec"
 ai_brand_logo_tm_url_t4 = "http://192.168.6.150:1002/v2/logo_brand_rec"
 ai_brand_logo_tm_url_p40 = "http://10.57.31.15:1003/v2/logo_brand_rec"
+ai_brand_pattern_url_p40 = "http://10.57.31.15:1003/v2/pattern_brand_rec"
 brand_pattern_url = "http://10.57.31.15:1004/v2/logo_brand_rec"
 #url_dict = {"pattern":brand_pattern_url}
-url_dict = {"logo-tm":ai_brand_logo_tm_url_t4}
+url_dict = {"logo-tm":ai_brand_pattern_url_p40}
 if out_pred_img_dir:
     if not os.path.exists(out_pred_img_dir):
         os.makedirs(out_pred_img_dir)
@@ -150,8 +151,8 @@ def det_server_func(image_list,save_json_dict):
             print(e)
             print(image_path)
             continue
-        if index%1000==0:
-            print(str(os.getpid()),"have processed:",index,"/",int(len(image_list)/WORKERS))
+        if index%100==0:
+            print(str(os.getpid()),"have processed:",index,"/",len(image_list))
         #     with open(save_label_json, 'w') as f:
         #         json.dump(dict(save_json_dict), f)
 save_json_dict = Manager().dict()
