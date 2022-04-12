@@ -26,14 +26,13 @@ be_merged_dir = None#"dataset/LOGO_DATASET/D14"
 white_sample_dir_list = {}
 white_sample_dir_list["/data01/xu.fx/dataset/LOGO_DATASET/white_data/logo_white_data_from_fordeal_high_quality"] = 0
 white_sample_dir_list["/data01/xu.fx/dataset/LOGO_DATASET/white_data/logo_white_data_from_fordeal_high_quality_2nd"] = 0
-white_sample_dir_list["/data01/xu.fx/dataset/LOGO_DATASET/white_data/logo_white_data_from_fordeal_high_quality_3rd"] = 0
 
 show_data_info = False
 use_effective_brand = False
 use_class_brand = True
 
 random_seed = 1
-train_val_test_ratio = [1.0, 0.0, 0.0]
+train_val_test_ratio = [0.95, 0.05, 0.0]
 MAX_NUM_PER_BRAND = None
 MAX_OBJ_NUM_PER_BRAND = 2000
 #WHITE_SAMPLE_COUNT = 0
@@ -42,7 +41,7 @@ export_data_info_csv = True
 WORKERS = 30
 
 main_data_dir = "dataset/LOGO_DATASET/comb_data"
-yolo_dataset_name = "comb_776bs_1376ks_bal2k"
+yolo_dataset_name = "yolodataset_logo_784bs_1392ks_0408"
 
 ######################################################## WEW #########################################
 CLASS_list_wew = ['dior-w-1', 'golden goose-1', 'coach-w-1', 'fendi-1', 'balenciaga-w-1', 'prada-w-1', 'ck-2', 'ysl-w-1', 'ysl-1', 'lv-2', 'lv-1', 'versace-w-1', 'versace-1', 'fendi-w-1', 'dolce-1', 'Givenchy-w-1', 'the north face-1', 'golden goose-2', 'chanel-2', 'chanel-1', 'dolce-w-3', 'dolce-w-2', 'nike-1', 'nike-w-1', 'off white-w-1', 'burberry-w-1', 'supreme-1', 'gucci-3', 'dsquared2-w-1', 'burberry-1', 'gucci-2', 'ck-1', 'armani-1', 'Michael Kors-1', 'burberry-2', 'Kenzo-1', 'Givenchy-1', 'Hermes-w-1', 'fendi-2', 'Hermes-2', 'Hermes-1', 'Michael Kors-w-1', 'nike-6', 'dior-1', 'Moncler-1', 'Moncler-2', 'off white-1', 'balenciaga-1', 'Moncler-w-1', 'supreme-2', 'armani-w-1', 'armani-w-2', 'dior-2', 'gucci-1', 'dolce-3', 'nike-2', 'palace-w-1', 'palace-1', 'Hublot-2', 'Hublot-w-1', 'canada goose-1', 'tommy Hilfiger-1', 'tag heuer-1', 'alexander mcqueen-w-2', 'alexander mcqueen-w-1', 'Abercrombie Fitch-w-3', 'Iwc-w-1', 'marc Jacobs-1', 'balmain-w-1', 'ralph lauren-1', 'tommy Hilfiger-w-1', 'audemars piguet-w-1', 'Jaeger LeCoultre-w-1', 'salvatore Ferragamo-1', 'Van Cleef Arpels-w-1', 'Van Cleef Arpels-2', 'Cartier-1', 'Cartier-w-1', 'Montblanc-2', 'New Era-1', 'New Era-w-2', 'NEW BALANCE-1', 'lacoste-w-1', 'lacoste-1', 'palm angels-1', 'Under Armour-1', 'Abercrombie Fitch-2', 'Abercrombie Fitch-w-2', 'NEW BALANCE-w-1', 'Rolex-1', 'Rolex-w-1', 'ralph lauren-w-1', 'Abercrombie Fitch-1', 'Omega-1', 'Omega-w-1', 'NEW BALANCE-2', 'CHRISTIAN LOUBOUTIN-1', 'Bvlgari-w-1', 'audemars piguet-2', 'hugo boss-w-1', 'hugo boss-w-2', 'tag heuer-w-1', 'Adidas-2', 'Adidas-w-1', 'Abercrombie Fitch-w-1', 'Iwc-w-2', 'bape-1', 'bape-2', 'New Era-2', 'Adidas-1', 'New Era-w-1', 'marc Jacobs-w-1', 'Montblanc-w-1', 'salvatore Ferragamo-2', 'salvatore Ferragamo-4', 'tommy Hilfiger-w-2', 'canada goose-w-1', 'salvatore Ferragamo-3', 'balmain-1', 'palm angels-2', 'bape-w-1', 'bape-w-2', 'Under Armour-w-1', 'Cartier-w-2', 'alexander mcqueen-1', 'rayban-1', 'FILA-1', 'New Orleans Pelicans-w-2', 'Washington Redskins-1', 'Washington Redskins-w-1', 'Houston Rockets-1', 'Houston Rockets-w-2', 'Houston Rockets-w-3', 'FIFA-w-1', 'Boston Celtics-w-1', 'Pittsburgh Steelers-1', 'Pittsburgh Steelers-w-1', 'Dallas Cowboys-w-1', 'Toronto Raptors-w-1', 'Toronto Raptors-2', 'New Orleans Pelicans-1', 'New Orleans Pelicans-3', 'Brooklyn Nets-w-2', 'Boston Celtics-3', 'Boston Celtics-w-2', 'Los Angeles lakers-w-1', 'Denver Nuggets-w-2', 'Sacramento Kings-1', 'Indiana Pacers-w-2', 'Brooklyn Nets-1', 'Portland Trail Blazers-1', 'nba-w-1', 'nba-1', 'Buffalo Bills-1', 'Buffalo Bills-w-1', 'Sacramento Kings-w-1', 'Indiana Pacers-2', 'Hollister Co-1', 'Tampa Bay Buccaneers-w-1', 'Phoenix Suns-w-3', 'Phoenix Suns-w-2', 'Phoenix Suns-2', 'Houston Texans-1', 'Utah Jazz-1', 'Utah Jazz-w-1', 'david yurman-1', 'david yurman-w-1', 'Miami Heat-w-1', 'Miami Heat-w-2', 'kate spade-w-1', 'Carolina Panthers-1', 'kate spade-1', 'Milwaukee Bucks-1', 'Milwaukee Bucks-w-1', 'Detroit Lions-3', 'Utah Jazz-4', 'Sacramento Kings-3', 'Oklahoma City Thunder-1', 'Oklahoma City Thunder-w-3', 'Jacksonville Jaguars-1', 'Jacksonville Jaguars-w-1', 'San Antonio Spurs-2', 'New Orleans Pelicans-w-1', 'Orlando Magic-2', 'New York Knicks-2', 'Adobe-1', 'Adobe-w-1', 'Philadelphia Eagles-1', 'Memphis Grizzlies-w-1', 'Washington Wizards-w-1', 'Tennessee Titans-w-1', 'HID Global-1', 'CALL OF DUTY GHOSTS-w-2', 'Denver Broncos-w-1', 'Los Angeles Chargers-w-1', 'Chicago Bulls-1', 'Minnesota Timberwolves-w-1', 'Minnesota Timberwolves-w-2', 'Dallas Mavericks-w-1', 'Dallas Mavericks-1', 'Green Bay Packers-w-1', 'Dallas Mavericks-w-3', 'A COLD WALL-w-1', 'Indianapolis Colts-1', 'Indianapolis Colts-w-1', 'Atlanta Hawks-1', 'Detroit Lions-1', 'Oklahoma City Thunder-w-2', 'Cleveland Browns-1', 'FILA-2', 'Baltimore Ravens-w-1', 'Cleveland Browns-w-1', 'San Antonio Spurs-1', 'Miami Dolphins-w-1', 'Los Angeles Chargers-1', 'Portland Trail Blazers-w-1', 'Philadelphia 76ers-1', 'Chicago Bears-w-1', 'Orlando Magic-w-1', 'Portland Trail Blazers-w-2', 'Chicago Bears-1', 'Memphis Grizzlies-w-2', 'Hollister Co-w-1', 'New York Knicks-1', 'Washington Wizards-2', 'Tennessee Titans-1', 'Houston Texans-w-1', 'Guitar Hero-1', 'New York Giants-1', 'Washington Wizards-3', 'Alcon-w-1', 'Los Angeles lakers-3', 'Denver Nuggets-1', 'Denver Nuggets-2', 'Toronto Raptors-3', 'Brooklyn Nets-2', 'Denver Nuggets-w-1', 'Oakland Raiders-1', 'Oakland Raiders-w-1', 'San Francisco 49ers-1', 'San Francisco 49ers-2', 'Utah Jazz-2', 'Philadelphia 76ers-3', 'Kansas City Chiefs-1', 'Kansas City Chiefs-w-1', 'Miami Heat-1', 'Cleveland Cavaliers-w-1', 'Philadelphia 76ers-2', 'Chicago Bulls-w-1', 'Philadelphia Eagles-w-1', 'Golden State Warriors-1', 'New England Patriots-w-1', 'Chicago Bulls-w-2', 'Memphis Grizzlies-2', 'Memphis Grizzlies-1', 'Golden State Warriors-w-1', 'New England Patriots-1', 'Carolina Panthers-w-1', 'Indiana Pacers-1', 'Dallas Cowboys-w-2', 'Minnesota Vikings-1', 'Atlanta Falcons-1', 'Minnesota Vikings-w-1', 'Boston Celtics-1', 'nfl-w-1', 'nfl-2', 'Los Angeles Clippers-1', 'Miami Dolphins-1', 'Washington Wizards-1', 'Indiana Pacers-w-1', 'Baltimore Ravens-1', 'Sacramento Kings-2', 'Los Angeles lakers-2', 'New York Jets-w-1', 'Cleveland Cavaliers-1', 'Atlanta Hawks-w-1', 'Detroit Pistons-w-1', 'A COLD WALL-w-2', 'Orlando Magic-w-2', 'New Orleans Saints-1', 'Oklahoma City Thunder-w-1', 'Denver Broncos-1', 'Cleveland Cavaliers-3', 'Arizona Cardinals-1', 'Arizona Cardinals-w-1', 'Sacramento Kings-4', 'Minnesota Timberwolves-1', 'New York Giants-w-1', 'Los Angeles Clippers-w-1', 'Minnesota Timberwolves-2', 'blu-1', 'Philadelphia Eagles-w-2', 'Atlanta Hawks-2', 'Toronto Raptors-1', 'Chicago Bulls-w-3', 'Detroit Pistons-1', 'Orlando Magic-1', 'Cleveland Cavaliers-w-2', 'Miami Heat-2', 'Toronto Raptors-w-2', 'Denver Nuggets-4', 'Denver Nuggets-5', 'Los Angeles Rams-2', 'Los Angeles Rams-1', 'Seattle Seahawks-w-1', 'Phoenix Suns-1', 'Dallas Cowboys-w-3', 'Tampa Bay Buccaneers-1', 'Seattle Seahawks-1', 'Phoenix Suns-w-1', 'Houston Rockets-2', 'FIFA-1', 'Detroit Lions-w-1', 'Charlotte Hornets-2', 'Charlotte Hornets-w-1', 'Dallas Mavericks-2', 'Buffalo Bills-w-2', 'Cleveland Cavaliers-2', 'Atlanta Falcons-w-1', 'Charlotte Hornets-w-2', 'Alcon-w-2', 'Charlotte Hornets-1', 'Cincinnati Bengals-2', 'Cincinnati Bengals-w-1', 'Cincinnati Bengals-1', 'Breguet-2', 'Red Bull-1', 'USA Basketball-1', 'nike-w-2', 'Fred Perry-2', 'Overwatch-2', 'Fred Perry-1', 'tiffany co-1', 'Marlboro-1', 'Ugg-1', 'World of Warcraft-1', 'World of Warcraft-4', 'World of Warcraft-3', 'Disney-2', 'Liverpool FC-2', 'Pantene-2', 'Pantene-1', 'Gibson-1', 'kobe-2', 'Pampers-1', 'Honda-1', 'Breguet-1', 'Red Bull-2', 'Oakley-1', 'Benefit-1', 'Honda-2', 'Benefit-3', 'Butterfly-2', 'Gillette-w-1', 'Gillette-w-2', 'Butterfly-1', 'breitling-1', 'breitling-2', 'Liverpool FC-1', 'Lancome-1', 'Liverpool FC-w-1', 'Daniel wellington-2', 'Daniel wellington-1', 'Longines-1', "Blue's Clues-1", 'Jack wolfskin-1', 'Spyderco-1', 'Spyderco-2', 'Sisley-1', 'game boy-1', 'Starcraft-w-1', "Levi's-w-1", 'Manchester United-1', 'Sisley-2', 'Specialized-w-1', 'Specialized-1', 'Manchester City-1', 'Giuseppe Zanotti-1', 'YETI-1', 'CAZAL-1', 'Tide-1', 'Lancome-2', 'roor-1', 'Columbia-1', 'Columbia-2', 'The Rolling Stones-1', 'The Rolling Stones-w-1', 'Zelda-w-1', 'switch-2', 'switch-1', 'Beats by Dr.Dre-1', 'Overwatch-1', 'Bottega Veneta-1', 'YETI-2', 'Superdry-w-3', 'Superdry-w-2', 'Arsenal-1', 'JBL-1', 'Maui Jim-1', "Levi's-1", 'Nickelodeon-1', 'Shimmer And Shine-1', 'HearthStone-3', 'HearthStone-1', 'Asics-2', 'Lego-1', 'Celine-2', 'SK II-1', 'Ulysse Nardin-w-1', 'Oral B-1', 'Duracell-w-2', 'Heroes of the Storm-1', 'Honda-3', 'Heroes of the Storm-3', 'R4-1', 'LINDBERG-1', 'Tottenham Hotspur-2', 'Chelsea-1', 'Chelsea-2', 'Bose-1', 'Elizabeth Arden-1', 'Beats by Dr.Dre-w-2', 'Beats by Dr.Dre-w-1', 'breitling-3', 'Zelda-3', 'Duracell-w-1', 'Diablo-1', 'Overwatch-w-1', 'L Oreal-1', 'Ferrari-2', 'Ferrari-1', 'Tottenham Hotspur-1', 'puma-2', 'Amiibo-1', 'JUUL-1', 'Honda-5', 'Herbal Essences-w-3', 'Herbal Essences-1', 'Herbal Essences-w-1', 'World of Warcraft-w-1', 'Martin Co-1', 'Wallykazam-1', 'DESTINY-w-1', 'DESTINY-1', 'Asics-1', 'Headshoulders-1', 'Headshoulders-w-1', 'Headshoulders-w-2', 'Birkenstock-1', 'Kenan and Kel-1', 'Celine-1', 'alexander wang-w-1', 'Cummins-1', 'Asics-3', 'Honda-4', 'The Fairly Oddparents-1', 'Zelda-2', 'Amiibo-2', 'SKYLANDERS-1', 'Starcraft-2', 'goyard-1', 'Superdry-w-1', 'Apple-1', 'Benefit-2', 'fullips-2', 'kobe-1', 'Starcraft-1', 'Chi-1', 'fullips-1', 'Blizzard-1', 'World of Warcraft-2', 'Ferrari-3', 'Rimowa-1', 'The Killers-1', 'goyard-2', 'USA Basketball-2', 'The Loud House-1', 'Starcraft-3', 'iRobot-1', 'Herbal Essences-2', 'Manchester City-2', 'Sisley-3', 'puma-1', 'Disney-1', 'HearthStone-2', 'Apple-w-3', 'hydro flask-1', 'hydro flask-w-1', 'Gibson-2', '7up-2', '7up-1', 'Efest-2', 'Efest-1', 'Tissot-w-1', 'Stussy-2', 'Stussy-1', 'Blackberry Smoke-1', 'Tods-1', 'Tods-2', 'SWAROVSKI-w-1', 'SWAROVSKI-2', 'Skullcandy-1', 'Skullcandy-2', 'Jimmy Choo-1', 'Taylormade-2', 'Taylormade-1', 'Jurlique-1', 'Maybelline-1', 'Vans-1', 'Vans-2', 'Baby Shark-w-2', 'Scotty Cameron-2', 'Scotty Cameron-3', 'Scotty Cameron-1', 'Scotty Cameron-4', 'Shimano-1', 'manolo blahnik-1', 'vivienne westwood-1', 'vivienne westwood-2', 'Monchhichi-1', 'Sennheiser-2', 'Baby Shark-w-1', 'Vans-3', 'Shimano-2', 'Maybelline-2', 'Jimmy Choo-2', 'Bright Bugz-2', 'Sennheiser-w-1', 'Alberta Ferretti-w-1', 'Bright Bugz-1', 'footjoy-2', 'footjoy-w-1', 'BENQ-w-1', 'AWT-1', 'BVB-1', 'AFC Ajax-2', 'AFC Ajax-w-1', 'Asos-w-1', 'Patek Philippe-1', 'Big Green Egg-w-2', 'Big Green Egg-w-1', 'CAMELBAK-w-1', 'Azzaro-w-1', 'Patek Philippe-2', 'AKG by Harmon-2', 'AKG by Harmon-w-1', 'Bestway-w-1', 'Allsaints-w-1', 'Bakugan-1', 'Beretta-2', 'Beretta-w-1', 'Cadillac-2', 'Led Zeppelin-w-2', 'Alpinestars-w-1', 'Alpinestars-2', 'Carhartt-w-1', 'Bentley-w-1', 'Bentley-2', 'Carhartt-2', 'Callaway-w-1', 'Callaway-2', 'Bushnell-w-1', 'Berluti-w-1', 'Cadillac-w-1', 'Led Zeppelin-1', 'Azzaro-2', 'c1rca-w-2', 'Cards Against Humanity-w-1', 'Avengers-w-1', 'Burts Bees-w-1', 'Canon-1', 'captain america-w-2', 'AS Roma-1', 'Benetton-w-1', 'Benetton-2', 'Atletico de Madrid-1', 'Led Zeppelin-w-3', 'Alfar Romeo-1', 'c1rca-1', 'captain america-w-3', 'Aspinal of London-w-2', 'captain america-w-1', 'Betty Boop-w-2', 'Aspinal of London-w-1', 'Betty Boop-w-1', 'Audioquest-w-1', 'Bunchems-1', 'Betty Boop-w-3', 'Alpinestars-w-3', 'AS Roma-w-2', 'Hennessy-w-1', 'Porsche-2', 'puma-w-1', 'Bang Olufsen-2', 'Bang Olufsen-w-1', 'St Dupont-w-2', 'Merrell-w-1', 'ZigZag-1', 'Nixon-2', 'Urban Decay-3', 'Urban Decay-w-1', 'Urban Decay-w-2', 'captain america-3', 'Phiten-2', 'Texas Rangers-3', 'Texas Rangers-2', 'Texas Rangers-1', 'San Diego Padres-w-1', 'San Diego Padres-2', 'San Francisco Giants-w-1', 'San Francisco Giants-2', 'San Francisco Giants-3', 'San Francisco Giants-w-4', 'Toronto Blue Jays-1', 'Chicago White Sox-1', 'Chicago White Sox-3', 'Chicago White Sox-2', 'Cincinnati Reds-2', 'Cincinnati Reds-1', 'Detroit Tigers-1', 'Boston Red Sox-2', 'Boston Red Sox-4', 'Boston Red Sox-1', 'Boston Red Sox-3', 'Atlanta Bravs-1', 'Atlanta Bravs-3', 'Atlanta Bravs-4', 'Atlanta Bravs-2', 'Baltimore Orioles-4', 'Baltimore Orioles-5', 'Baltimore Orioles-2', 'Baltimore Orioles-3', 'Pinko-1', 'Florida Marlins-2', 'Florida Marlins-6', 'Florida Marlins-4', 'Florida Marlins-3', 'Florida Marlins-1', 'Florida Marlins-5', 'western digital-w-1', 'western digital-2', 'Hennessy-2', 'Mercedes Benz-2', 'Mercedes Benz-w-1', 'Merrell-2', 'Zippo-w-1', 'Zippo-2', 'Sephora-w-2', 'Sephora-1', 'Shu Uemura-w-1', 'Schwarzkopf-w-2', 'Skin79-2', 'Philadelphia Flyers-1', 'St. Louis Blues-1', 'Jim Beam-w-1', 'Vegas Golden Knights-1', 'Washington Capitals-2', 'Vancouver Canucks-2', 'Vancouver Canucks-w-3', 'Vancouver Canucks-1', 'Hurley-2', 'Hurley-w-1', 'Winnipeg Jets-1', 'Winnipeg Jets-2', 'Washington Capitals-1', 'Maserati-2', 'Maserati-3', 'Hurley-6', 'Magpul-2', 'RADO-2', 'Roger Dubuis-2', 'Roger Dubuis-w-1', 'Romain Jerome-1', 'Kappa-2', 'Baby phat-w-1', 'Baby phat-2', 'Toppik-w-1', 'Land Rover-w-1', 'Land Rover-2', 'LED LENSER-2', 'Robo Alive-w-1', 'Tech Deck-w-1', 'SHOPKINS-w-1', 'Porsche-w-1', 'Columbus Blue Jackets-3', 'Columbus Blue Jackets-2', 'FC bayern munchen-1', 'HAMANN-w-2', 'HAMANN-1', 'Nasa-1']
@@ -55,8 +54,10 @@ quit_list = ["Maserati-3","Sephora-1","Chicago White Sox-3","Bang Olufsen-w-1","
              "Charlotte Hornets-1","Alcon-w-2","Charlotte Hornets-w-2","Buffalo Bills-w-2","Detroit Lions-w-1","Denver Nuggets-2",
              "Cartier-w-2","New Era-w-1","nike-6","Samantha Thavasa-2","Def Leppard-w-2"
              ]
+D11 = ["Beronautica Militare-1","Beronautica Militare-w-2","Baume et Mercier-w-1","Baume et Mercier-2","Beachbody-w-1","Beachbody-2",
+       "France-1","France-2","Golds Gym-w-1","Golds Gym-2","Golds Gym-3","Nintendo-w-1","Nintendo-2","Spibelt-1","Spibelt-2","Snow White-1"]
 #brand_names = brand_names_fx+brand_names_wew
-CLASS_list_ = CLASS_list_fx+CLASS_list_wew
+CLASS_list_ = CLASS_list_fx+CLASS_list_wew+D11
 CLASS_list = []
 for c in CLASS_list_:
     if c not in quit_list:
@@ -749,32 +750,32 @@ else:
         print("-" * 20 + "merge data start" + "-" * 20)
         merge_data(be_merged_dir, src_dir)
         print("-" * 20 + "merge data end" + "-" * 20)
-
-    print("-"*20+"wrong xml search start"+"-"*20)
-    #wrong_xml_mv(src_dir)
-    print("-"*20+"wrong xml search end"+"-"*20)
-
-    print("-"*20+"not pair search start"+"-"*20)
-    #not_pair_mv(src_dir)
-    print("-"*20+"not pair search end"+"-"*20)
-
-    print("-"*20+"empty search start"+"-"*20)
-    #empty_mv(src_dir)
-    print("-"*20+"empty search end"+"-"*20)
-
-    print("-"*20+"label & brand search start"+"-"*20)
-    if CLASS_list:
-        classes_list = CLASS_list
-        print("use defined:",classes_list)
-        print(len(classes_list))
-    else:
-        classes_list, _ = get_brands_and_labels(src_dir)
-    print("-"*20+"label & brand search end"+"-"*20)
-
-
-    print("-"*20+"split data and rename start"+"-"*20)
-    split_data_and_rename(src_dir)
-    print("-" * 20 + "split data and rename start" + "-" * 20)
+    #
+    # print("-"*20+"wrong xml search start"+"-"*20)
+    # wrong_xml_mv(src_dir)
+    # print("-"*20+"wrong xml search end"+"-"*20)
+    #
+    # print("-"*20+"not pair search start"+"-"*20)
+    # #not_pair_mv(src_dir)
+    # print("-"*20+"not pair search end"+"-"*20)
+    #
+    # print("-"*20+"empty search start"+"-"*20)
+    # empty_mv(src_dir)
+    # print("-"*20+"empty search end"+"-"*20)
+    #
+    # print("-"*20+"label & brand search start"+"-"*20)
+    # if CLASS_list:
+    #     classes_list = CLASS_list
+    #     print("use defined:",classes_list)
+    #     print(len(classes_list))
+    # else:
+    #     classes_list, _ = get_brands_and_labels(src_dir)
+    # print("-"*20+"label & brand search end"+"-"*20)
+    #
+    #
+    # print("-"*20+"split data and rename start"+"-"*20)
+    # split_data_and_rename(src_dir)
+    # print("-" * 20 + "split data and rename start" + "-" * 20)
 
     if white_sample_dir_list:
         for white_sample_dir, num in white_sample_dir_list.items():

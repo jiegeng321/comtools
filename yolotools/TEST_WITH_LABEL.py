@@ -56,22 +56,28 @@ ali2l_dict = {"moschino":"franco_moschino","van_cleef_&_arpels":"van_cleef_arpel
 model_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324"
 diff_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/test_diff"
 
-# model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/online_total_0307.json"
-# label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/label.json"
+#logo white test
+model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/white_test_0401.json"
+label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/white_label.json"
+#pattern white test
+# model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401.json"
+# label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_label.json"
+#pattern test
+# model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd.json"
+# label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
+#logo test
+# model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0324_2nd.json"
+# label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/label.json"
+# score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.55,
+#                 'versace_h':0.7, 'christian dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'Issey miyake_h':0.6, 'celine_h':0.6,
+#             "reebok_h":0.7,"mcm_h":0.75}
 
-model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd.json"
-label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
+score_th = {"":0.1}#{"Hello Kitty":0.4,"Casio":0.4,"Playboy":0.4,"New York Yankees":0.4,"Converse":0.4,"miu miu":0.4,"Valentino Garavani":0.4,"MCM":0.4,"Philipp Plein":0.4,"VACHERON CONSTANTIN":0.4,"Audi":0.4,"Bally":0.4,"Comme Des Garcons":0.45,"Lamborghini":0.4}
 
-score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.55,
-                'versace_h':0.7, 'christian dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'Issey miyake_h':0.6, 'celine_h':0.6,
-            "reebok_h":0.7,"mcm_h":0.75}
-
-#score_th = {"Hello Kitty":0.4,"Casio":0.4,"Playboy":0.4,"New York Yankees":0.4,"Converse":0.4,"miu miu":0.4,"Valentino Garavani":0.4,"MCM":0.4,"Philipp Plein":0.4,"VACHERON CONSTANTIN":0.4,"Audi":0.4,"Bally":0.4,"Comme Des Garcons":0.45,"Lamborghini":0.4}
-
-score_th_other = 0.4
+score_th_other = 0
 
 save_result_csv = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_with_label_result.csv"
-support_th = 1
+support_th = 50
 show_pic = False
 show_detail = True
 if diff_dir and model_dir:
@@ -79,22 +85,34 @@ if diff_dir and model_dir:
 with open(model_json, 'r') as f:
     model_result = json.load(f)
 #print(model_result)
+#tmp = []
 model_result_th = {}
 if score_th:
     for k,pre_list in model_result.items():
         pre_list_th = []
         for pre in pre_list:
             for brand,score in pre.items():
+                #tmp.append(score)
                 if brand in score_th:
                     if score >= score_th[brand]:
+                        if brand in baidu2l_dict:
+                            brand = baidu2l_dict[brand]
+                        if brand in ali2l_dict:
+                            brand = ali2l_dict[brand]
                         pre_list_th.append(brand)
                 else:
                     if score >= score_th_other:
+                        if brand in baidu2l_dict:
+                            brand = baidu2l_dict[brand]
+                        if brand in ali2l_dict:
+                            brand = ali2l_dict[brand]
                         pre_list_th.append(brand)
         if pre_list_th==[]:
             pre_list_th.append("empty")
         model_result_th[k]=list(set(pre_list_th))
-print(model_result_th)
+#print(len(model_result_th))
+#print(min(tmp),max(tmp))
+#model_result_th = model_result
 # if model_json2:
 #     with open(model_json2, 'r') as f:
 #         model_result2 = json.load(f)
@@ -117,7 +135,7 @@ print(model_result_th)
     
 with open(label_json, 'r') as f:
     label_result = json.load(f)
-#print(model_result_th)
+#print(len(label_result))
 model_list = []
 label_list = []
 total_num = 0
@@ -132,41 +150,7 @@ for key,value in label_result.items():
     #     print(key)
     if key in model_result_th:
         total_num += 1
-        # if model_result_th[key] == "mcm_h":
-        #     print(key)
-        # baidu_brand_list = []
-        # for baidu_brand in model_result_th[key]:
-        #     if baidu_brand in baidu2l_dict:
-        #         baidu_brand_list.append(baidu2l_dict[baidu_brand])
-        #     else:
-        #         baidu_brand_list.append(baidu_brand)
-        # model_result_th[key] = baidu_brand_list
 
-        #print(model_result_th[key])
-        # if "michaelkors" in model_result_th[key]:
-        #     model_result_th[key].remove("michaelkors")
-        #     model_result_th[key].append("michael_kors")
-        # if "lv" in model_result_th[key]:
-        #     model_result_th[key].remove("lv")
-        #     model_result_th[key].append("louis_vuitton")
-        # if "off" in model_result_th[key]:
-        #     model_result_th[key].remove("off")
-        #     model_result_th[key].append("off_white")
-        # if "lâ€oreal" in model_result_th[key]:
-        #     model_result_th[key].remove("lâ€oreal")
-        #     model_result_th[key].append("l_oreal")
-        # if "sk" in model_result_th[key]:
-        #     model_result_th[key].remove("sk")
-        #     model_result_th[key].append("sk_ii")
-        # if "oral" in model_result_th[key]:
-        #     model_result_th[key].remove("oral")
-        #     model_result_th[key].append("oral_b")
-        # if "jaeger" in model_result_th[key]:
-        #     model_result_th[key].remove("jaeger")
-        #     model_result_th[key].append("jaeger_lecoultre")
-        # if "bluçµå­ç" in model_result_th[key]:
-        #     model_result_th[key].remove("bluçµå­ç")
-        #     model_result_th[key].append("blu")
         if value=="empty" and len(model_result_th[key])>=2 and "empty" in model_result_th[key]:
             label_list.append(value)
             model_result_th[key].remove("empty")
@@ -213,13 +197,13 @@ class_result = classification_report(label_list, model_list,zero_division=False,
 
 new_class_result = {}
 for key,ite in class_result.items():
-    if key=="accuracy" or key=="weighted avg" or key == "macro avg" or key == "empty":
+    if key=="accuracy" or key=="weighted avg" or key == "macro avg":# or key == "empty":
         continue
     if ite["support"]==0:
         continue
-    ite["precision"] = round(ite["precision"],2)
-    ite["recall"] = round(ite["recall"], 2)
-    ite["f1-score"] = round(ite["f1-score"], 2)
+    ite["precision"] = round(ite["precision"],4)
+    ite["recall"] = round(ite["recall"], 4)
+    ite["f1-score"] = round(ite["f1-score"], 4)
     new_class_result[key] = [ite["support"],ite["recall"],ite["precision"],ite["f1-score"]]
 pd_data = pd.DataFrame(new_class_result,index=["support","recall","precision","f1-score"])
     #print(key,item["support"])
@@ -243,8 +227,10 @@ if save_result_csv:
 # print(len(pd_data[pd_data["support"]>=100].index.tolist()))
 print("total test brand have:",len(pd_data[pd_data["support"]>=support_th]))
 print("total test num:",pd_data["support"].sum())
+# print("recall mean: ", pd_data[(pd_data["support"]>=support_th) & (pd_data["f1-score"]!=0.0)]["recall"].mean())
+# print("recall mean: ", pd_data[(pd_data["support"]>=support_th) & (pd_data["f1-score"]!=0.0)]["precision"].mean())
 print("recall mean: ", pd_data[pd_data["support"]>=support_th]["recall"].mean())
-print("precision mean: ", pd_data[pd_data["support"]>=support_th]["precision"].mean())
+print("recall mean: ", pd_data[pd_data["support"]>=support_th]["precision"].mean())
 if show_pic:
     pd_data_plt = pd_data["support"].iloc[:20]
     pd_data_plt.plot.bar()
@@ -259,8 +245,8 @@ for i in fordeal_important:
     if i not in pd_data.index.tolist():
         continue
     fordeal_important_.append(i)
-fordeal_important_ = ["gucci_h","lv_h","adidas_h","michaelkors_h","coach_h","christian_dior_h","fendi_h","celine_h","burberry_h",
-                      "goyard_h","versace_h","issey_miyake_h","mcm_h"]
+# fordeal_important_ = ["gucci_h","lv_h","adidas_h","michaelkors_h","coach_h","christian_dior_h","fendi_h","celine_h","burberry_h",
+#                       "goyard_h","versace_h","issey_miyake_h","mcm_h"]
 fordeal_care = pd_data.loc[fordeal_important_,:]
 print("fordeal care brand:",len(fordeal_care[fordeal_care["support"]>support_th]))
 print("fordeal care test num:",fordeal_care["support"].sum())

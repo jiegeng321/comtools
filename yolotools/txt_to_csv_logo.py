@@ -17,7 +17,6 @@ save_result_csv_dir = "./"
 name = "txt_to.csv"
 num = None
 
-
 lines = []
 for txt_path in txt_paths:
     with open(txt_path, "r") as f:

@@ -77,8 +77,8 @@ def DetectBaiDu(img_path):
     return img, res_json, alltims
 
 if __name__ == "__main__":
-    imagedir = "/data01/xu.fx/dataset/LOGO_DATASET/logo_per20_test/per20_raw_data"
-    save_json = "/data01/xu.fx/dataset/LOGO_DATASET/logo_per20_test/baidu_logo_test_per20.json"
+    imagedir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/brand_labeled_online"
+    save_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/fordeal_test_online_total_baidu2.json"
     #image_path = "/gpudata/erwei.wang/data_interface/50个品牌测试百度品牌识别能力的样本/balmain/4cbee315b72352c77680f950b695d8b1.jpg"
     from timeit import default_timer as timer
     from pathlib import Path
@@ -111,19 +111,21 @@ if __name__ == "__main__":
             img, res, ti = DetectBaiDu(file)
             result = []
             if res["result"] != []:
+                #print(res)
                 for re in res["result"]:
                     brand = re["name"]
+                    score = re["probability"]
                     if brand in l2l_dict:
                         brand = l2l_dict[brand]
-                    result.append(brand)
+                    result.append({brand:score})
             else:
-                result.append("empty")
+                result.append({"empty":1.0})
             #print(index,result)
             total_result+=result
         except Exception as e:
             print(e)
             continue
-        print(index, result)
+        print(index, file.name, result)
         baidu_result[file.name] = result
         if index%100==0:
             with open(save_json, 'w') as f:
@@ -131,7 +133,7 @@ if __name__ == "__main__":
     with open(save_json, 'w') as f:
         json.dump(baidu_result, f)
     print(total_result)
-    print(list(set(total_result)))
+    #print(list(set(total_result)))
     with open(save_json, 'r') as f:
         model_result = json.load(f)
     print(len(model_result))

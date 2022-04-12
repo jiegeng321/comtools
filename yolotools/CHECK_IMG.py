@@ -15,7 +15,7 @@ import numpy as np
 from pathlib import Path
 warnings.filterwarnings("error", category=UserWarning)
 
-src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/white_data/logo_white_data_from_fordeal_high_quality_4th")
+src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/comb_data/D11/checked/")
 min_size = 10
 hashs = "totalhash"#ahash,dhash,phash,totalhash
 hash_th = 1
@@ -258,9 +258,14 @@ def same_img_mv(files):
 if __name__ == "__main__":
     files = sorted([p for p in src_dir.rglob("*.*") if is_img(p)])
     print(len(files))
-    for i in range(split):
-        block = int(len(files)/split)
-        files_ = files[i*block:(1+i)*block]
-        bad_img_mv(files_)
-        same_img_mv(files_)
+    random.shuffle(files)
+    if split:
+        for i in range(split):
+            block = int(len(files)/split)
+            files_ = files[i*block:(1+i)*block]
+            bad_img_mv(files_)
+            same_img_mv(files_)
+    else:
+        bad_img_mv(files)
+        same_img_mv(files)
 

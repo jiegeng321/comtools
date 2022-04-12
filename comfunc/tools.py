@@ -13,3 +13,4 @@ def check_dir(path,delete=False):
         if delete:
             shutil.rmtree(path)
             os.makedirs(path)
+    return path
