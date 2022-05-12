@@ -46,97 +46,20 @@ def analyze_data(lines):
         except:
             print("bad line:",line)
             continue
-        if "finalCheckResult" not in dict_brand:
-            print("no human result:", dict_brand["commodityId"] if "commodityId" in dict_brand else "")
-            continue
-        if "autoCheckResult" not in dict_brand:
-            print("no auto result:", dict_brand["commodityId"] if "commodityId" in dict_brand else "")
-            continue
-        #list_per_pic = dict_brand["imageCommodityData"]#[{"autoCheckResult":"Reject","autoCheckTime":1647909768050,"commodityUrlId":"1647896413239346216","crawlTaskId":"0","finalCheckResult":"Reject","finalTagHit":"[图像]侵权/品牌/prada","gmtCreate":1647896413285,"id":"1647896413285813284","imageId":"p-comp/1647909313939000Y8C9D56080030001","imageSize":"69608","isScreenshot":0,"lastChecker":"胡国玉","ruleHit":"图像识别品牌【侵权/品牌/prada】","seqId":"1647909767954000Y8C8F10810030001","status":3,"tagHit":"[图像]侵权/品牌/prada","taskId":"212182","taskUrlId":"0","textData":"https://s3.forcloudcdn.com/item/images/dmc/97b06a00-3cba-4620-bfb8-c91c85ef4f7f-750x750.jpeg","type":1},{},{},...]
-        if "finalTagHit" in dict_brand:
-            if dict_brand["autoCheckResult"] == "Accept" and dict_brand["finalCheckResult"] == "Accept":
+        if "finalCheckResult" in dict_brand and "textAutoCheckResult" in dict_brand:
+            if dict_brand["textAutoCheckResult"] == "Reject" and dict_brand["finalCheckResult"] == "Accept":
+                auto.append("reject")
+                human.append("accept")
+            elif dict_brand["textAutoCheckResult"] == "Accept" and dict_brand["finalCheckResult"] == "Accept":
                 auto.append("accept")
                 human.append("accept")
-                continue
-            if pattern in dict_brand["finalTagHit"] or dict_brand["finalTagHit"] == "":#human get result will make sence
-                list_per_pic = dict_brand["imageCommodityData"]
-                auto_ = []
-                for per_pic in list_per_pic:
-                    if check_brand:
-                        human__ = []
-                        if "finalTagHit" in per_pic and pattern in per_pic["finalTagHit"]:
-                            for per_brand in per_pic["finalTagHit"].split(","):
-                                if pattern in per_brand:
-                                    brand = per_brand.split("/")[-1]  # nike
-                                    human__.append(brand)
-                    if "ruleHit" in per_pic and auto_pattern in per_pic["ruleHit"]:
-                        for per_obj in per_pic["ruleHit"].split(","):  # 图像识别品牌【侵权/品牌/prada】
-                            if auto_pattern in per_obj:
-                                brand = per_obj.split("/")[-1].split("】")[0]
-                                auto_.append(brand)  # prada
-                                if check_brand and brand in check_brand and brand not in human__ and ((brand in img_get_num and img_get_num[brand]<check_brand[brand]) or brand not in img_get_num):
-                                    url = per_pic["textData"]
-                                    if save_img_from_url(url,os.path.join(check_brand_img_save_dir,"auto_reject_human_accept",brand)):
-                                        if brand not in img_get_num:
-                                            img_get_num[brand] = 1
-                                        else:
-                                            img_get_num[brand] += 1
+            elif dict_brand["textAutoCheckResult"] == "Reject" and dict_brand["finalCheckResult"] == "Reject":
+                auto.append("reject")
+                human.append("reject")
+            elif dict_brand["textAutoCheckResult"] == "Accept" and dict_brand["finalCheckResult"] == "Reject":
+                auto.append("accept")
+                human.append("reject")
 
-                    if check_brand:
-                        if "finalTagHit" in per_pic and pattern in per_pic["finalTagHit"]:
-                            for per_brand in per_pic["finalTagHit"].split(","):
-                                if pattern in per_brand:
-                                    brand = per_brand.split("/")[-1]  # nike
-                                    if brand in check_brand and brand not in auto_ and ((brand in img_get_num and img_get_num[brand] < check_brand[
-                                        brand]) or brand not in img_get_num):
-                                        url = per_pic["textData"]
-                                        if save_img_from_url(url, os.path.join(check_brand_img_save_dir, "human_reject_auto_accept", brand)):
-                                            if brand not in img_get_num:
-                                                img_get_num[brand] = 1
-                                            else:
-                                                img_get_num[brand] += 1
-
-
-                if dict_brand["finalTagHit"] == "":
-                    if auto_ == [] or len(auto_) <= IGNORE_NUM:
-                        auto.append("accept")
-                        human.append("accept")
-                    else:
-
-                        auto_final = max(auto_, key=auto_.count)
-                        auto.append(auto_final)
-                        human.append("accept")
-                else:
-                    human_ = []
-                    match = 0
-                    for per_brand in dict_brand["finalTagHit"].split(","):#"finalTagHit":"[图像]侵权/品牌/nike,[文本]侵权/品牌/nike"
-                        if pattern in per_brand:
-                            human_final = per_brand.split("/")[-1]#nike
-                            human_.append(human_final)
-                            if human_final in auto_:
-                                auto.append(human_final)
-                                human.append(human_final)
-                                match = 1
-                                break
-                    # if "van_cleef_arpels" in human_:
-                    #     print(auto_)
-                    #     print(human_)
-                    if auto_ == []:
-                        # if "textAutoCheckResult" in dict_brand and dict_brand["textAutoCheckResult"] == "Reject":
-                        #     auto.append(max(human_, key=human_.count))
-                        #     human.append(max(human_, key=human_.count))
-                        #     print(dict_brand["commodityId"])
-                        #     #print("\n")
-                        # else:
-                        auto.append("accept")
-                        human.append(max(human_, key=human_.count))
-                    elif match == 0:
-                        auto.append(max(auto_, key=auto_.count))
-                        human.append(max(human_, key=human_.count))
-
-        else:
-            print("no finalTagHit:",dict_brand["commodityUrlId"] if "commodityUrlId" in dict_brand else "")
-            pass
 
 
 if __name__=="__main__":
@@ -150,8 +73,8 @@ if __name__=="__main__":
     parser.add_argument("-ap", type=str, default="图像识别品牌", help="the auto result pattern.")
     parser.add_argument("-i", type=str, default="fordeal重点品牌分析详情1028.xlsx", help="the fordeal important brand xlsx file.")
     args = parser.parse_args()
-    IGNORE_NUM = 1
-    args.f = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0401-0409.txt"
+    #IGNORE_NUM = 0
+    args.f = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0415.txt"
     #线上数据的txt文件
     txt_dir = args.f#"/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0310-0319.txt"
     #具体品牌表格输出目录
@@ -307,7 +230,7 @@ if __name__=="__main__":
     show_detail(auto,human)
     print("\n")
     print("模型支持品牌指标结果（指标影响因素：人审主体判断/样式未支持/人审有误）")
-    show_detail(auto_model_support,human_model_support)
+    #show_detail(auto_model_support,human_model_support)
     print("\n")
     print("所有品牌召回查准指标已保存至:",os.path.join(save_result_csv_dir,"total_brand_result.csv"))
     print("模型支持品牌召回查准指标已保存至:",os.path.join(save_result_csv_dir,"model_supported_brand_result.csv"))

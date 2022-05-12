@@ -34,13 +34,13 @@ score_th = None#0.5
 # out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401"
 # save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401.json"
 #logo test
-image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled"
-out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0408"
-save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0408.json"
+# image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled/"
+# out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0420"
+# save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0420.json"
 #pattern test
-# image_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_labeled"
-# out_pred_img_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd"
-# save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd.json"
+image_dir = "/data02/xu.fx/dataset/PATTERN_DATASET/comb_data/clsdataset_pattern_v3/val/lv_h/"
+out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/tmp3"
+save_label_json = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/tmp2.json"
 
 ai_brand_logo_url = "http://10.57.31.15:5032/v2/logo_brand_rec"
 #ai_brand_logo_tm_url = "http://10.58.14.38:55902/v2/logo_brand_rec"
@@ -51,7 +51,7 @@ ai_brand_logo_tm_url_p40 = "http://10.57.31.15:1003/v2/logo_brand_rec"
 ai_brand_pattern_url_p40 = "http://10.57.31.15:1003/v2/pattern_brand_rec"
 brand_pattern_url = "http://10.57.31.15:1004/v2/logo_brand_rec"
 #url_dict = {"pattern":brand_pattern_url}
-url_dict = {"logo-tm":ai_brand_logo_tm_url_t4}
+url_dict = {"logo-tm":ai_brand_pattern_url_p40}
 if out_pred_img_dir:
     if not os.path.exists(out_pred_img_dir):
         os.makedirs(out_pred_img_dir)
@@ -105,7 +105,7 @@ def det_server_func(image_list,save_json_dict):
                         logo_list.append(brand_name)
                     else:
                         for logo_instance in pred:
-                            logo = logo_instance['logo_name'].split("-")[0]
+                            logo = logo_instance['logo_name']#.split("-")[0]
                             score = logo_instance['score']
                             if score_th:
                                 if score < score_th:
@@ -119,18 +119,19 @@ def det_server_func(image_list,save_json_dict):
                             # if logo == "new_york_yankees":
                             #     logo = "mlb"
                             #print(logo)
+                            #logo = logo.replace("'","")
                             logo_list_human.append({logo:score})
                             box = logo_instance['box']
                             score = logo_instance['score']
                             x1,y1,x2,y2 = box['x1'],box['y1'],box['x2'],box['y2']
-                            try:
-                                cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
-                                cv2.putText(img, logo, (x1, y1-3), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA)
-                                cv2.putText(img, str(round(score, 3)), (x1, y1 - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1,
-                                            cv2.LINE_AA)
-                            except Exception as e:
-                                print(e)
-                                continue
+                            # try:
+                            #     cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
+                            #     cv2.putText(img, logo, (x1, y1-3), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA)
+                            #     cv2.putText(img, str(round(score, 3)), (x1, y1 - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1,
+                            #                 cv2.LINE_AA)
+                            # except Exception as e:
+                            #     print(e)
+                            #     continue
                 else:
                     print("error", result, file_name)
                     continue
@@ -145,7 +146,7 @@ def det_server_func(image_list,save_json_dict):
             save_json_dict[file_name] = logo_list_human
             logo_list.sort()
             brand_max_prd = max(logo_list, key=logo_list.count)
-            brand_name = brand_max_prd.split("-")[0]
+            brand_name = brand_max_prd#.split("-")[0]
             if out_pred_img_dir:
                 if brand_name=="empty" and not save_empty:
                     continue

@@ -9,11 +9,16 @@ from tqdm import tqdm
 # save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/white_label.json"
 
 #pattern white test
-raw_test_data = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_labeled"
-save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_label.json"
+# raw_test_data = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_labeled"
+# save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_label.json"
 
+#pattern test
 # raw_test_data = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_labeled/"
 # save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
+
+#logo test
+raw_test_data = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled/"
+save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/label.json"
 
 test_files_list = os.listdir(raw_test_data)
 label = {}

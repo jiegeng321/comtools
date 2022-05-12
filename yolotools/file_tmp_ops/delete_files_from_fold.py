@@ -20,9 +20,9 @@ from comfunc.check import check_dir
 
 #voc格式目录,xml与图片在同一目录
 #yolo_dir = Path("/data01/xu.fx/dataset/PATTERN_DATASET/comb_data/checked/")
-be_deleted_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/tmp"
-src_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/brand_labeled/van_cleef_arpels"
-move_to_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_total_2nd/adidas"
+be_deleted_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled/aeronautica_militare/"
+src_dir = "/data01/xu.fx/dataset/LOGO_DATASET/comb_data/checked"
+move_to_dir = "/data01/xu.fx/dataset/LOGO_DATASET/comb_data/tmp"
 src_list = os.listdir(src_dir)
 for dst in tqdm(src_list):
     for de in os.listdir(be_deleted_dir):
@@ -32,6 +32,7 @@ for dst in tqdm(src_list):
         if dst.split("_")[-1] == de.split("_")[-1]:
             if move_to_dir:
                 shutil.copy(os.path.join(src_dir,dst),os.path.join(move_to_dir,dst))
+                print("move to",move_to_dir)
             else:
                 os.remove(os.path.join(src_dir,dst))
 

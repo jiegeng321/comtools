@@ -14,28 +14,7 @@ import cv2
 import numpy as np
 from pathlib import Path
 warnings.filterwarnings("error", category=UserWarning)
-
-src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/comb_data/D11/checked/")
-min_size = 10
-hashs = "totalhash"#ahash,dhash,phash,totalhash
-hash_th = 1
-hash_size = (8, 8)
-WORKERS = 10
-split = 5
-
-same_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "same_md5") #src_dir + "_bad_images/same_md5"
-hash_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "same_hash")#src_dir + "_bad_images/same_dhash"
-gif_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "gif")#src_dir + "_bad_images/gif"
-error_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "error")#src_dir + "_bad_images/error"
-warning_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "warning")#src_dir + "_bad_images/warning"
-invalid_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "invalid")#src_dir + "_bad_images/invalid"
-small_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "small")#src_dir + "_bad_images/small"
-webp_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "webp")#src_dir + "_bad_images/webp"
-exif_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "exif")#src_dir + "_bad_images/exif"
-
-WORKERS_bad_img_mv = WORKERS
-WORKERS_md5_mv = WORKERS
-
+from skimage import io
 
 def dHash(img, hash_size):
     width, high = hash_size
@@ -132,6 +111,23 @@ def same_mv_func(files,md5_list,dhash_list,same_md5_num,same_hash_num):
                         break
                 if add_dhas:
                     dhash_list.append(dhas)
+def get_size_func(files):
+    w_list,h_list = [] ,[]
+    for file_i in tqdm(files):
+        try:
+            img = Image.open(str(file_i))
+        except:
+            continue
+        w, h = img.size[:2]
+        w_list.append(w)
+        h_list.append(h)
+    return np.mean(w_list),np.mean(h_list)
+def png_fix_func(files):
+    for img in tqdm(files):
+        if img.suffix in [".png",".PNG"]:
+            image = io.imread(img)
+            image = cv2.cvtColor(image, cv2.COLOR_RGBA2BGRA)
+            cv2.imencode('.png', image)[1].tofile(img)
 
 def bad_img_mv_func(files,num_dict):
     for file_i in tqdm(files):
@@ -256,16 +252,45 @@ def same_img_mv(files):
     print("total same_hash_num: ", same_hash_num.value)
 
 if __name__ == "__main__":
+    src_dir = Path("/data02/xu.fx/dataset/PATTERN_DATASET/comb_data/clsdataset_pattern_v2/")
+    min_size = 10
+    hashs = "totalhash"  # ahash,dhash,phash,totalhash
+    hash_th = 1
+    hash_size = (8, 8)
+    WORKERS = 10
+    split = 5
+
+    same_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images",
+                            "same_md5")  # src_dir + "_bad_images/same_md5"
+    hash_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images",
+                            "same_hash")  # src_dir + "_bad_images/same_dhash"
+    gif_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "gif")  # src_dir + "_bad_images/gif"
+    error_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "error")  # src_dir + "_bad_images/error"
+    warning_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images",
+                               "warning")  # src_dir + "_bad_images/warning"
+    invalid_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images",
+                               "invalid")  # src_dir + "_bad_images/invalid"
+    small_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "small")  # src_dir + "_bad_images/small"
+    webp_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "webp")  # src_dir + "_bad_images/webp"
+    exif_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images", "exif")  # src_dir + "_bad_images/exif"
+
+    WORKERS_bad_img_mv = WORKERS
+    WORKERS_md5_mv = WORKERS
     files = sorted([p for p in src_dir.rglob("*.*") if is_img(p)])
     print(len(files))
-    random.shuffle(files)
-    if split:
-        for i in range(split):
-            block = int(len(files)/split)
-            files_ = files[i*block:(1+i)*block]
-            bad_img_mv(files_)
-            same_img_mv(files_)
-    else:
-        bad_img_mv(files)
-        same_img_mv(files)
+    png_fix_func(files)
+    bad_img_mv(files)
+    # random.shuffle(files)
+    # w,h = get_size_func(files)
+    # print(w,h)
+
+    # if split:
+    #     for i in range(split):
+    #         block = int(len(files)/split)
+    #         files_ = files[i*block:(1+i)*block]
+    #         bad_img_mv(files_)
+    #         same_img_mv(files_)
+    # else:
+    #     bad_img_mv(files)
+    #     same_img_mv(files)
 

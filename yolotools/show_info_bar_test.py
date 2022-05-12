@@ -13,6 +13,7 @@ legend_list = ["品牌数量", "样式数量"]
 brand_num_capacity = [38,95,171,209,259,364,364,444,440]
 style_num_capacity = [80,169,289,345,443,634,634,803,704]
 
+
 bar = (
     Bar(init_opts=opts.InitOpts())
     .add_xaxis(xaxis_data=x_data)
@@ -64,8 +65,8 @@ line = (
         series_name="样式数量", y_axis=style_num_capacity,yaxis_index=2
     )
 )
-bar.overlap(line).render("./data_info/Version_of_the_iteration.html")
-
+bar.overlap(line).render("./show_tmp.html")
+# line.overlap(bar).render("./show_tmp.html")
 
 
 # brands = ["Longchamp",
