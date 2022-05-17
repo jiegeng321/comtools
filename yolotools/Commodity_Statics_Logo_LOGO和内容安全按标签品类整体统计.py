@@ -95,8 +95,8 @@ def analyze_data(lines,logo_or_other="logo"):
         #logo
         if logo_or_other in ["all","logo"]:
             if dict_brand["autoCheckResult"] == "Accept" and dict_brand["finalCheckResult"] == "Accept":
-                auto.append("accept")
-                human.append("accept")
+                auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
+                human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
 
             elif pattern in dict_brand["finalTagHit"] or dict_brand["finalTagHit"] == "":#human get result will make sence
                 list_per_pic = dict_brand["imageCommodityData"]
@@ -141,13 +141,13 @@ def analyze_data(lines,logo_or_other="logo"):
 
                 if dict_brand["finalTagHit"] == "":
                     if auto_ == [] or len(auto_) <= IGNORE_NUM:
-                        auto.append("accept")
-                        human.append("accept")
+                        auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
+                        human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                     else:
 
                         auto_final = max(auto_, key=auto_.count)
                         auto.append(auto_final+"-"+dict_brand["category"].split(";")[-1])
-                        human.append("accept")
+                        human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                 else:
                     human_ = []
                     match = 0
@@ -161,7 +161,7 @@ def analyze_data(lines,logo_or_other="logo"):
                                 match = 1
                                 break
                     if auto_ == []:
-                        auto.append("accept")
+                        auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                         human.append(max(human_, key=human_.count)+"-"+dict_brand["category"].split(";")[-1])
                     elif match == 0:
                         auto.append(max(auto_, key=auto_.count)+"-"+dict_brand["category"].split(";")[-1])
@@ -176,8 +176,8 @@ def analyze_data(lines,logo_or_other="logo"):
         if logo_or_other in ["all", "other"]:
             finalTagHit = dict_brand["finalTagHit"]
             if dict_brand["autoCheckResult"] == "Accept" and dict_brand["finalCheckResult"] == "Accept":
-                other_auto.append("accept")
-                other_human.append("accept")
+                other_auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
+                other_human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
             elif "禁销" in finalTagHit or "违禁" in finalTagHit or "侵权" in finalTagHit or "涉政" in finalTagHit or\
                     dict_brand["finalTagHit"] == "":#human get result will make sence
                 list_per_pic = dict_brand["imageCommodityData"]
@@ -193,12 +193,12 @@ def analyze_data(lines,logo_or_other="logo"):
                             other_auto_.append(brand)  # prada
                 if dict_brand["finalTagHit"] == "":
                     if other_auto_ == []: #or len(auto_) <= IGNORE_NUM:
-                        other_auto.append("accept")
-                        other_human.append("accept")
+                        other_auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
+                        other_human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                     else:
                         other_auto_final = max(other_auto_, key=other_auto_.count)
                         other_auto.append(other_auto_final+"-"+dict_brand["category"].split(";")[-1])
-                        other_human.append("accept")
+                        other_human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                 else:
                     other_human_ = []
                     match = 0
@@ -215,17 +215,17 @@ def analyze_data(lines,logo_or_other="logo"):
                             match = 1
                             break
                     if other_auto_ == [] and other_human_ == []:
-                        other_auto.append("accept")
-                        other_human.append("accept")
+                        other_auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
+                        other_human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                     elif other_auto_ == [] and other_human_ != []:
-                        other_auto.append("accept")
+                        other_auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                         other_human.append(max(other_human_, key=other_human_.count)+"-"+dict_brand["category"].split(";")[-1])
                     elif match == 0 and other_human_ != []:
                         other_auto.append(max(other_auto_, key=other_auto_.count)+"-"+dict_brand["category"].split(";")[-1])
                         other_human.append(max(other_human_, key=other_human_.count)+"-"+dict_brand["category"].split(";")[-1])
                     elif match == 0 and other_human_ == []:
                         other_auto.append(max(other_auto_, key=other_auto_.count)+"-"+dict_brand["category"].split(";")[-1])
-                        other_human.append("accept")
+                        other_human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
 
                     # if other_human[-1] in ["casio","victorias_secret","coca_cola","bmw","manchester_united","oral_b",
                     #                        "berluti","fc_barcelona_fcb","dc_shoes","carmex","harry_winston","avengers",
@@ -246,6 +246,8 @@ def show_detail(auto,human):
     auto_accept_human_accept = 0
     auto_accept_human_reject = 0
     for au,hu in zip(auto,human):
+        au = au.split("-")[0]
+        hu = hu.split("-")[0]
         if au=="accept":
             auto_accept_num += 1
         else:
@@ -407,6 +409,8 @@ if __name__=="__main__":
     auto,human,other_auto,other_human= analyze_data(lines,logo_or_other="all")
     two_num = 0
     for i,j in zip(human,other_human):
+        i = i.split("-")[0]
+        j = j.split("-")[0]
         if i!="accept" and j!="accept":
             two_num+=1
     # print(total_human_label)

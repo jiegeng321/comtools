@@ -66,15 +66,15 @@ diff_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/test_diff"
 # model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd.json"
 # label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
 #logo test
-model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_total_0314.json"
+model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_reebok.json"
 label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/label.json"
 # score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.55,
 #                 'versace_h':0.7, 'christian dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'Issey miyake_h':0.6, 'celine_h':0.6,
 #             "reebok_h":0.7,"mcm_h":0.75}
 
-score_th = {"nintendo":0.1,"Hello Kitty":0.4,"Casio":0.4,"Playboy":0.4,"New York Yankees":0.4,"Converse":0.4,"miu miu":0.4,"Valentino Garavani":0.4,"MCM":0.4,"Philipp Plein":0.4,"VACHERON CONSTANTIN":0.4,"Audi":0.4,"Bally":0.4,"Comme Des Garcons":0.45,"Lamborghini":0.4}
-#score_th = {"":0.1}
-score_th_other = 0
+#score_th = {"nintendo":0.1,"Hello Kitty":0.4,"Casio":0.4,"Playboy":0.4,"New York Yankees":0.4,"Converse":0.4,"miu miu":0.4,"Valentino Garavani":0.4,"MCM":0.4,"Philipp Plein":0.4,"VACHERON CONSTANTIN":0.4,"Audi":0.4,"Bally":0.4,"Comme Des Garcons":0.45,"Lamborghini":0.4}
+score_th = {"":0.1}
+score_th_other = 0.999
 
 save_result_csv = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_with_label_result.csv"
 support_th = 30
@@ -109,6 +109,7 @@ if score_th:
                         #     brand = baidu2l_dict[brand]
                         # if brand in ali2l_dict:
                         #     brand = ali2l_dict[brand]
+                        print(k,pre_list)
                         pre_list_th.append(brand)
         if pre_list_th==[]:
             pre_list_th.append("empty")
@@ -212,7 +213,7 @@ print("total test num:",pd_data["support"].sum())
 # print("recall mean: ", pd_data[(pd_data["support"]>=support_th) & (pd_data["f1-score"]!=0.0)]["recall"].mean())
 # print("recall mean: ", pd_data[(pd_data["support"]>=support_th) & (pd_data["f1-score"]!=0.0)]["precision"].mean())
 print("recall mean: ", pd_data[pd_data["support"]>=support_th]["recall"].mean())
-print("recall mean: ", pd_data[pd_data["support"]>=support_th]["precision"].mean())
+print("precision mean: ", pd_data[pd_data["support"]>=support_th]["precision"].mean())
 if show_pic:
     pd_data_plt = pd_data["support"].iloc[:20]
     pd_data_plt.plot.bar()
@@ -262,9 +263,9 @@ if show_detail:
     print(fordeal_online[fordeal_online["support"]>support_th])
 print("\n")
 
-special_brand = ["aeronautica_militare","baume_et_mercier","beachbody","france","golds_gym","nintendo","snow_white","spibelt"]
-special_brand = pd_data.loc[special_brand,:]
-print(special_brand[special_brand["support"]>support_th])
+# special_brand = ["aeronautica_militare","baume_et_mercier","beachbody","france","golds_gym","nintendo","snow_white","spibelt"]
+# special_brand = pd_data.loc[special_brand,:]
+# print(special_brand[special_brand["support"]>support_th])
 
 
 problem_brand = pd_data[(pd_data["support"]>=support_th) & (pd_data["f1-score"]<=0.5)]
@@ -273,9 +274,12 @@ print(problem_brand)
 #print("total test brand fordeal have: ",len(pd_data[pd_data["recall"]!=0].iloc[:,0]))
 #print(pd_data[pd_data["recall"]!=0].index)
 
-# logo_list = sorted(pd_data[pd_data["recall"]!=0].index.tolist())
-# for i in logo_list:
-#     print(i)
+# print(pd_data[pd_data["support"]>=50].sort_values(by="f1-score",ascending=True))
+# # logo_list = sorted(pd_data[pd_data["recall"]!=0].index.tolist())
+# # for i in logo_list:
+# #     print(i)
+# tmp = ["allsaints","american_eagle","hamilton","jack_jones","reebok","maybelline","carolina_herrera","aspinal_of_london","iron_maiden","popsockets"]
+# print(pd_data.loc[tmp,:].sort_values(by="f1-score",ascending=True))
 
 # print("recall mean: ", len(pd_data[pd_data["recall"]>0]))
 # print("recall mean: ", pd_data["recall"].mean())
@@ -284,3 +288,21 @@ print(problem_brand)
 # print("precision mean: ", pd_data[pd_data["recall"]>0]["precision"].mean())
 #print(len(pd_data[pd_data["f1-score"]==0]))
 #print(len(pd_data[pd_data["f1-score"]==0])/1418)
+
+print(total_num)
+print(diff_num)
+print(diff_num/total_num)
+print("total test brand have:",len(pd_data[pd_data["support"]>=support_th]))
+print("total test num:",pd_data["support"].sum())
+# print("recall mean: ", pd_data[(pd_data["support"]>=support_th) & (pd_data["f1-score"]!=0.0)]["recall"].mean())
+# print("recall mean: ", pd_data[(pd_data["support"]>=support_th) & (pd_data["f1-score"]!=0.0)]["precision"].mean())
+print("recall mean: ", pd_data[pd_data["support"]>=support_th]["recall"].mean())
+print("precision mean: ", pd_data[pd_data["support"]>=support_th]["precision"].mean())
+if show_pic:
+    pd_data_plt = pd_data["support"].iloc[:20]
+    pd_data_plt.plot.bar()
+    plt.rcParams['figure.figsize'] = (20.0, 4.0)
+    plt.savefig("data_info/total.png",dpi=300)
+if show_detail:
+    print(pd_data[pd_data["support"]>=support_th])
+print("\n")

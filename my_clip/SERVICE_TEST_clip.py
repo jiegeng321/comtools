@@ -21,7 +21,7 @@ import torch
 import clip
 from PIL import Image
 from comfunc.tools import is_img
-from my_clip.my_clip import clip_func
+from my_clip import clip_func2
 #from model.config import logo_id_to_name
 #from multiprocessing import Pool, Manager
 warnings.filterwarnings('ignore')
@@ -30,7 +30,8 @@ from multiprocessing import Pool, Manager
 
 WORKERS = 2
 save_empty = True
-score_th = 0.4
+score_th = 0.0
+use_clip = True
 #logo white test
 # image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/white_test_labeled/"
 # out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/white_test_0401"
@@ -40,10 +41,10 @@ score_th = 0.4
 # out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401"
 # save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401.json"
 #logo test
-image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled/"
-out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_0512"
-save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_0512.json"
-#pattern test
+image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled/reebok/"
+out_pred_img_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_0512"
+save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_reebok.json"
+# pattern test
 # image_dir = "/data02/xu.fx/dataset/PATTERN_DATASET/comb_data/clsdataset_pattern_v3/val/lv_h/"
 # out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/tmp3"
 # save_label_json = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/tmp2.json"
@@ -93,11 +94,16 @@ def det_server_func(image_list,save_json_dict):
                 else:
                     color = [0,0,255]
                 try:
-                    resq1 = requests.request
-                    payload = {'imageId': '00003'}
-                    file_temp = [('img', (file_name, open(image_path, 'rb'), 'image/jpeg'))]
-                    response = resq1("POST", url, data=payload, files=file_temp)
-                    result = json.loads(response.text)
+                    if use_clip:
+                        #print(image_path)
+                        result = clip_func2(image_path,5,soft_max=True)
+                        #print(result)
+                    else:
+                        resq1 = requests.request
+                        payload = {'imageId': '00003'}
+                        file_temp = [('img', (file_name, open(image_path, 'rb'), 'image/jpeg'))]
+                        response = resq1("POST", url, data=payload, files=file_temp)
+                        result = json.loads(response.text)
                 except Exception as e:
                     print(e)
                     print(file_name)
@@ -112,16 +118,17 @@ def det_server_func(image_list,save_json_dict):
                     else:
                         for logo_instance in pred:
                             logo = logo_instance['logo_name']#.split("-")[0]
-                            score = logo_instance['score']
+                            #logo = logo.replace(" brand","")
+                            score = float(logo_instance['score'])
                             if score_th:
                                 if score < score_th:
                                     continue
                             logo_list.append(logo)
 
-                            if logo not in l2l_data:
-                                logo = logo.lower().replace(" ", "_")
-                            else:
-                                logo = l2l_data[logo].split("/")[-1]
+                            # if logo not in l2l_data:
+                            #     logo = logo.lower().replace(" ", "_")
+                            # else:
+                            #     logo = l2l_data[logo].split("/")[-1]
                             # if logo == "new_york_yankees":
                             #     logo = "mlb"
                             #print(logo)
@@ -166,18 +173,19 @@ def det_server_func(image_list,save_json_dict):
             print(e)
             print(image_path)
             continue
-        if index%100==0:
+        if index%1000==0:
             print(str(os.getpid()),"have processed:",index,"/",len(image_list))
-        #     with open(save_label_json, 'w') as f:
-        #         json.dump(dict(save_json_dict), f)
-save_json_dict = Manager().dict()
-pool = Pool(processes=WORKERS)
-for i in range(0, WORKERS):
-    imgs = image_list[i:len(image_list):WORKERS]
-    pool.apply_async(det_server_func, (imgs,save_json_dict,))
-pool.close()
-pool.join()
-
+            with open(save_label_json, 'w') as f:
+                json.dump(dict(save_json_dict), f)
+# save_json_dict = Manager().dict()
+# pool = Pool(processes=WORKERS)
+# for i in range(0, WORKERS):
+#     imgs = image_list[i:len(image_list):WORKERS]
+#     pool.apply_async(det_server_func, (imgs,save_json_dict,))
+# pool.close()
+# pool.join()
+save_json_dict = {}
+det_server_func(image_list,save_json_dict)
 # save_json_dict = {}
 # det_server_func(image_list,save_json_dict)
 # print(len(save_json_dict))
@@ -189,4 +197,5 @@ if save_label_json:
     with open(save_label_json, 'r') as f:
         model_result = json.load(f)
     print("read len:",len(model_result))
+    print(save_json_dict.popitem())
     print(save_json_dict.popitem())

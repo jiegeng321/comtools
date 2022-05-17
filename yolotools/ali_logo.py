@@ -9,8 +9,8 @@ from timeit import default_timer as timer
 from tqdm import tqdm
 import ast
 
-AK = 'LTAI5tL286LAhrLdNPaSDRXz'
-SK = '83kqmHetSvw7OEyhvqlfod17ZfsILn'
+AK = 'LTAI5tL286LAhrLdNPaSDRXzfx'
+SK = '83kqmHetSvw7OEyhvqlfod17ZfsILnfx'
 
 from aliyunsdkcore.client import AcsClient
 from aliyunsdkcore.acs_exception.exceptions import ClientException
