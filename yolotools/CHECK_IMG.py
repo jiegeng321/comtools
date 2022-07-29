@@ -9,6 +9,8 @@ import shutil
 from multiprocessing import Pool, Manager
 import os
 import warnings
+import sys
+sys.path.append("..")
 from comfunc.tools import is_img
 import cv2
 import numpy as np
@@ -71,19 +73,19 @@ def campHash(hash1, hash2):
 
 def same_mv_func(files,md5_list,dhash_list,same_md5_num,same_hash_num):
     for file_i in tqdm(files):
-        #file_dir = os.path.join(src_dir,file_i)
-        # fr = open(str(file_i), 'rb')
-        # data = fr.read()
-        # md5 = hashlib.md5(data).hexdigest().strip()
-        # if md5 in md5_list:
-        #     if not os.path.exists(same_dir):
-        #         os.makedirs(same_dir)
-        #     shutil.move(str(file_i), same_dir)
-        #     print("%s is same md5" % file_i.name)
-        #     same_md5_num.value += 1
-        #     continue
-        # else:
-        #     md5_list.append(md5)
+        file_dir = os.path.join(src_dir,file_i)
+        fr = open(str(file_i), 'rb')
+        data = fr.read()
+        md5 = hashlib.md5(data).hexdigest().strip()
+        if md5 in md5_list:
+            if not os.path.exists(same_dir):
+                os.makedirs(same_dir)
+            shutil.move(str(file_i), same_dir)
+            print("%s is same md5" % file_i.name)
+            same_md5_num.value += 1
+            continue
+        else:
+            md5_list.append(md5)
         if hash_th!=None and hashs!=None:
             if hashs == "dhash":
                 dhas = dHash(str(file_i), hash_size)
@@ -252,13 +254,13 @@ def same_img_mv(files):
     print("total same_hash_num: ", same_hash_num.value)
 
 if __name__ == "__main__":
-    src_dir = Path("/data02/xu.fx/dataset/PATTERN_DATASET/comb_data/clsdataset_pattern_v2/")
+    src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/white_data/万维误检数据0705")
     min_size = 10
-    hashs = "totalhash"  # ahash,dhash,phash,totalhash
-    hash_th = 1
+    hashs = None#"totalhash"  # ahash,dhash,phash,totalhash
+    hash_th = None#1
     hash_size = (8, 8)
     WORKERS = 10
-    split = 5
+    split = 10
 
     same_dir = os.path.join(src_dir.parent, src_dir.name + "_bad_images",
                             "same_md5")  # src_dir + "_bad_images/same_md5"
@@ -278,8 +280,9 @@ if __name__ == "__main__":
     WORKERS_md5_mv = WORKERS
     files = sorted([p for p in src_dir.rglob("*.*") if is_img(p)])
     print(len(files))
-    png_fix_func(files)
+    #png_fix_func(files)
     bad_img_mv(files)
+    same_img_mv(files)
     # random.shuffle(files)
     # w,h = get_size_func(files)
     # print(w,h)

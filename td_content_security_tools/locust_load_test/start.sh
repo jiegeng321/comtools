@@ -1,1 +1,1 @@
-locust -f locustfile_auto.py --host=http://10.57.31.15:55999
+locust -f locustfile_auto.py --host=http://192.168.6.148:1001

@@ -62,7 +62,7 @@ def save_img_from_url(url,save_dir):
 #{"autoCheckResult":"Accept","autoCheckTime":1647909775974,"commodityUrlId":"1647896413239563947","crawlTaskId":"0","finalCheckResult":"Accept","finalTagHit":"","gmtCreate":1647896413284,"id":"1647896413284783127","imageId":"p-comp/1647909229496000Y8C9F52200030001","imageSize":"380863","isScreenshot":0,"lastChecker":"胡国玉","seqId":"1647909775960000Y8C8F30C90030001","status":3,"taskId":"212182","taskUrlId":"0","textData":"https://s3.forcloudcdn.com/item/images/dmc/1b51bbf6-0d47-4bcc-9e31-df4fc5ab119c-1080x1080.jpeg","type":1}
 total_human_label = []
 total_auto_label = []
-
+#TODO test2
 def analyze_data(lines,logo_or_other="logo"):
     print("analyzing...")
     auto = []
@@ -144,7 +144,6 @@ def analyze_data(lines,logo_or_other="logo"):
                         auto.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                         human.append("accept"+"-"+dict_brand["category"].split(";")[-1])
                     else:
-
                         auto_final = max(auto_, key=auto_.count)
                         auto.append(auto_final+"-"+dict_brand["category"].split(";")[-1])
                         human.append("accept"+"-"+dict_brand["category"].split(";")[-1])

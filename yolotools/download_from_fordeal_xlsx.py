@@ -16,6 +16,7 @@ def read_csv(csv_path):
         print("the format is Error!")
         exit()
     return csv
+#TODO test3
 def get_img(url_image):
     try:
         resq = requests.get(url_image)

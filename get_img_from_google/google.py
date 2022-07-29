@@ -15,9 +15,9 @@ import hashlib
 # browser = webdriver.Chrome("/Users/td/Downloads/chromedriver",chrome_options=browserOptions)
 
 #修改keyword便可以修改搜索关键词
-keyword = '格子纹'
-save_path = "/data01/xu.fx/dataset/PATTERN_DATASET/test_img/"
-set_num = 500
+keyword = '芬迪眼睛包'
+save_path = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/fendi_from_google/"
+set_num = 1000
 url = 'https://www.google.com.hk/search?q='+keyword+'&tbm=isch'
 
 

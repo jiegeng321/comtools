@@ -7,11 +7,11 @@
 
 </head>
 <body>
-    <div id="abcbaec3405b463e89e377e16f5d6b11" class="chart-container" style="width:900px; height:500px;"></div>
+    <div id="83be583d00564f00853c7443d8394390" class="chart-container" style="width:900px; height:500px;"></div>
     <script>
-        var chart_abcbaec3405b463e89e377e16f5d6b11 = echarts.init(
-            document.getElementById('abcbaec3405b463e89e377e16f5d6b11'), 'white', {renderer: 'canvas'});
-        var option_abcbaec3405b463e89e377e16f5d6b11 = {
+        var chart_83be583d00564f00853c7443d8394390 = echarts.init(
+            document.getElementById('83be583d00564f00853c7443d8394390'), 'white', {renderer: 'canvas'});
+        var option_83be583d00564f00853c7443d8394390 = {
     "animation": true,
     "animationThreshold": 2000,
     "animationDuration": 1000,
@@ -48,67 +48,58 @@
     ],
     "series": [
         {
-            "type": "pie",
-            "clockwise": true,
+            "type": "bar",
+            "name": "A",
+            "legendHoverLink": true,
             "data": [
-                {
-                    "name": "Apple",
-                    "value": 123
-                },
-                {
-                    "name": "Huawei",
-                    "value": 153
-                },
-                {
-                    "name": "Xiaomi",
-                    "value": 89
-                },
-                {
-                    "name": "Oppo",
-                    "value": 107
-                },
-                {
-                    "name": "Vivo",
-                    "value": 98
-                },
-                {
-                    "name": "Meizu",
-                    "value": 23
-                }
+                0.14,
+                0.11,
+                0.09,
+                0.09,
+                0.08,
+                0.07,
+                0.06,
+                0.07,
+                0.06,
+                0.04,
+                0.04,
+                0.03,
+                0.02,
+                0.02,
+                0.01,
+                0.01,
+                0.007,
+                0.005,
+                0.006,
+                0.005,
+                0.005
             ],
-            "radius": [
-                "0%",
-                "75%"
-            ],
-            "center": [
-                "50%",
-                "50%"
-            ],
+            "showBackground": false,
+            "barMinHeight": 0,
+            "barCategoryGap": "20%",
+            "barGap": "30%",
+            "large": false,
+            "largeThreshold": 400,
+            "seriesLayoutBy": "column",
+            "datasetIndex": 0,
+            "clip": true,
+            "zlevel": 0,
+            "z": 2,
             "label": {
                 "show": true,
                 "position": "top",
-                "margin": 8,
-                "formatter": "{b}: {c} ({d}%)"
-            },
-            "rippleEffect": {
-                "show": true,
-                "brushType": "stroke",
-                "scale": 2.5,
-                "period": 4
+                "margin": 8
             }
         }
     ],
     "legend": [
         {
             "data": [
-                "Apple",
-                "Huawei",
-                "Xiaomi",
-                "Oppo",
-                "Vivo",
-                "Meizu"
+                "A"
             ],
-            "selected": {},
+            "selected": {
+                "A": true
+            },
             "show": true,
             "padding": 5,
             "itemGap": 10,
@@ -133,90 +124,86 @@
         "borderWidth": 0,
         "padding": 5
     },
-    "title": [
+    "xAxis": [
         {
-            "text": "\u6d4b\u8bd5\u6807\u9898",
-            "padding": 5,
-            "itemGap": 10
+            "name": "\u9057\u5fd8\u6b21\u6570",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "inverse": false,
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": false,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            },
+            "data": [
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "18",
+                "19",
+                "20"
+            ]
         }
     ],
-    "toolbox": {
-        "show": true,
-        "orient": "horizontal",
-        "itemSize": 15,
-        "itemGap": 10,
-        "left": "80%",
-        "feature": {
-            "saveAsImage": {
-                "type": "png",
-                "backgroundColor": "auto",
-                "connectedBackgroundColor": "#fff",
-                "show": true,
-                "title": "\u4fdd\u5b58\u4e3a\u56fe\u7247",
-                "pixelRatio": 1
-            },
-            "restore": {
-                "show": true,
-                "title": "\u8fd8\u539f"
-            },
-            "dataView": {
-                "show": true,
-                "title": "\u6570\u636e\u89c6\u56fe",
-                "readOnly": false,
-                "lang": [
-                    "\u6570\u636e\u89c6\u56fe",
-                    "\u5173\u95ed",
-                    "\u5237\u65b0"
-                ],
-                "backgroundColor": "#fff",
-                "textareaColor": "#fff",
-                "textareaBorderColor": "#333",
-                "textColor": "#000",
-                "buttonColor": "#c23531",
-                "buttonTextColor": "#fff"
-            },
-            "dataZoom": {
-                "show": true,
-                "title": {
-                    "zoom": "\u533a\u57df\u7f29\u653e",
-                    "back": "\u533a\u57df\u7f29\u653e\u8fd8\u539f"
-                },
-                "icon": {},
-                "xAxisIndex": false,
-                "yAxisIndex": false,
-                "filterMode": "filter"
-            },
-            "magicType": {
-                "show": true,
-                "type": [
-                    "line",
-                    "bar",
-                    "stack",
-                    "tiled"
-                ],
-                "title": {
-                    "line": "\u5207\u6362\u4e3a\u6298\u7ebf\u56fe",
-                    "bar": "\u5207\u6362\u4e3a\u67f1\u72b6\u56fe",
-                    "stack": "\u5207\u6362\u4e3a\u5806\u53e0",
-                    "tiled": "\u5207\u6362\u4e3a\u5e73\u94fa"
-                },
-                "icon": {}
-            },
-            "brush": {
-                "icon": {},
-                "title": {
-                    "rect": "\u77e9\u5f62\u9009\u62e9",
-                    "polygon": "\u5708\u9009",
-                    "lineX": "\u6a2a\u5411\u9009\u62e9",
-                    "lineY": "\u7eb5\u5411\u9009\u62e9",
-                    "keep": "\u4fdd\u6301\u9009\u62e9",
-                    "clear": "\u6e05\u9664\u9009\u62e9"
+    "yAxis": [
+        {
+            "name": "\u6bd4\u4f8b",
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "inverse": false,
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": false,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
                 }
             }
         }
-    }
+    ],
+    "title": [
+        {
+            "text": "\u9057\u5fd8\u6b21\u6570Top20",
+            "padding": 5,
+            "itemGap": 10
+        }
+    ]
 };
-        chart_abcbaec3405b463e89e377e16f5d6b11.setOption(option_abcbaec3405b463e89e377e16f5d6b11);
+        chart_83be583d00564f00853c7443d8394390.setOption(option_83be583d00564f00853c7443d8394390);
     </script>
 </body>
 </html>

@@ -24,11 +24,11 @@ label_names = ['3M-1', '3T-1', '5.11 Tactical-2', 'A. Lange Sohne-w-1', 'ac dc-w
 #voc格式目录,xml与图片在同一目录
 #yolo_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/comb_data/checked")
 #
-# annotaion_dir = Path("/data01/xu.fx/dataset/PATTERN_DATASET/comb_data/checked")
-# img_dir = Path("/data01/xu.fx/dataset/PATTERN_DATASET/comb_data/checked")
-#
 annotaion_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/comb_data/checked")
 img_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/comb_data/checked")
+#
+# annotaion_dir = Path("/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/need_to_process_data/万维/burberry/")
+# img_dir = Path("/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/need_to_process_data/万维/burberry/")
 
 # annotaion_dir = Path("/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/reebok花纹收集+标注/")
 # img_dir = Path("/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/reebok花纹收集+标注/")
@@ -36,14 +36,14 @@ img_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/comb_data/checked")
 # annotaion_dir = Path("/data02/xu.fx/dataset/LOGO_DATASET/comb_data/yolodataset_logo_784bs_1392ks_0408/JPEGImages/train/labels")
 # img_dir = Path("/data02/xu.fx/dataset/LOGO_DATASET/comb_data/yolodataset_logo_784bs_1392ks_0408/JPEGImages/train/images")
 # #.txt
-file_name = '*victorias*.xml'#*MCM*.txt
+file_name = '*vans*.xml'#*MCM*.txt
 class_set = None
-#class_set = "Aeronautica Militare-3"#Brazil
+#class_set = "nike-6"#Brazil
 
 file_name_img = '*'
 be_moved_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/合并模型修整数据第一批_最后三个品牌 2.10/nike"
 be_moved_xml_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/合并模型修整数据第一批_最后三个品牌 2.10/nike"
-move_to_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/合并模型修整数据第一批_最后三个品牌 2.10/nike_bad"
+move_to_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/合并模型修整数据第一批_最后三个品牌 2.10/"
 #交叉验证，按M键移走，其他任意键下一张
 # mid_dir = "m2_process_d1"
 # detect_name = "Braun"

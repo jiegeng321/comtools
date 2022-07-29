@@ -63,28 +63,52 @@ diff_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/test_diff"
 # model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401.json"
 # label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_label.json"
 #pattern test
-# model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0324_2nd.json"
+# model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0616_2.json"
 # label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
 #logo test
-model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_reebok.json"
+model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/onlien_v1.2.json"
 label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/label.json"
-# score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.55,
-#                 'versace_h':0.7, 'christian dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'Issey miyake_h':0.6, 'celine_h':0.6,
-#             "reebok_h":0.7,"mcm_h":0.75}
-
-#score_th = {"nintendo":0.1,"Hello Kitty":0.4,"Casio":0.4,"Playboy":0.4,"New York Yankees":0.4,"Converse":0.4,"miu miu":0.4,"Valentino Garavani":0.4,"MCM":0.4,"Philipp Plein":0.4,"VACHERON CONSTANTIN":0.4,"Audi":0.4,"Bally":0.4,"Comme Des Garcons":0.45,"Lamborghini":0.4}
-score_th = {"":0.1}
-score_th_other = 0.999
+#clip test
+# model_empty_json = None#"/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/clip_禁销电子类违禁产品存储设备.json"
+# model_json = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/clip_online_RN50_fp32_0615.json"
+# label_json = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/label.json"
+score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.55,
+                'versace_h':0.7, 'christian dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'Issey miyake_h':0.6, 'celine_h':0.6,
+            "reebok_h":0.7,"mcm_h":0.75,"hermes_h":0.93,"van_cleef_arpels_h":0.7,"bottega_veneta_h":0.7}
+# model_json = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/cartoon_test/online.json"
+# label_json = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/cartoon_test/label.json"
+#0.235:0.498,0.905,,,0.245:0.472,0.907,,,0.265:0.182,0.906,,,0.24@0.353,0.894
+name_to_name = {"hermes sandal":"hermes","adidas yeezy":"adidas_yeezy",
+               "bottega veneta":"bottega_veneta","van cleef arpels":"van_cleef_arpels",
+               "pig":"禁销宗教猪","power bank":"禁销电子类违禁产品充电宝","usb storage device":"禁销电子类违禁产品存储设备",
+                "battery":"禁销电子类违禁产品电池相关","surveillance camera":"禁销电子类违禁产品监视设备",
+               "smartwatch":"禁销电子类违禁产品智能手表","micro sd storage card":"禁销电子类违禁产品SD卡"}
+# score_th = {"hermes":0.34,
+#             "adidas_yeezy":0.3,
+#             "bottega_veneta":0.34,"van_cleef_arpels":0.23,
+#             "禁销宗教猪":0.18,"禁销电子类违禁产品充电宝":0.26,"禁销电子类违禁产品存储设备":0.22,
+#             "禁销电子类违禁产品电池相关":0.21,"禁销电子类违禁产品监视设备":0.19,"禁销电子类违禁产品智能手表":0.23,"禁销电子类违禁产品SD卡":0.22}
+# score_th = {"hermes":0.34,
+#             "adidas_yeezy":0.3,
+#             "bottega_veneta":0.32,"van_cleef_arpels":0.33,
+#             "禁销宗教猪":0.25,"禁销电子类违禁产品充电宝":0.33,"禁销电子类违禁产品存储设备":0.3,
+#             "禁销电子类违禁产品电池相关":0.26,"禁销电子类违禁产品监视设备":0.265,"禁销电子类违禁产品智能手表":0.29,"禁销电子类违禁产品SD卡":0.29}
+# score_th = {"":0.1}
+score_th_other = 0.1
 
 save_result_csv = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_with_label_result.csv"
-support_th = 30
+support_th = 10
 show_pic = False
 show_detail = True
 if diff_dir and model_dir:
     check_dir(diff_dir,delete=True)
 with open(model_json, 'r') as f:
     model_result = json.load(f)
-#print(model_result)
+# if model_empty_json:
+#     with open(model_empty_json, 'r') as f:
+#         model_empry_result = json.load(f)
+#     model_result = {**model_result,**model_empry_result}
+print(model_result)
 #tmp = []
 model_result_th = {}
 if score_th:
@@ -96,12 +120,23 @@ if score_th:
                 #     brand="levis"
                 #print(brand)
                 #tmp.append(score)
+                # if "border" in brand:
+                #     brand.replace("_border", "")
+                # if brand in name_to_name:
+                #     brand = name_to_name[brand]
+                if "border" in brand:
+                    brand = brand.replace("_border","")
+                if "small" in brand:
+                    brand = brand.replace("_small","")
                 if brand in score_th:
                     if score >= score_th[brand]:
                         # if brand in baidu2l_dict:
                         #     brand = baidu2l_dict[brand]
                         # if brand in ali2l_dict:
                         #     brand = ali2l_dict[brand]
+                        # if brand=="猪元素":
+                        #     brand = "禁销宗教猪"
+                        brand = brand.split("-")[0]
                         pre_list_th.append(brand)
                 else:
                     if score >= score_th_other:
@@ -109,7 +144,10 @@ if score_th:
                         #     brand = baidu2l_dict[brand]
                         # if brand in ali2l_dict:
                         #     brand = ali2l_dict[brand]
-                        print(k,pre_list)
+                        #print(k,pre_list)
+                        # if brand == "猪元素":
+                        #     brand = "禁销宗教猪"
+                        brand = brand.split("-")[0]
                         pre_list_th.append(brand)
         if pre_list_th==[]:
             pre_list_th.append("empty")
@@ -152,11 +190,12 @@ for key,value in label_result.items():
                 if len(model_result_th[key])>=2 and "empty" in model_result_th[key]:
                     model_result_th[key].remove("empty")
                 label_list.append(value)
-                model_list.append(max(sorted(model_result_th[key]), key=model_result_th[key].count))
+                #model_list.append(max(sorted(model_result_th[key]), key=model_result_th[key].count))
+                model_list.append(model_result_th[key][0])
 
         if label_list[-1] != model_list[-1]:
             diff_num += 1
-            print(f"diff:{diff_num},{label_list[-1]}:{model_list[-1]}")
+            print(f"diff:{diff_num},{label_list[-1]}:{model_list[-1]},{key},{model_result[key]}")
             if diff_dir and model_dir:
                 for brand in os.listdir(model_dir):
                     if key in os.listdir(os.path.join(model_dir,brand)):

@@ -21,17 +21,17 @@ import torch
 import clip
 from PIL import Image
 from comfunc.tools import is_img
-from my_clip import clip_func2
+from my_clip import clip_func3
 #from model.config import logo_id_to_name
 #from multiprocessing import Pool, Manager
 warnings.filterwarnings('ignore')
 #import time
 from multiprocessing import Pool, Manager
 
-WORKERS = 2
+WORKERS = 10
 save_empty = True
 score_th = 0.0
-use_clip = True
+use_clip = False
 #logo white test
 # image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/white_test_labeled/"
 # out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/white_test_0401"
@@ -41,24 +41,19 @@ use_clip = True
 # out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401"
 # save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401.json"
 #logo test
-image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled/reebok/"
-out_pred_img_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_0512"
-save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/clip_reebok.json"
+#image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled/barbie/"
+image_dir = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/brand_labeled"
+out_pred_img_dir = None#"/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/clip_online_0615"
+save_label_json = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/clip_online_RN101.json"
+
 # pattern test
 # image_dir = "/data02/xu.fx/dataset/PATTERN_DATASET/comb_data/clsdataset_pattern_v3/val/lv_h/"
 # out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/tmp3"
 # save_label_json = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/tmp2.json"
 
-ai_brand_logo_url = "http://10.57.31.15:5032/v2/logo_brand_rec"
-#ai_brand_logo_tm_url = "http://10.58.14.38:55902/v2/logo_brand_rec"
-ai_brand_logo_tm_url = "http://10.57.31.15:1000/v2/logo_brand_rec"
-#ai_brand_logo_tm_url_t4 = "http://192.168.6.150:1001/v2/logo_brand_rec"
-ai_brand_logo_tm_url_t4 = "http://192.168.6.148:1002/v2/logo_brand_rec"
-ai_brand_logo_tm_url_p40 = "http://10.57.31.15:1003/v2/logo_brand_rec"
-ai_brand_pattern_url_p40 = "http://10.57.31.15:1003/v2/pattern_brand_rec"
-brand_pattern_url = "http://10.57.31.15:1004/v2/logo_brand_rec"
+ai_brand_clip_url_t4 = "http://192.168.6.148:1003/v2/clip_brand_rec"
 #url_dict = {"pattern":brand_pattern_url}
-url_dict = {"logo-tm":ai_brand_pattern_url_p40}
+url_dict = {"logo-tm":ai_brand_clip_url_t4}
 if out_pred_img_dir:
     if not os.path.exists(out_pred_img_dir):
         os.makedirs(out_pred_img_dir)
@@ -96,7 +91,7 @@ def det_server_func(image_list,save_json_dict):
                 try:
                     if use_clip:
                         #print(image_path)
-                        result = clip_func2(image_path,5,soft_max=True)
+                        result = clip_func3(image_path,10,soft_max=False)
                         #print(result)
                     else:
                         resq1 = requests.request
@@ -111,6 +106,7 @@ def det_server_func(image_list,save_json_dict):
 
                 if 'res' in result:
                     pred = result['res']
+                    #print(pred)
                     if pred==[]:
                         brand_name = "empty"
                         logo_list_human.append({brand_name:1.0})
@@ -177,15 +173,18 @@ def det_server_func(image_list,save_json_dict):
             print(str(os.getpid()),"have processed:",index,"/",len(image_list))
             with open(save_label_json, 'w') as f:
                 json.dump(dict(save_json_dict), f)
-# save_json_dict = Manager().dict()
-# pool = Pool(processes=WORKERS)
-# for i in range(0, WORKERS):
-#     imgs = image_list[i:len(image_list):WORKERS]
-#     pool.apply_async(det_server_func, (imgs,save_json_dict,))
-# pool.close()
-# pool.join()
-save_json_dict = {}
-det_server_func(image_list,save_json_dict)
+if WORKERS:
+    save_json_dict = Manager().dict()
+    pool = Pool(processes=WORKERS)
+    for i in range(0, WORKERS):
+        imgs = image_list[i:len(image_list):WORKERS]
+        pool.apply_async(det_server_func, (imgs,save_json_dict,))
+    pool.close()
+    pool.join()
+else:
+    save_json_dict = {}
+    det_server_func(image_list,save_json_dict)
+
 # save_json_dict = {}
 # det_server_func(image_list,save_json_dict)
 # print(len(save_json_dict))

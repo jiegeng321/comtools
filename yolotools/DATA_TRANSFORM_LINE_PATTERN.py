@@ -39,7 +39,7 @@ white_sample_dir_list[white_base+"/michael_kors"] = 0
 white_sample_dir_list[white_base+"/nike"] = 0
 white_sample_dir_list[white_base+"/versace"] = 100
 white_sample_dir_list[white_base+"/gucci"] = 100
-
+white_sample_dir_list["/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_shoes"] = 1000
 show_data_info = False
 use_effective_brand = False
 use_class_brand = True
@@ -51,16 +51,17 @@ MAX_OBJ_NUM_PER_BRAND = 10000
 #WHITE_SAMPLE_COUNT = 0
 detect_num = 2
 export_data_info_csv = True
-WORKERS = 30
+WORKERS = 10
 
 main_data_dir = "dataset/PATTERN_DATASET/comb_data"
-yolo_dataset_name = "yolodataset_pattern_15bs_22ks_0323"
+yolo_dataset_name = "yolodataset_pattern_18bs_26ks_0616"
 
 ######################################################## FX #########################################
 CLASS_list_fx = ['gucci-h-1', 'michaelkors-h-1', 'coach-h-1', 'adidas-h-1', 'gucci-4', 'gucci-5', 'lv-h-1', 'fendi-h-1', 'lv-h-2', 'nike-4', 'lv-h-3', 'gucci-h-2',"lv-h-4"]
 D7 = ['versace-h-1','christian dior-h-1','goyard-h-1','burberry-h-1','Issey miyake-h-1','christian dior-h-2',"celine-h-1"]
 D8 = ['MCM-h-1','Reebok-h-4']
-CLASS_list_fx += D7 + D8
+D9 = ['bottega veneta-h-1','hermes-h-1','van cleef arpels-h-1','fendi-h-2']
+CLASS_list_fx += D7 + D8 + D9
 brand_names_fx = []
 for c in CLASS_list_fx:
     brand = c.split("-")[0]

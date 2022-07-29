@@ -17,6 +17,12 @@ content_security_tools/
 *.ipa
 *.apk
 *.exe
+*.onnx
+*.pt
+*.pkl
+*.pth
+*.json
+*.html
 
 #media
 *.jpg
