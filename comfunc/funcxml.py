@@ -70,10 +70,8 @@ def readxml(annotion_path):
     from xml.etree import ElementTree as ET
     try:
         root = ET.parse(annotion_path).getroot()
-    except :
-        assert "the file is not found."
-    else:
-        bboxes = root.find("object")
+        width = root.find("size").find("width").text
+        height = root.find("size").find("height").text
         for index, subtree in enumerate(root.iter('object')):
             label = subtree.find("name").text
             bbox = subtree.find('bndbox')
@@ -81,8 +79,18 @@ def readxml(annotion_path):
             y1 = float(bbox.find('ymin').text)
             x2 = float(bbox.find('xmax').text)
             y2 = float(bbox.find('ymax').text)
+            if None in (label, x1, y1, x2, y2):
+                print("bad xml",str(annotion_path))
+                continue
             res.append((label, x1, y1, x2, y2))
-    return res
+    except :
+        print("xml file error")
+        return None,None,None
+        #assert "the file is not found."
+    else:
+        # bboxes = root.find("object")
+        return res,width,height
+    #return res
 
 
 

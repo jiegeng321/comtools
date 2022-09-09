@@ -13,10 +13,14 @@ from comfunc.print_color import bcolors
 import os
 import shutil
 from comfunc.check import check_dir
+import eventlet
+import signal
 import ast
-txt_paths = ["/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/WHOLEE_ONLINE_TXT_DATA/wholee7月5号_7月20日.txt",
+txt_paths = [
+    "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/WHOLEE_ONLINE_TXT_DATA/wholee8月26日_9月1日.txt",
 ]
 '''
+    "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0210-0219.txt",
 "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/5月1日_5月31日.txt"
 "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0210-0219.txt",
     "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/FORDEAL_ONLINE_TXT_DATA/0220-0228.txt",
@@ -28,7 +32,7 @@ txt_paths = ["/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/WHOLEE_ONLINE_TXT_DATA
 '''
 
 #txt_paths = txt_paths[::-1]
-dst_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/wholee_for_logo_arfa_0726"
+dst_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/wholee8月26日_9月1日_漏检"
 
 total_brand = ['alexander_wang','Hogan','reebok','oakley','umbro','mulberry','dior','christian_audigier','zelda','hamilton',
                'aspinal_of_london','c1rca','coogi','blizzard']
@@ -36,11 +40,11 @@ need_brand = {}
 for i in total_brand:
     need_brand[i] = 10000
 
-need_brand = {}
+need_brand = {}#{"thom_browne":10000,"apple":10000,"ray_ban":10000,'bottega_veneta':10000}
 donot_need_brand = ['']#['hello_kitty', 'jeep', 'salvatore_ferragamo', 'longines', 'van_cleef_arpels', 'casio', 'playboy', 'prada', 'tory_burch', 'fila', 'mlb', 'versace', 'new_balance', 'nike', 'rolex', 'converse', 'armani', 'franco_moschino', 'miu_miu', 'valentino_garavani', 'under_armour', 'calvin_klein', 'puma', 'vans', 'balenciaga', 'chanel', 'tommy_hilfiger', 'asics', 'supreme', 'patek_philippe', 'omega', 'lacoste', 'hugo_boss', 'louis_vuitton', 'swarovski', 'levis', 'chloe', 'mcm', 'hermes', 'michael_kors', 'moncler', 'loewe', 'the_north_face', 'cartier', 'ralph_lauren', 'alexander_mcqueen', 'bottega_veneta', 'coach', 'mercedes_benz', 'philipp_plein', 'juventus', 'canada_goose', 'celine', 'fendi', 'gucci', 'guess', 'adidas', 'vacheron_constantin', 'zara', 'givenchy', 'christian_louboutin', 'jimmy_choo', 'burberry', 'tiffany_co', 'bape', 'balmain', 'bvlgari', 'reebok', 'fc_barcelona_fcb', 'hublot', 'ellesse', 'panerai', 'lego', 'iwc', 'nba', 'timberland', 'porsche', 'fossil', 'citizen', 'ugg', 'nasa', 'stussy', 'tissot', 'bally', 'pandora', 'audemars_piguet']
-other_brand_num = 10000
-auto_result_filter = "Reject"#"Reject"# or "Accept"
-final_result_filter = "Accept"#"Reject"# or "Reject"
+other_brand_num = 1000000
+auto_result_filter = "Accept"#"Accept"#"Reject"# or "Accept"
+final_result_filter = "Reject"#"Reject"# or "Reject"
 
 get_brand = {}
 data = []
@@ -48,21 +52,47 @@ for txt_path in txt_paths:
     with open(txt_path, "r") as f:
         print(txt_path)
         data += f.readlines()
-print("total lines :",len(data))
+total_lines = len(data)
+print("total lines :",total_lines)
 print("need brand :",need_brand)
 downloaded_images = 0
+# eventlet.monkey_patch()
+
+def set_timeout(num, callback):
+    def wrap(func):
+        def handle(signum, frame):
+            raise RuntimeError
+        def to_do(*args, **kwargs):
+            try:
+                signal.signal(signal.SIGALRM, handle)  # ?????????
+                signal.alarm(num)  # ?? num ????
+                #print('start alarm signal.')
+                r = func(*args, **kwargs)
+                #print('close alarm signal.')
+                signal.alarm(0)  # ????
+                return r
+            except RuntimeError as e:
+                callback()
+        return to_do
+    return wrap
+def after_timeout():
+    print("Time out!")
+@set_timeout(100, after_timeout)
+def get_img(url):
+    return requests.get(url)
 for index,line in enumerate(data[:]):
     downloaded_per_list = 0
     dict_brand = ast.literal_eval(line)
-    #if dict_brand["finalCheckResult"]=="Reject":#Reject
+    # if dict_brand["finalCheckResult"]=="Reject" and dict_brand["autoCheckResult"]=="Aceept"
     img_list = dict_brand["imageCommodityData"]
     #print(index,":",img_list)
     new_get = 0
     for img in img_list:
+
+        # with eventlet.Timeout(1200,False):
         try:
             if not ("autoCheckResult" in img and "finalCheckResult" in img):
                 print(index,"some img no auto or human result")
-
                 continue
             #print(img)
             auto_result = img["autoCheckResult"]
@@ -166,7 +196,8 @@ for index,line in enumerate(data[:]):
                         new_get = 1
 
                 img_name = url.split("/")[-1]
-                resq = requests.get(url)
+
+                resq = get_img(url)
                 if len(resq.content) > 50:
                     img_out = os.path.join(dst_dir,final_brand)
                     if not os.path.exists(img_out):
@@ -180,10 +211,10 @@ for index,line in enumerate(data[:]):
             print(e)
             continue
     if new_get:
-        print(index,"this list has %d images,have downloaded %d/%d,total downloaded %d, new get ID is %s" %(len(img_list),downloaded_per_list,len(img_list),downloaded_images,dict_brand["commodityId"]))
+        print(index,"/",total_lines,"this list has %d images,have downloaded %d/%d,total downloaded %d, new get ID is %s" %(len(img_list),downloaded_per_list,len(img_list),downloaded_images,dict_brand["commodityId"]))
         new_get = 0
     else:
-        print(index,"this list has %d images,have downloaded %d/%d,total downloaded %d" %(len(img_list),downloaded_per_list,len(img_list),downloaded_images))
+        print(index,"/",total_lines,"this list has %d images,have downloaded %d/%d,total downloaded %d" %(len(img_list),downloaded_per_list,len(img_list),downloaded_images))
     if index%100==0:
         print(f"get images: {get_brand}")
 

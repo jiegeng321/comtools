@@ -32,7 +32,7 @@ from multiprocessing import Pool, Manager
 
 WORKERS = 10
 save_empty = True
-score_th = 0.5
+score_th = 0.1
 #logo white test
 # image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/white_test_labeled/"
 # out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data_total/white_test_0401"
@@ -42,16 +42,23 @@ score_th = 0.5
 # out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401"
 # save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/white_test_0401.json"
 #logo test
-image_dir = "/data02/xu.fx/dataset/LOGO_DATASET/comb_data/yolodataset_logo_784bs_1394ks_0715/JPEGImages/train/images"
-out_pred_img_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_l_0718_t4_newplugin"
-save_label_json = "/data01/xu.fx/comtools/forgeting_test/epoch185_3.json"
-back_save_label_json = save_label_json.replace(".json","_back.json")
+# image_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/brand_labeled"
+# out_pred_img_dir = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0817"
+# save_label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0817.json"
+# back_save_label_json = None#save_label_json.replace(".json","_back.json")
 #pattern test
-# image_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/fordeal_white_data_for_pattern_0621/empty"
-# out_pred_img_dir = "/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/fordeal_white_data_for_pattern_0621/empty_pre"
-# save_label_json = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_v1.2_0623.json"
+# image_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_labeled"
+# out_pred_img_dir = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0818"
+# save_label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0818_2.json"
+# back_save_label_json = save_label_json.replace(".json","_back.json")
 
-ai_cartoon_url = "http://192.168.6.148:5032/v2/cartoon_rec"
+#cartoon test
+image_dir = "/data01/xu.fx/dataset/CARTOON_DATASET/fordeal_test_data/val/images/"
+out_pred_img_dir = "/data01/xu.fx/dataset/CARTOON_DATASET/fordeal_test_data/online_0906"
+save_label_json = "/data01/xu.fx/dataset/CARTOON_DATASET/fordeal_test_data/online_0906.json"
+back_save_label_json = save_label_json.replace(".json","_back.json")
+
+ai_cartoon_url_p40 = "http://10.57.31.15:1003/v2/cartoon_rec"
 ai_brand_logo_url = "http://10.57.31.15:5032/v2/logo_brand_rec"
 #ai_brand_logo_tm_url = "http://10.58.14.38:55902/v2/logo_brand_rec"
 ai_brand_logo_tm_url = "http://10.57.31.15:1000/v2/logo_brand_rec"
@@ -62,7 +69,7 @@ ai_brand_logo_online_url = "https://ai-brand-logostg.tongdun.cn/v2/logo_brand_re
 ai_brand_pattern_url_p40 = "http://10.57.31.15:1002/v2/pattern_brand_rec"
 brand_pattern_url = "http://10.57.31.15:1004/v2/logo_brand_rec"
 #url_dict = {"pattern":brand_pattern_url}
-url_dict = {"logo":ai_brand_logo_tm_url_t4}
+url_dict = {"logo":ai_cartoon_url_p40}
 if out_pred_img_dir:
     if not os.path.exists(out_pred_img_dir):
         os.makedirs(out_pred_img_dir)
@@ -82,7 +89,7 @@ total_num = len(image_list)
 def det_server_func(image_list,save_json_dict,pids):
     if str(os.getpid()) not in pids:
         pids.append(str(os.getpid()))
-    for index, image_path in tqdm(enumerate(image_list[9700+9000:])):
+    for index, image_path in tqdm(enumerate(image_list[:])):
         if not is_img(image_path.name) or image_path.name[0]==".":
             continue
         try:
@@ -174,7 +181,7 @@ def det_server_func(image_list,save_json_dict,pids):
             with open(save_label_json, 'w') as f:
                 json.dump(dict(save_json_dict), f)
 
-            if save_label_json != None or len(save_json_dict)>10:
+            if (save_label_json != None or len(save_json_dict)>10) and back_save_label_json !=None:
                 sh.copy(save_label_json, back_save_label_json)
             print(save_pid,"saved num:",len(save_json_dict))
 save_json_dict = Manager().dict()
@@ -194,5 +201,8 @@ if save_label_json:
         model_result = json.load(f)
     print("read len:",len(model_result))
     print("sample:",save_json_dict.popitem())
+    print("sample:", save_json_dict.popitem())
+    print("sample:", save_json_dict.popitem())
     print("result save to",save_label_json)
-    sh.rmtree(back_save_label_json)
+    # sh.rmtree(back_save_label_json)
+    os.remove(back_save_label_json)

@@ -40,12 +40,13 @@ white_sample_dir_list[white_base+"/nike"] = 0
 white_sample_dir_list[white_base+"/versace"] = 100
 white_sample_dir_list[white_base+"/gucci"] = 100
 white_sample_dir_list["/data01/xu.fx/dataset/PATTERN_DATASET/white_data/pattern_white_shoes"] = 1000
+white_sample_dir_list["/data01/xu.fx/dataset/PATTERN_DATASET/white_data/fordeal误检数据0823"] = 144
 show_data_info = False
 use_effective_brand = False
 use_class_brand = True
 
 random_seed = 1
-train_val_test_ratio = [1.0, 0.0, 0.0]
+train_val_test_ratio = [0.99, 0.01, 0.0]
 MAX_NUM_PER_BRAND = None
 MAX_OBJ_NUM_PER_BRAND = 10000
 #WHITE_SAMPLE_COUNT = 0
@@ -54,14 +55,15 @@ export_data_info_csv = True
 WORKERS = 10
 
 main_data_dir = "dataset/PATTERN_DATASET/comb_data"
-yolo_dataset_name = "yolodataset_pattern_18bs_26ks_0616"
+yolo_dataset_name = "yolodataset_pattern_18bs_26ks_0823"
 
 ######################################################## FX #########################################
 CLASS_list_fx = ['gucci-h-1', 'michaelkors-h-1', 'coach-h-1', 'adidas-h-1', 'gucci-4', 'gucci-5', 'lv-h-1', 'fendi-h-1', 'lv-h-2', 'nike-4', 'lv-h-3', 'gucci-h-2',"lv-h-4"]
 D7 = ['versace-h-1','christian dior-h-1','goyard-h-1','burberry-h-1','Issey miyake-h-1','christian dior-h-2',"celine-h-1"]
 D8 = ['MCM-h-1','Reebok-h-4']
-D9 = ['bottega veneta-h-1','hermes-h-1','van cleef arpels-h-1','fendi-h-2']
-CLASS_list_fx += D7 + D8 + D9
+D9 = ['hermes-h-1','van cleef arpels-h-1','fendi-h-2']#'bottega veneta-h-1',
+D10 = ['thom browne-h-1']
+CLASS_list_fx += D7 + D8 + D9 + D10
 brand_names_fx = []
 for c in CLASS_list_fx:
     brand = c.split("-")[0]
@@ -292,7 +294,10 @@ def get_brands_and_labels_func(xml_ps,class_list,file_list,not_class_list):
             root = tree.getroot()
         except:
             continue
-        file_list.append(anno_file.split("/")[-1].split("_")[0])
+        if len(anno_file.split("/")[-1].split("_")) > 1:
+            file_list.append(anno_file.split("/")[-1].split("_")[0])
+        else:
+            file_list.append("other")
         for obj in root.iter('object'):
             cls = obj.find('name').text
             if cls is None:
@@ -744,11 +749,11 @@ else:
         print("-" * 20 + "merge data end" + "-" * 20)
 
     print("-"*20+"wrong xml search start"+"-"*20)
-    #wrong_xml_mv(src_dir)
+    wrong_xml_mv(src_dir)
     print("-"*20+"wrong xml search end"+"-"*20)
 
     print("-"*20+"not pair search start"+"-"*20)
-    #not_pair_mv(src_dir)
+    not_pair_mv(src_dir)
     print("-"*20+"not pair search end"+"-"*20)
 
     print("-"*20+"empty search start"+"-"*20)

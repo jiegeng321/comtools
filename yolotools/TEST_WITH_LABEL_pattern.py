@@ -16,20 +16,20 @@ from comfunc.tools import check_dir
 #pattern test
 # model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0616_2.json"
 # label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
-model_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0415"
-diff_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/test_diff"
+model_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/pattern_test"
+diff_dir = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/test_diff"
 #pattern test
-model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_v1.2_0623.json"
+model_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_0818_2.json"
 label_json = "/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/label.json"
 
-# score_th = {"adidas_h": 0.6, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.5, "michaelkors_h": 0.5, "nike_h": 0.8,
-#                 'versace_h':0.7, 'christian_dior_h':0.8, 'goyard_h':0.6, 'burberry_h':0.6, 'issey_miyake_h':0.6, 'celine_h':0.6,
-#             "reebok_h":0.8,"mcm_h":0.75,"hermes_h":0.9,"van_cleef_arpels_h":0.8,"bottega_veneta_h":0.9}
-score_th = {"adidas_h": 0.45, "coach_h": 0.5, "fendi_h": 0.5, "gucci_h": 0.4, "lv_h": 0.4, "michaelkors_h": 0.4, "nike_h": 0.5,
-                'versace_h':0.5, 'christian_dior_h':0.5, 'goyard_h':0.4, 'burberry_h':0.4, 'issey_miyake_h':0.45, 'celine_h':0.5,
-            "reebok_h":0.6,"mcm_h":0.65,"hermes_h":0.75,"van_cleef_arpels_h":0.65,"bottega_veneta_h":0.7}
+score_th = {"adidas_h": 0.7, "coach_h": 0.5, "fendi_h": 0.65, "gucci_h": 0.6, "lv_h": 0.6, "michaelkors_h": 0.4, "nike_h": 0.7,
+                'versace_h':0.7, 'christian_dior_h':0.75, 'goyard_h':0.6, 'burberry_h':0.6, 'issey_miyake_h':0.65, 'celine_h':0.6,
+            "reebok_h":0.6,"mcm_h":0.75,"hermes_h":0.85,"van_cleef_arpels_h":0.8,"thom_browne_h":0.7}
+# score_th = {"adidas_h": 0.45, "coach_h": 0.5, "fendi_h": 0.5, "gucci_h": 0.4, "lv_h": 0.4, "michaelkors_h": 0.4, "nike_h": 0.5,
+#                 'versace_h':0.5, 'christian_dior_h':0.5, 'goyard_h':0.4, 'burberry_h':0.4, 'issey_miyake_h':0.45, 'celine_h':0.5,
+#             "reebok_h":0.6,"mcm_h":0.65,"hermes_h":0.75,"van_cleef_arpels_h":0.65,"bottega_veneta_h":0.7}
 
-score_th_other = 0.1
+score_th_other = 0.5
 
 save_result_csv = None#"/data01/xu.fx/dataset/PATTERN_DATASET/fordeal_test_data/online_with_label_result.csv"
 support_th = 10
@@ -69,7 +69,8 @@ if score_th:
     
 with open(label_json, 'r') as f:
     label_result = json.load(f)
-#print(len(label_result))
+print(len(label_result))
+print(len(model_result_th))
 model_list = []
 label_list = []
 total_num = 0
@@ -193,10 +194,11 @@ print("\n")
 
 
 fordeal_important_ = ["gucci_h","lv_h","adidas_h","michaelkors_h","coach_h","christian_dior_h","fendi_h","celine_h","burberry_h",
-                      "goyard_h","versace_h","issey_miyake_h","mcm_h","hermes_h","van_cleef_arpels_h","bottega_veneta_h","reebok_h"]
+                      "goyard_h","versace_h","issey_miyake_h","mcm_h","van_cleef_arpels_h","reebok_h"]
 fordeal_care = pd_data.loc[fordeal_important_,:]
 print("fordeal care brand:",len(fordeal_care[fordeal_care["support"]>support_th]))
 print("fordeal care test num:",fordeal_care["support"].sum())
 print("recall mean: ", fordeal_care[fordeal_care["support"]>support_th]["recall"].mean())
 print("precision mean: ", fordeal_care[fordeal_care["support"]>support_th]["precision"].mean())
-print(fordeal_care)
+#print(fordeal_care)
+print(pd_data.loc["thom_browne_h","recall"],pd_data.loc["thom_browne_h","precision"])

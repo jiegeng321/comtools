@@ -71,48 +71,54 @@ def campHash(hash1, hash2):
             n = n + 1
     return n
 
-def same_mv_func(files,md5_list,dhash_list,same_md5_num,same_hash_num):
+def same_mv_func(files,md5_list,dhash_list,same_md5_num,same_hash_num,use_md5):
     for file_i in tqdm(files):
-        file_dir = os.path.join(src_dir,file_i)
-        fr = open(str(file_i), 'rb')
-        data = fr.read()
-        md5 = hashlib.md5(data).hexdigest().strip()
-        if md5 in md5_list:
-            if not os.path.exists(same_dir):
-                os.makedirs(same_dir)
-            shutil.move(str(file_i), same_dir)
-            print("%s is same md5" % file_i.name)
-            same_md5_num.value += 1
+        try:
+            file_dir = os.path.join(src_dir,file_i)
+            fr = open(str(file_i), 'rb')
+            data = fr.read()
+            if use_md5:
+                md5 = hashlib.md5(data).hexdigest().strip()
+                if md5 in md5_list:
+                    if not os.path.exists(same_dir):
+                        os.makedirs(same_dir)
+                    shutil.move(str(file_i), same_dir)
+                    print("%s is same md5" % file_i.name)
+                    same_md5_num.value += 1
+                    continue
+                else:
+                    md5_list.append(md5)
+            else:
+                if hash_th!=None and hashs!=None:
+                    if hashs == "dhash":
+                        dhas = dHash(str(file_i), hash_size)
+                    elif hashs == "phash":
+                        dhas = pHash(str(file_i), hash_size)
+                    elif hashs == "ahash":
+                        dhas = aHash(str(file_i), hash_size)
+                    else:
+                        dhas = aHash(str(file_i), hash_size) + dHash(str(file_i), hash_size) + pHash(str(file_i), hash_size)
+                    #print("hash:",dhas)
+                    add_dhas = 1
+                    if len(dhash_list) == 0:
+                        dhash_list.append(dhas)
+                    else:
+                        for dhas_ex in dhash_list:
+                            diff = campHash(dhas_ex,dhas)
+                            #print("diff:",diff)
+                            if diff <= hash_th:
+                                if not os.path.exists(hash_dir):
+                                    os.makedirs(hash_dir)
+                                shutil.move(str(file_i), hash_dir)
+                                print("%s is same %s" % (file_i.name,hashs))
+                                same_hash_num.value += 1
+                                add_dhas = 0
+                                break
+                        if add_dhas:
+                            dhash_list.append(dhas)
+        except Exception as e:
+            print(str(e))
             continue
-        else:
-            md5_list.append(md5)
-        if hash_th!=None and hashs!=None:
-            if hashs == "dhash":
-                dhas = dHash(str(file_i), hash_size)
-            elif hashs == "phash":
-                dhas = pHash(str(file_i), hash_size)
-            elif hashs == "ahash":
-                dhas = aHash(str(file_i), hash_size)
-            else:
-                dhas = aHash(str(file_i), hash_size) + dHash(str(file_i), hash_size) + pHash(str(file_i), hash_size)
-            #print("hash:",dhas)
-            add_dhas = 1
-            if len(dhash_list) == 0:
-                dhash_list.append(dhas)
-            else:
-                for dhas_ex in dhash_list:
-                    diff = campHash(dhas_ex,dhas)
-                    #print("diff:",diff)
-                    if diff <= hash_th:
-                        if not os.path.exists(hash_dir):
-                            os.makedirs(hash_dir)
-                        shutil.move(str(file_i), hash_dir)
-                        print("%s is same %s" % (file_i.name,hashs))
-                        same_hash_num.value += 1
-                        add_dhas = 0
-                        break
-                if add_dhas:
-                    dhash_list.append(dhas)
 def get_size_func(files):
     w_list,h_list = [] ,[]
     for file_i in tqdm(files):
@@ -133,7 +139,34 @@ def png_fix_func(files):
 
 def bad_img_mv_func(files,num_dict):
     for file_i in tqdm(files):
-
+        if not is_img(file_i.name):
+            print(str(file_i))
+            if not os.path.exists(error_dir):
+                os.makedirs(error_dir)
+            shutil.move(str(file_i), warning_dir)
+            print("%s is not img file" % file_i.name)
+            num_dict["error_num"] += 1
+            continue
+        try:
+            img = Image.open(str(file_i))
+        except IOError:
+            print(str(file_i))
+            if not os.path.exists(error_dir):
+                os.makedirs(error_dir)
+            shutil.move(str(file_i), error_dir)
+            print("%s is error file" % file_i.name)
+            num_dict["error_num"] += 1
+            continue
+        try:
+            img = np.array(img, dtype=np.float32)
+        except:
+            print('corrupt img', str(file_i))
+            if not os.path.exists(error_dir):
+                os.makedirs(error_dir)
+            shutil.move(str(file_i), error_dir)
+            print("%s is error file" % file_i.name)
+            num_dict["error_num"] += 1
+            continue
         #error img
         try:
             img = Image.open(str(file_i))
@@ -238,7 +271,7 @@ def bad_img_mv(files):
     print("bad images:")
     print(num_dict)
 
-def same_img_mv(files):
+def same_img_mv(files,use_md5):
     md5_list = Manager().list()
     dhash_list = Manager().list()
     same_md5_num = Manager().Value("same_md5_num",0)
@@ -247,17 +280,17 @@ def same_img_mv(files):
     pool = Pool(processes=WORKERS_md5_mv)
     for i in range(0, WORKERS_md5_mv):
         files_ = files[i:len(files):WORKERS_md5_mv]
-        pool.apply_async(same_mv_func, (files_,md5_list,dhash_list,same_md5_num,same_hash_num,))
+        pool.apply_async(same_mv_func, (files_,md5_list,dhash_list,same_md5_num,same_hash_num,use_md5,))
     pool.close()
     pool.join()
     print("total same_md5_num: ", same_md5_num.value)
     print("total same_hash_num: ", same_hash_num.value)
 
 if __name__ == "__main__":
-    src_dir = Path("/data01/xu.fx/dataset/LOGO_DATASET/white_data/万维误检数据0705")
+    src_dir = Path("/data01/xu.fx/dataset/NEW_RAW_INCREASE_DATA/shoes_bag/fordeal_wholee_shoes")
     min_size = 10
-    hashs = None#"totalhash"  # ahash,dhash,phash,totalhash
-    hash_th = None#1
+    hashs = "totalhash"#"totalhash"  # ahash,dhash,phash,totalhash
+    hash_th = 1
     hash_size = (8, 8)
     WORKERS = 10
     split = 10
@@ -278,11 +311,11 @@ if __name__ == "__main__":
 
     WORKERS_bad_img_mv = WORKERS
     WORKERS_md5_mv = WORKERS
-    files = sorted([p for p in src_dir.rglob("*.*") if is_img(p)])
+    files = sorted([p for p in src_dir.rglob("*.*") if is_img(p)],reverse=False)
     print(len(files))
-    #png_fix_func(files)
     bad_img_mv(files)
-    same_img_mv(files)
+    # png_fix_func(files)
+    same_img_mv(files,use_md5=True)
     # random.shuffle(files)
     # w,h = get_size_func(files)
     # print(w,h)

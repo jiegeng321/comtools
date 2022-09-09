@@ -32,7 +32,7 @@ class UserBehavior(HttpUser):
         with open(image_path, 'rb') as imageFile:
             data = imageFile.read()
         data = {'img': data, 'imageId': 'xxxxx'}
-        r = self.client.post('/v2/logo_brand_rec', files=data)
+        r = self.client.post('/v2/cartoon_rec', files=data)
 
 
 class StageShape(LoadTestShape):

@@ -53,21 +53,21 @@ ali2l_dict = {"moschino":"franco_moschino","van_cleef_&_arpels":"van_cleef_arpel
               "dolce&gabbana":"dolce_gabbana","海飞丝":"head_shoulders","jaeger-lecoultre":"jaeger","levis":"levi's",
               "ray·ban":"rayban","sk-ii":"sk","s.t._dupont":"st_dupont","van_cleef_arpels":"van_cleef__arpels"
               }
-model_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_l_0628"
-diff_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/test_diff_online_l_0628"
+model_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0815"
+diff_dir = None#"/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/test_diff_0815"
 
 #logo white test
 # model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/white_test_0401.json"
 # label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/white_label.json"
 
 #logo test
-model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_l_0718_t4.json"
+model_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/online_0815.json"
 label_json = "/data01/xu.fx/dataset/LOGO_DATASET/fordeal_test_data/label.json"
 #clip test
 # model_empty_json = None#"/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/clip_禁销电子类违禁产品存储设备.json"
 # model_json = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/clip_online_RN50_fp32_0615.json"
 # label_json = "/data01/xu.fx/dataset/CLIP_DATASET/fordeal_test_data/label.json"
-score_th = {"reebok":0.6,"nintendo":0.4,"manolo_blahnik":0.75,"crocs":0.75,"loewe":0.75,"oakley":0.5,"hogan":0.5,
+score_th = {"reebok":0.6,"nintendo":0.4,"manolo_blahnik":0.75,"crocs":0.75,"loewe":0.75,"oakley":0.4,"hogan":0.5,
             "dior":0.6,"aspinal_of_london":0.4,"asics":0.45,"bape":0.4,"nike":0.6}
 score_th_other = 0.5
 name_to_name = {"dr._martens":"dr_martens"}
