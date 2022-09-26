@@ -1,8 +1,0 @@
-<div>
-    <h3>广告OCR快速版：</h3>
-    <div id='ai-adver-ocr-metrics' class="layui-row" style="width:100%; height:450px"></div>
-</div>
-<script>
-    var mychart = echarts.init(document.getElementById("ai-adver-ocr-metrics"), { renderer: 'canvas' });
-    mychart.setOption({{ocr_metrics| safe}});
-</script>
